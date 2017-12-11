@@ -1,0 +1,44 @@
+{
+  "name": "nti-web-reports",
+  "version": "0.0.0",
+  "description": "React components for reports",
+  "main": "./lib/cjs-index.js",
+  "module": "./lib/index.js",
+  "style": "./lib/index.css",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "nti-cmp-scripts test",
+    "start": "nti-cmp-scripts start",
+    "prepack": "nti-cmp-scripts build",
+    "build": "nti-cmp-scripts build",
+    "clean": "nti-cmp-scripts clean",
+    "check": "nti-cmp-scripts check",
+    "release": "nti-cmp-scripts release",
+    "install-snapshots": "nti-cmp-scripts install-snapshots",
+    "fix": "nti-cmp-scripts fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NextThought/nti.web.component.reports.git"
+  },
+  "keywords": [
+    "react",
+    "reports",
+    "component"
+  ],
+  "author": "Nextthought",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NextThought/nti.web.component.reports/issues"
+  },
+  "homepage": "https://github.com/NextThought/nti.web.component.reports#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "nti-cmp-scripts": "^1.0.71",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}
