@@ -1,2 +1,3 @@
 export default from './View';
-export * from './widgets';
+export * as Widgets from './widgets';
+export List from './list';
