@@ -37,6 +37,7 @@
   "dependencies": {
     "classnames": "^2.2.3",
     "nti-lib-locale": "^1.0.5",
+    "nti-lib-ntiids": "^1.0.3",
     "nti-lib-store": "^1.1.0",
     "nti-web-client": "^1.1.1",
     "nti-web-commons": "0.x.x",
@@ -45,7 +46,7 @@
   "devDependencies": {
     "nti-cmp-scripts": "^1.0.78",
     "nti-style-common": "^1.4.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2"
   }
 }

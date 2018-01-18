@@ -58,22 +58,22 @@ export default class ReportViewerHeader extends React.Component {
 
 		//if we don't have a report and we have context that means we haven't drilled in
 		//if we don't have context there's never a need to show back
-		if (!report || !context) { return null; }
 
 		return (
-			<div className="back" onClick={this.onBack}>
-				Back
+			<div className="back-container">
+				{report && context && (<i className="back icon-chevronup-25" onClick={this.onBack} />)}
 			</div>
 		);
 	}
 
 
 	renderTitle () {
-		const {report} = this.props;
+		const {report, context} = this.props;
 
 		return (
 			<div className="title">
 				{report && report.title}
+				{!report && context && context.contextName}
 			</div>
 		);
 	}

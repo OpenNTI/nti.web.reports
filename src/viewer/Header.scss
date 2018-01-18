@@ -5,7 +5,23 @@
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid $border-grey-light;
-	padding: 0.5625rem 1.25rem;
+	padding: 0.5625rem 0.5rem;
+
+
+	.back-container {
+		flex: 0 0 1.5rem;
+		margin-right: 0.5rem;
+
+		i.back {
+			color: $primary-blue;
+			flex: 0 0 auto;
+			cursor: pointer;
+			font-size: 1.5rem;
+			transform: rotate(-90deg);
+			display: block;
+		}
+	}
+
 
 	.title {
 		flex: 1 1 auto;

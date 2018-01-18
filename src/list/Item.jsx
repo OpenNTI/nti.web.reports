@@ -12,6 +12,7 @@ export default class ReportListItem extends React.Component {
 	onClick = () => {
 		const {report} = this.props;
 
+		debugger;
 		Viewer.show(report);
 	}
 
