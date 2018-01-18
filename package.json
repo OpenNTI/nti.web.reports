@@ -37,6 +37,7 @@
   "dependencies": {
     "classnames": "^2.2.3",
     "nti-lib-locale": "^1.0.5",
+    "nti-lib-store": "^1.1.0",
     "nti-web-client": "^1.1.1",
     "nti-web-commons": "0.x.x",
     "prop-types": "^15.5.8"
