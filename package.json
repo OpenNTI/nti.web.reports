@@ -34,14 +34,15 @@
     "url": "https://github.com/NextThought/nti.web.component.reports/issues"
   },
   "homepage": "https://github.com/NextThought/nti.web.component.reports#readme",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "classnames": "^2.2.3",
-    "nti-cmp-scripts": "^1.0.78",
     "nti-lib-locale": "^1.0.5",
     "nti-web-client": "^1.1.1",
     "nti-web-commons": "0.x.x",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.5.8"
+  },
+  "devDependencies": {
+    "nti-cmp-scripts": "^1.0.78",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
