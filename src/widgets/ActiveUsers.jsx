@@ -90,7 +90,7 @@ export default class ActiveUsers extends React.Component {
 		// if provided an entity with analytics, pull that link
 		if(entity) {
 			const entityAnalyticsLink = entity.getLink('analytics');
-			const entityAnalytics = await service.get(entityAnalyticsLink);
+			const entityAnalytics = entityAnalyticsLink ? await service.get(entityAnalyticsLink) : null;
 
 			return entityAnalytics && entityAnalytics.Links
 				&& entityAnalytics.Links.filter(x => x.rel === 'active_users')[0].href + '?batchSize=' + BATCH_SIZE + '&batchPage=0';
@@ -111,7 +111,7 @@ export default class ActiveUsers extends React.Component {
 			totalCount: activeUsers.ItemCount,
 			prevLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-prev')[0] || {}).href,
 			nextLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-next')[0] || {}).href,
-			items: activeUsers.Items.map(x => {
+			items: (activeUsers.Items || []).map(x => {
 				return {
 					...x,
 					name: x.Username,
