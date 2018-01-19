@@ -1,0 +1,36 @@
+@import '~nti-style-common';
+
+.report-course-item {
+	margin-bottom: 1rem;
+	position: relative;
+	display: flex;
+	cursor: pointer;
+
+	&.disabled {
+		cursor: initial;
+		opacity: 0.3;
+	}
+
+	.course-image {
+		width: 10rem;
+		height: 8rem;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.course-info {
+		margin-left: 1rem;
+
+		.title {
+			font: normal 400 1.25rem/1.25 $body-font-family;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		.identifier {
+			color: $tertiary-grey;
+			font: normal 700 0.75rem/1.25 $body-font-family;
+			text-transform: uppercase;
+		}
+	}
+}

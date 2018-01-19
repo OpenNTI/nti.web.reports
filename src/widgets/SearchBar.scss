@@ -1,0 +1,11 @@
+@import '~nti-style-common';
+
+.report-search-bar {
+	padding: 0.5rem;
+	color: $primary-grey;
+
+	&::placeholder {
+		font-style: italic;
+		color: $tertiary-grey;
+	}
+}
