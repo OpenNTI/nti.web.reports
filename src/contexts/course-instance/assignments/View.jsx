@@ -69,13 +69,15 @@ export default class CourseAssignments extends React.Component {
 			return this.renderEmpty();
 		}
 
+		const {rel} = this.props;
+
 		return (
 			<ul>
 				{
 					items.map((item) => {
 						return (
 							<li key={item.getID()}>
-								<Item item={item} onSelect={this.selectItem} />
+								<Item item={item} onSelect={this.selectItem} rel={rel}/>
 							</li>
 						);
 					})

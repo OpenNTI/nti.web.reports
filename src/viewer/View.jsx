@@ -77,7 +77,6 @@ export default class ReportViewer extends React.Component {
 
 
 	render () {
-		debugger;
 		const {report, context} = this.state;
 		const active = report ?
 			'report' :

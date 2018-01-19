@@ -73,7 +73,7 @@ export default class ReportViewerHeader extends React.Component {
 		return (
 			<div className="title">
 				{report && report.title}
-				{!report && context && context.contextName}
+				{!report && context && context.title}
 			</div>
 		);
 	}

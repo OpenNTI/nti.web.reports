@@ -32,7 +32,7 @@ export default class ReportContext extends React.Component {
 			<div className="report-viewer-context">
 				{
 					Viewer ?
-						(<Viewer context={context.context} onSelect={this.onSelect} />) :
+						(<Viewer context={context.context} rel={context.rel} onSelect={this.onSelect} />) :
 						(
 							<div>
 								No Context Viewer

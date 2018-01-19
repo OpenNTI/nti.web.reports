@@ -1,0 +1,13 @@
+@import '~nti-style-common';
+
+.course-instance-assignment-report-context {
+	min-height: 200px;
+	position: relative;
+	padding: 1rem 2.375rem;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+}
