@@ -1,6 +1,8 @@
 const INSTANCE = Symbol('Instance');
 const ITEMS = Symbol('Items');
 
+const DEFAULT = Symbol('Default');
+
 function getTypeMap (types) {
 	return types.reduce((acc, type) => {
 		acc[type] = true;
@@ -10,6 +12,8 @@ function getTypeMap (types) {
 }
 
 export default class Registry {
+	static DEFAULT = DEFAULT
+
 	static register (types) {
 		const registry = this;
 
@@ -36,6 +40,11 @@ export default class Registry {
 	}
 
 	register (types, item) {
+		if (types === DEFAULT) {
+			this[DEFAULT] = item;
+			return;
+		}
+
 		if (!Array.isArray(types)) {
 			types = [types];
 		}
@@ -59,6 +68,8 @@ export default class Registry {
 				return item.item;
 			}
 		}
+
+		return this[DEFAULT];
 	}
 
 

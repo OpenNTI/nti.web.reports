@@ -1,7 +1,7 @@
 import ReportContext from '../abstract/ReportContext';
-import ContentRegistry from '../ContextRegistry';
+import ContextRegistry from '../ContextRegistry';
 
-@ContentRegistry.register('application/vnd.nextthought.courses.courseinstance')
+@ContextRegistry.register('application/vnd.nextthought.courses.courseinstance')
 export default class CourseInstanceContext extends ReportContext {
 	groups = [
 		{
