@@ -2,6 +2,7 @@ import ContextRegistry from './ContextRegistry';
 import ViewerRegistry from './ViewerRegistry';
 import './course-instance';
 import  './default';
+import './user';
 
 export function getContext (object) {
 	const Context = ContextRegistry.getInstance().getItemFor(object.MimeType);
