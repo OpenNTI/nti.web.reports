@@ -5,7 +5,7 @@ const ALL_REPORTS_LINK = '/dataserver2/reporting/reports';
 let ALL_REPORTS = null;
 
 export default async function getAllReports () {
-	if (ALL_REPORTS) { return ALL_REPORTS; }
+	if (ALL_REPORTS) { return ALL_REPORTS.Items; }
 
 	try {
 		const service = await getService();
