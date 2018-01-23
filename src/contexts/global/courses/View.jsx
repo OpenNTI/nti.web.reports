@@ -11,7 +11,7 @@ import Store from './Store';
 import Item from './Item';
 
 const DEFAULT_TEXT = {
-	empty: 'There are not courses'
+	empty: 'There are no courses'
 };
 const t = scoped('nti-web-reports.contexts.global.courses.View', DEFAULT_TEXT);
 

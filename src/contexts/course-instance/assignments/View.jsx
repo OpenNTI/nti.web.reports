@@ -9,7 +9,7 @@ import Store from './Store';
 import Item from './Item';
 
 const DEFAULT_TEXT = {
-	empty: 'There are not assignments'
+	empty: 'There are no assignments'
 };
 const t = scoped('nti-web-reports.context.course-instance.assignment.View', DEFAULT_TEXT);
 

@@ -11,7 +11,7 @@ import Store from './Store';
 import Item from './Item';
 
 const DEFAULT_TEXT = {
-	empty: 'There are not users'
+	empty: 'There are no users'
 };
 const t = scoped('nti-web-reports.contexts.global.users.View', DEFAULT_TEXT);
 
