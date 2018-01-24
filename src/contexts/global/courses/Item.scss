@@ -13,6 +13,7 @@
 
 	.course-image {
 		width: 10rem;
+		min-width: 10rem;
 		height: 8rem;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -25,6 +26,8 @@
 			font: normal 400 1.25rem/1.25 $body-font-family;
 			text-overflow: ellipsis;
 			overflow: hidden;
+			white-space: nowrap;
+			width: 600px;
 		}
 
 		.identifier {
