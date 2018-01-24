@@ -11,6 +11,7 @@
 
 	.course-icon {
 		width: rem-calc(80px);
+		height: rem-calc(64px);
 		flex: 0 0 auto;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -31,6 +32,8 @@
 			color: $primary-grey;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 600px;
 		}
 	}
 }
