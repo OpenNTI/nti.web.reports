@@ -1,6 +1,8 @@
 import {Stores} from 'nti-lib-store';
 import {User, getService} from 'nti-web-client';
 
+const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
+
 export default class UsersStore extends Stores.SearchablePagedStore {
 	static convertBatch (batch) {
 		const nextLink = batch.getLink('batch-next');
@@ -52,6 +54,10 @@ export default class UsersStore extends Stores.SearchablePagedStore {
 	}
 
 	async loadInitial () {
+		if (this[INITIAL_LOAD_CACHE]) {
+			return this[INITIAL_LOAD_CACHE];
+		}
+
 		this.set('loading', true);
 		this.emitChange('loading');
 
@@ -61,6 +67,10 @@ export default class UsersStore extends Stores.SearchablePagedStore {
 
 		const batch = await service.getBatch(membersLink);
 
-		return UsersStore.convertBatch(batch);
+		const result = UsersStore.convertBatch(batch);
+
+		this[INITIAL_LOAD_CACHE] = result;
+
+		return result;
 	}
 }

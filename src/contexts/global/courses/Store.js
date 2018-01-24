@@ -4,6 +4,7 @@ import {getService} from 'nti-web-client';
 import UsersStore from '../users/Store';
 
 const DEFAULT_SIZE = 20;
+const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
 
 export default class CoursesStore extends Stores.SearchablePagedStore {
 	constructor () {
@@ -25,6 +26,10 @@ export default class CoursesStore extends Stores.SearchablePagedStore {
 	}
 
 	async loadInitial () {
+		if (this[INITIAL_LOAD_CACHE]) {
+			return this[INITIAL_LOAD_CACHE];
+		}
+
 		this.set('loading', true);
 		this.emitChange('loading', 'course');
 
@@ -32,6 +37,10 @@ export default class CoursesStore extends Stores.SearchablePagedStore {
 		const collection = service.getCollection('AdministeredCourses', 'Courses');
 		const batch = await service.getBatch(collection.href, {batchSize: DEFAULT_SIZE, batchStart: 0});
 
-		return UsersStore.convertBatch(batch);
+		const result = UsersStore.convertBatch(batch);
+
+		this[INITIAL_LOAD_CACHE] = result;
+
+		return result;
 	}
 }

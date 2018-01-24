@@ -16,7 +16,7 @@ const DEFAULT_TEXT = {
 const t = scoped('nti-web-reports.contexts.global.users.View', DEFAULT_TEXT);
 
 @ViewerRegistry.register('user')
-@Store.connect({loading: 'loading', items: 'items', loadNextPage: 'loadNextPage', hasNextPage: 'hasNextPage', loadingNextPage: 'loadingNextPage'})
+@Store.connect({loading: 'loading', items: 'items', loadNextPage: 'loadNextPage', hasNextPage: 'hasNextPage', loadingNextPage: 'loadingNextPage', searchTerm: 'searchTerm'})
 export default class Courses extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
@@ -27,11 +27,8 @@ export default class Courses extends React.Component {
 		loading: PropTypes.bool,
 		items: PropTypes.array,
 		loadNextPage: PropTypes.func,
-		loadingNextPage: PropTypes.bool
-	}
-
-	state = {
-		searchTerm: ''
+		loadingNextPage: PropTypes.bool,
+		searchTerm: PropTypes.string
 	}
 
 	componentDidMount () {
@@ -66,7 +63,7 @@ export default class Courses extends React.Component {
 		return (
 			<div className="course-instance-assignment-report-context">
 				<div className="report-toolbar">
-					<SearchBar onChange={this.onChange} searchTerm={this.state.searchTerm}/>
+					<SearchBar onChange={this.onChange} searchTerm={this.props.searchTerm}/>
 				</div>
 				{loading && (<Loading.Mask />)}
 				{!loading && (this.renderItems(items))}
