@@ -18,6 +18,7 @@
 
 	.meta {
 		padding: 0.3rem;
+		width: calc(100% - 4rem);
 
 		.label {
 			font: normal 700 0.75rem/1.25 $body-font-family;
@@ -28,6 +29,8 @@
 		.title {
 			font: normal 400 1.25rem/1.25 $body-font-family;
 			color: $primary-grey;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 }
