@@ -24,7 +24,7 @@ export default class CourseAssignmentStore extends Stores.SimpleStore {
 		} catch (e) {
 			this.set('error', true);
 			this.set('loading', true);
-			this.emitChnage('error', 'loading');
+			this.emitChange('error', 'loading');
 		}
 	}
 }
