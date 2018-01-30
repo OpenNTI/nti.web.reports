@@ -8,8 +8,8 @@ import {getReportFrom} from '../../../utils';
 
 
 const DEFAULT_TEXT = {
-	due: 'Due',
-	available: 'Available',
+	due: 'Due ',
+	available: 'Available ',
 	noDates: 'No Dates Set'
 };
 const t = scoped('nti-web-reports.context.course-instance.assignments.Item', DEFAULT_TEXT);
@@ -34,7 +34,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 	render () {
 		const {item, rel} = this.props;
 		const disabled = !getReportFrom(rel, item);
-		const dateFormat = 'dddd, MMMM D, h:m a z';
+		const dateFormat = 'dddd, MMMM D, h:mm a z';
 		const start = item.getAvailableForSubmissionBeginning();
 		const due = item.getDueDate();
 
@@ -45,7 +45,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 					due ?
 						(<div className="date"><span>{t('due')}</span><DateTime date={due} format={dateFormat} /></div>) :
 						start ?
-							(<div clasName="date"><span>{t('available')}</span><DateTime date={start} format={dateFormat} /></div>) :
+							(<div className="date"><span>{t('available')}</span><DateTime date={start} format={dateFormat} /></div>) :
 							(<div className="no-date">{t('noDates')}</div>)
 
 				}
