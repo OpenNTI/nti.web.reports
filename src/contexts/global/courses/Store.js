@@ -1,9 +1,8 @@
 import {Stores} from 'nti-lib-store';
 import {getService} from 'nti-web-client';
 
-import UsersStore from '../users/Store';
+import UsersStore, {DEFAULT_SIZE} from '../users/Store';
 
-const DEFAULT_SIZE = 20;
 const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
 
 export default class CoursesStore extends Stores.SearchablePagedStore {

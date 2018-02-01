@@ -1,12 +1,13 @@
 import {Stores} from 'nti-lib-store';
 import {User, getService} from 'nti-web-client';
 
+export const DEFAULT_SIZE = 20;
 const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
 
 export default class UsersStore extends Stores.SearchablePagedStore {
 	static convertBatch (batch) {
 		const nextLink = batch.getLink('batch-next');
-		const loadNext = !nextLink ?
+		const loadNext = !nextLink || batch.Items.length < DEFAULT_SIZE ?
 			null :
 			async () => {
 				const service = await getService();
@@ -48,7 +49,7 @@ export default class UsersStore extends Stores.SearchablePagedStore {
 		const service = await getService();
 		const link = service.getUserSearchURL(term);
 
-		const batch = await service.getBatch(link);
+		const batch = await service.getBatch(link, {batchSize: DEFAULT_SIZE, batchStart: 0});
 
 		return UsersStore.convertBatch(batch);
 	}
@@ -65,7 +66,7 @@ export default class UsersStore extends Stores.SearchablePagedStore {
 		const community = await User.resolve({entity: service.SiteCommunity});
 		const membersLink = community.getLink('members');
 
-		const batch = await service.getBatch(membersLink);
+		const batch = await service.getBatch(membersLink, {batchSize: DEFAULT_SIZE, batchStart: 0});
 
 		const result = UsersStore.convertBatch(batch);
 
