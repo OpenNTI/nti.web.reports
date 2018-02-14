@@ -1,6 +1,8 @@
 @import '~nti-style-common';
 
 .report-list-item {
+	text-decoration: none !important;
+	color: inherit;
 	display: flex;
 	align-items: center;
 	cursor: pointer;
