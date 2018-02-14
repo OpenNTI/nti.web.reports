@@ -9,7 +9,8 @@ export default class ReportListItem extends React.Component {
 	}
 
 
-	onClick = () => {
+	onClick = (e) => {
+		e.preventDefault();
 		const {report} = this.props;
 
 		Viewer.show(report);
@@ -18,9 +19,17 @@ export default class ReportListItem extends React.Component {
 
 	render () {
 		const {report} = this.props;
+		const anchorProps = {};
+
+		if (report.supportedTypes.indexOf('pdf') >= 0) {
+			anchorProps.href = '#';
+			anchorProps.onClick = this.onClick;
+		} else {
+			anchorProps.href = report.href;
+		}
 
 		return (
-			<div className="report-list-item" onClick={this.onClick}>
+			<a className="report-list-item" {...anchorProps}>
 				<div className="meta">
 					<div className="labels">
 						<div className="title">
@@ -43,7 +52,7 @@ export default class ReportListItem extends React.Component {
 				<div className="actions">
 					<i className="icon-shareto" />
 				</div>
-			</div>
+			</a>
 		);
 	}
 }

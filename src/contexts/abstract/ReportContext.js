@@ -71,7 +71,9 @@ export default class ReportContext {
 			return {
 				name: group.name,
 				description: group.description,
-				reports: group.reports.map(report => reportMap[getReportKey(report.rel, report.contextID)])
+				reports: group.reports
+					.map(report => reportMap[getReportKey(report.rel, report.contextID)])
+					.filter(x => !!x)
 			};
 		});
 	}
