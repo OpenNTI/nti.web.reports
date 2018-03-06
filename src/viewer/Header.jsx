@@ -113,8 +113,6 @@ export default class ReportViewerHeader extends React.Component {
 			</span>
 		);
 
-		debugger;
-
 		return (
 			<Flyout.Triggered trigger={trigger}>
 				<div className="nti-reports-view-header-download">
