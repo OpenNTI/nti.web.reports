@@ -8,7 +8,7 @@ export default class CourseInstanceContext extends ReportContext {
 			reports: [
 				{rel: 'report-CourseSummaryReport.pdf'},
 				{rel: 'report-SelfAssessmentSummaryReport.pdf'},
-				{rel: 'report-CourseRosterReport.pdf'},
+				{rel: 'report-CourseRosterReport'},
 				{rel: 'report-AssignmentSummaryReport.pdf', contextID: 'course-assignments'},
 				{rel: 'report-SelfAssessmentReportCSV'}
 			]

@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from 'nti-lib-locale';
+import {Flyout} from 'nti-web-commons';
 
 const DEFAULT_TEXT = {
-	download: 'Download'
+	download: 'Download',
+	'application/pdf': 'PDF',
+	'text/csv': 'CSV'
 };
 const t = scoped('nti-web-reports.viewer.Header', DEFAULT_TEXT);
 
@@ -14,6 +17,12 @@ export default class ReportViewerHeader extends React.Component {
 
 		onDismiss: PropTypes.func,
 		onBackToContext: PropTypes.func
+	}
+
+	get supportedTypes () {
+		const {report} = this.props;
+
+		return report && report.supportedTypes;
 	}
 
 	get downloadLink () {
@@ -80,15 +89,42 @@ export default class ReportViewerHeader extends React.Component {
 
 
 	renderDownload () {
-		const {downloadLink} = this;
+		const {downloadLink, supportedTypes} = this;
+		const content = (
+			<div>
+				<i className="icon-upload" />
+				<span>{t('download')}</span>
+			</div>
+		);
 
 		if (!downloadLink) { return null; }
 
+		if (supportedTypes.length === 1) {
+			return (
+				<a className="download" href={downloadLink} download>
+					{content}
+				</a>
+			);
+		}
+
+		const trigger = (
+			<span className="download">
+				{content}
+			</span>
+		);
+
+		debugger;
+
 		return (
-			<a className="download" href={downloadLink} download>
-				<i className="icon-upload" />
-				<span>{t('download')}</span>
-			</a>
+			<Flyout.Triggered trigger={trigger}>
+				<div className="nti-reports-view-header-download">
+					{supportedTypes.map((type, index) => {
+						return (
+							<a key={index} href={`${downloadLink}?format=${encodeURIComponent(type)}`} download>{t(type)}</a>
+						);
+					})}
+				</div>
+			</Flyout.Triggered>
 		);
 	}
 

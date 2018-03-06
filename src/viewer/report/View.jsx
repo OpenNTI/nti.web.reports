@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import {Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
+import {getEmbedableType} from '../../utils';
+
 const DEFAULT_TEXT = {
 	loading: 'Generating'
 };
 const t = scoped('nti-web-reports.viewer.report.View', DEFAULT_TEXT);
 
-
 function getEmbedLink (report) {
-	return `${report.href}#view=FitH&toolbar=0&navpanes=0&statusbar=0&page=1`;
+	const format = getEmbedableType(report);
+
+	return `${report.href}?format=${encodeURIComponent(format)}#view=FitH&toolbar=0&navpanes=0&statusbar=0&page=1`;
 }
 
 export default class ReportView extends React.Component {
