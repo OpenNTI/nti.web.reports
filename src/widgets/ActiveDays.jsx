@@ -66,16 +66,18 @@ class Day extends React.Component {
 
 		let infoStr = DateTime.format(day.date, 'LL');
 
-		return (<Flyout.Triggered
-			className="activity-day-trigger"
-			trigger={this.renderBlock()}
-			ref={this.attachFlyoutRef}
-			hover
-		>
-			<div>
-				<div className="activity-day-info">{infoStr}</div>
-			</div>
-		</Flyout.Triggered>);
+		return (
+			<Flyout.Triggered
+				className="activity-day-trigger"
+				trigger={this.renderBlock()}
+				ref={this.attachFlyoutRef}
+				hover
+			>
+				<div>
+					<div className="activity-day-info">{infoStr}</div>
+				</div>
+			</Flyout.Triggered>
+		);
 	}
 }
 

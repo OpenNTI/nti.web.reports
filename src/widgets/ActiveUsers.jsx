@@ -219,9 +219,11 @@ export default class ActiveUsers extends React.Component {
 	}
 
 	render () {
-		return (<div className="dashboard-list-widget active-users">
-			{this.renderHeader()}
-			{this.renderItems()}
-		</div>);
+		return (
+			<div className="dashboard-list-widget active-users">
+				{this.renderHeader()}
+				{this.renderItems()}
+			</div>
+		);
 	}
 }

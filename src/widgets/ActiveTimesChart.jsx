@@ -198,10 +198,12 @@ export default class ActiveTimesChart extends React.Component {
 	}
 
 	render () {
-		return (<div className="active-times-widget">
-			{this.renderHeader()}
-			{this.renderChart()}
-			{this.renderPopular()}
-		</div>);
+		return (
+			<div className="active-times-widget">
+				{this.renderHeader()}
+				{this.renderChart()}
+				{this.renderPopular()}
+			</div>
+		);
 	}
 }
