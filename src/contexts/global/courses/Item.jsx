@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {getService} from 'nti-web-client';
 import {Presentation} from 'nti-web-commons';
 
 export default class ReportCourseInstanceAssignmentItem extends React.Component {
@@ -10,9 +11,38 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 		onSelect: PropTypes.func
 	}
 
+	state = {disabled: true}
+
+
+	componentDidUpdate (prevProps) {
+		if (prevProps.item !== this.props.item) {
+			this.setupFor(this.props);
+		}
+	}
+
+
+	componentDidMount () {
+		this.setupFor(this.props);
+	}
+
+
+	async setupFor (props) {
+		const {item} = this.props;
+
+		try {
+			const service = await getService();
+			const course = await service.getObject(item.CourseInstance);
+
+			this.setState({course, disabled: !course.Reports});
+		} catch (e) {
+			//its okay if this fails, the item will just be disabled
+		}
+	}
+
 
 	onClick = () => {
-		const {item, onSelect} = this.props;
+		const {item} = this.state;
+		const {onSelect} = this.props;
 
 		if (onSelect) {
 			onSelect(item);
@@ -21,11 +51,12 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 
 
 	render () {
+		const {disabled} = this.state;
 		const {item} = this.props;
 
 		const catalogEntry = item.CatalogEntry;
 
-		const className = cx('report-course-item', { disabled: !item.Reports });
+		const className = cx('report-course-item', { disabled });
 
 		return (
 			<div className={className} onClick={this.onClick}>

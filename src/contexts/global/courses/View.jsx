@@ -97,7 +97,7 @@ export default class Courses extends React.Component {
 						items.map((item) => {
 							return (
 								<li key={item.getID()}>
-									<Item item={item.CourseInstance} onSelect={this.selectItem} rel={rel}/>
+									<Item item={item} onSelect={this.selectItem} rel={rel}/>
 								</li>
 							);
 						})
