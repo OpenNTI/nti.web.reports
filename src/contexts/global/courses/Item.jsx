@@ -41,11 +41,11 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 
 
 	onClick = () => {
-		const {item} = this.state;
+		const {course} = this.state;
 		const {onSelect} = this.props;
 
 		if (onSelect) {
-			onSelect(item);
+			onSelect(course);
 		}
 	}
 
