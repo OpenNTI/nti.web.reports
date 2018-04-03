@@ -60,7 +60,7 @@ export default class Statistics extends React.Component {
 
 		return (
 			<div className="progress">
-				<CircularProgress value={progress * 100} width={100} height={100} showPercentSymbol={true}/>
+				<CircularProgress value={Math.floor(progress * 100)} width={100} height={100} showPercentSymbol={true}/>
 			</div>
 		);
 	}
