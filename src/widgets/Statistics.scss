@@ -1,0 +1,36 @@
+@import '~nti-style-common';
+
+.dashboard-list-widget.statistics {
+	width: 250px;
+	height: 320px;
+	margin: 0;
+	padding: 0.5rem;
+	box-shadow: 0 1px 2px 1px #ccc;
+	color: $primary-grey;
+
+	.labeled-value {
+		.label {
+			text-transform: uppercase;
+			font: normal 700 0.625rem/1 "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+		}
+
+		.value {
+			padding-bottom: 1rem;
+			text-align: right;
+			font: normal 300 2rem/1.2 "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+		}
+	}
+
+	.progress {
+		padding-bottom: 1rem;
+		padding-top: 0.5rem;
+		width: 100px;
+		margin: 0 auto;
+
+		.circular-progress {
+			.value {
+				top: 30px !important;
+			}
+		}
+	}
+}
