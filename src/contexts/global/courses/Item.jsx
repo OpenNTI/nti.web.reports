@@ -10,6 +10,37 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 		onSelect: PropTypes.func
 	}
 
+	state = {}
+
+	componentDidMount () {
+		const {item} = this.props;
+
+		this.setup(item);
+	}
+
+
+	componentDidUpdate (oldProps) {
+		if(oldProps.item.NTIID !== this.props.item.NTIID) {
+			this.setup(this.props.item);
+		}
+	}
+
+
+	setup (item) {
+		const disabled = !item.Reports;
+
+		this.setState({ disabled });
+
+		// not worth loading course instance to check Reports if we know there are
+		// at least some Reports from the enrollment record, so just check if initially disabled
+		if(disabled) {
+			item.fetchLinkParsed('CourseInstance').then(course => {
+				this.setState({
+					disabled: !course.Reports
+				});
+			});
+		}
+	}
 
 	onClick = () => {
 		const {item, onSelect} = this.props;
@@ -22,10 +53,11 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 
 	render () {
 		const {item} = this.props;
+		const {disabled} = this.state;
 
 		const catalogEntry = item.CatalogEntry;
 
-		const className = cx('report-course-item', { disabled: !item.Reports });
+		const className = cx('report-course-item', { disabled });
 
 		return (
 			<div className={className} onClick={this.onClick}>

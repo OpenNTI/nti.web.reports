@@ -14,7 +14,7 @@ export default class ReportContext extends React.Component {
 	onSelect = (item) => {
 		const {context, selectReport} = this.props;
 		const {rel} = context;
-		const reports = (item && item.Reports) || [];
+		const reports = (item && item.Reports) || (item && item.CourseInstance && item.CourseInstance.Reports) || [];
 
 		for (let report of reports) {
 			if (report.rel === rel) {
