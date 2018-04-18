@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {Loading, EmptyState} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {Loading, EmptyState} from '@nti/web-commons';
 
 import SearchBar from '../../../widgets/SearchBar';
 import ViewerRegistry from '../../ViewerRegistry';
@@ -13,7 +13,7 @@ import Item from './Item';
 const DEFAULT_TEXT = {
 	empty: 'There are no courses'
 };
-const t = scoped('nti-web-reports.contexts.global.courses.View', DEFAULT_TEXT);
+const t = scoped('web-reports.contexts.global.courses.View', DEFAULT_TEXT);
 
 @ViewerRegistry.register('course-instance')
 @Store.connect({loading: 'loading', items: 'items', loadNextPage: 'loadNextPage', hasNextPage: 'hasNextPage', loadingNextPage: 'loadingNextPage', searchTerm: 'searchTerm'})

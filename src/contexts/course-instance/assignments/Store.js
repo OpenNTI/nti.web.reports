@@ -1,4 +1,4 @@
-import {Stores} from 'nti-lib-store';
+import {Stores} from '@nti/lib-store';
 
 export default class CourseAssignmentStore extends Stores.SimpleStore {
 	constructor () {

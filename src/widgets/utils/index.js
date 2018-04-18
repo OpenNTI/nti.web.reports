@@ -1,5 +1,5 @@
-import {getService} from 'nti-web-client';
-import {DateTime} from 'nti-web-commons'; 
+import {getService} from '@nti/web-client';
+import {DateTime} from '@nti/web-commons'; 
 
 const COLORS = [
 	'#efefef',

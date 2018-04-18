@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 import Viewer from '../viewer';
 import {getEmbedableType} from '../utils';
@@ -9,7 +9,7 @@ const DEFAULT_TEXT = {
 	'application/pdf': 'PDF',
 	'text/csv': 'CSV'
 };
-const t = scoped('nti-web-reports.list.Item', DEFAULT_TEXT);
+const t = scoped('web-reports.list.Item', DEFAULT_TEXT);
 
 export default class ReportListItem extends React.Component {
 	static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {Loading, EmptyState} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {Loading, EmptyState} from '@nti/web-commons';
 
 import ViewerRegistry from '../../ViewerRegistry';
 
@@ -11,7 +11,7 @@ import Item from './Item';
 const DEFAULT_TEXT = {
 	empty: 'There are no assignments'
 };
-const t = scoped('nti-web-reports.context.course-instance.assignment.View', DEFAULT_TEXT);
+const t = scoped('web-reports.context.course-instance.assignment.View', DEFAULT_TEXT);
 
 @ViewerRegistry.register('course-assignments')
 @Store.connect({loading: 'loading', items: 'items'})

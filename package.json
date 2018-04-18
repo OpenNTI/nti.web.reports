@@ -1,5 +1,5 @@
 {
-  "name": "nti-web-reports",
+  "name": "@nti/web-reports",
   "version": "0.4.0-alpha",
   "description": "React components for reports",
   "main": "./lib/index-cjs.js",
@@ -35,18 +35,18 @@
   },
   "homepage": "https://github.com/NextThought/nti.web.component.reports#readme",
   "dependencies": {
+    "@nti/lib-locale": "^1.0.5",
+    "@nti/lib-ntiids": "^1.0.3",
+    "@nti/lib-store": "^1.1.0",
+    "@nti/web-charts": "^0.4.0",
+    "@nti/web-client": "^1.1.1",
+    "@nti/web-commons": "0.x.x",
     "classnames": "^2.2.3",
-    "nti-lib-locale": "^1.0.5",
-    "nti-lib-ntiids": "^1.0.3",
-    "nti-lib-store": "^1.1.0",
-    "nti-web-charts": "^0.4.0",
-    "nti-web-client": "^1.1.1",
-    "nti-web-commons": "0.x.x",
     "prop-types": "^15.5.8"
   },
   "devDependencies": {
     "nti-cmp-scripts": "^1.0.78",
-    "nti-style-common": "^1.4.0",
+    "@nti/style-common": "^1.4.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
   }

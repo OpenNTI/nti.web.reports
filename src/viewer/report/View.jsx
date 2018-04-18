@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Loading} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {getEmbedableType} from '../../utils';
 
 const DEFAULT_TEXT = {
 	loading: 'Generating'
 };
-const t = scoped('nti-web-reports.viewer.report.View', DEFAULT_TEXT);
+const t = scoped('web-reports.viewer.report.View', DEFAULT_TEXT);
 
 function getEmbedLink (report) {
 	const format = getEmbedableType(report);

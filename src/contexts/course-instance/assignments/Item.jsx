@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {DateTime} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DateTime} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {getReportFrom} from '../../../utils';
 
@@ -12,7 +12,7 @@ const DEFAULT_TEXT = {
 	available: 'Available ',
 	noDates: 'No Dates Set'
 };
-const t = scoped('nti-web-reports.context.course-instance.assignments.Item', DEFAULT_TEXT);
+const t = scoped('web-reports.context.course-instance.assignments.Item', DEFAULT_TEXT);
 
 export default class ReportCourseInstanceAssignmentItem extends React.Component {
 	static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime, Loading, Flyout} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DateTime, Loading, Flyout} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 import cx from 'classnames';
 
 import {determineBlockColor, loadDailyActivity} from './utils';
@@ -14,7 +14,7 @@ const LABELS = {
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const SHORT_WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
-const t = scoped('nti-web-compontent-reports.widgets.activedays', LABELS);
+const t = scoped('web-compontent-reports.widgets.activedays', LABELS);
 
 function makeMonthLabel (day) {
 	// if we want to show the last two digits of the year for each Jan label

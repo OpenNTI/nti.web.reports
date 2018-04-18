@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {Loading} from 'nti-web-commons';
-import {CircularProgress} from 'nti-web-charts';
+import {scoped} from '@nti/lib-locale';
+import {Loading} from '@nti/web-commons';
+import {CircularProgress} from '@nti/web-charts';
 
 const LABELS = {
 	totalEnrolled: 'Total Enrolled',
@@ -10,7 +10,7 @@ const LABELS = {
 	studentsWithProgress: 'Students With Progress'
 };
 
-const t = scoped('nti-web-component-reports.widgets.statistics', LABELS);
+const t = scoped('web-component-reports.widgets.statistics', LABELS);
 
 export default class Statistics extends React.Component {
 	static propTypes = {

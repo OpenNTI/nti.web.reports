@@ -1,5 +1,5 @@
-import {Stores} from 'nti-lib-store';
-import {User, getService} from 'nti-web-client';
+import {Stores} from '@nti/lib-store';
+import {User, getService} from '@nti/web-client';
 
 export const DEFAULT_SIZE = 20;
 const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');

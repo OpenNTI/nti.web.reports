@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {DateTime, Loading, DisplayName, Avatar} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import {scoped} from '@nti/lib-locale';
+import {DateTime, Loading, DisplayName, Avatar} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 import cx from 'classnames';
 
 const LABELS = {
@@ -12,7 +12,7 @@ const LABELS = {
 	noItems: 'No top learners found'
 };
 
-const t = scoped('nti-web-component-reports.widgets.activeusers', LABELS);
+const t = scoped('web-component-reports.widgets.activeusers', LABELS);
 const BATCH_SIZE = 4;
 
 class Item extends React.Component {

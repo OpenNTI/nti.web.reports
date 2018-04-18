@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DialogButtons} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DialogButtons} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 const DEFAULT_TEXT = {
 	done: 'Done'
 };
-const t = scoped('nti-web-reports.viewer.Footer', DEFAULT_TEXT);
+const t = scoped('web-reports.viewer.Footer', DEFAULT_TEXT);
 
 export default class ReportViewerFooter extends React.Component {
 	static propTypes = {

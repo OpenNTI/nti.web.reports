@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {Flyout} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {Flyout} from '@nti/web-commons';
 
 const DEFAULT_TEXT = {
 	download: 'Download',
 	'application/pdf': 'PDF',
 	'text/csv': 'CSV'
 };
-const t = scoped('nti-web-reports.viewer.Header', DEFAULT_TEXT);
+const t = scoped('web-reports.viewer.Header', DEFAULT_TEXT);
 
 export default class ReportViewerHeader extends React.Component {
 	static propTypes = {

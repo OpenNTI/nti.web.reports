@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Loading, EmptyState} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Loading, EmptyState} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import ViewerRegistry from '../../ViewerRegistry';
 
@@ -13,7 +13,7 @@ const DEFAULT_TEXT = {
 	empty: 'No transcripts available'
 
 };
-const t = scoped('nti-web-reports.contexts.user.transcripts.View', DEFAULT_TEXT);
+const t = scoped('web-reports.contexts.user.transcripts.View', DEFAULT_TEXT);
 
 @ViewerRegistry.register('user-transcripts')
 @Store.connect({items: 'items', loading: 'loading', error: 'error'})

@@ -1,4 +1,4 @@
-import {getService} from 'nti-web-client';
+import {getService} from '@nti/web-client';
 
 const ALL_REPORTS_LINK = '/dataserver2/reporting/reports';
 

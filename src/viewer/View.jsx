@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Prompt, Switch} from 'nti-web-commons';
+import {Prompt, Switch} from '@nti/web-commons';
 
 import Context from './context';
 import Report from './report';
