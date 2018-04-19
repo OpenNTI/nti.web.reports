@@ -2,22 +2,22 @@
   "name": "@nti/web-reports",
   "version": "0.4.0-alpha",
   "description": "React components for reports",
-  "main": "./lib/index-cjs.js",
-  "module": "./lib/index.js",
+  "main": "lib/index-cjs.js",
+  "module": "lib/index.js",
   "style": "./lib/index.css",
   "files": [
     "lib"
   ],
   "scripts": {
-    "test": "nti-cmp-scripts test",
-    "start": "nti-cmp-scripts start",
-    "prepack": "nti-cmp-scripts build",
-    "build": "nti-cmp-scripts build",
-    "clean": "nti-cmp-scripts clean",
-    "check": "nti-cmp-scripts check",
-    "release": "nti-cmp-scripts release",
-    "install-snapshots": "nti-cmp-scripts install-snapshots",
-    "fix": "nti-cmp-scripts fix"
+    "test": "cmp-scripts test",
+    "start": "cmp-scripts start",
+    "prepack": "cmp-scripts build",
+    "build": "cmp-scripts build",
+    "clean": "cmp-scripts clean",
+    "check": "cmp-scripts check",
+    "release": "cmp-scripts release",
+    "install-snapshots": "cmp-scripts install-snapshots",
+    "fix": "cmp-scripts fix"
   },
   "repository": {
     "type": "git",
@@ -38,14 +38,14 @@
     "@nti/lib-locale": "^1.0.5",
     "@nti/lib-ntiids": "^1.0.3",
     "@nti/lib-store": "^1.1.0",
-    "@nti/web-charts": "^0.4.0",
+    "@nti/web-charts": "0.x.x",
     "@nti/web-client": "^1.1.1",
     "@nti/web-commons": "0.x.x",
     "classnames": "^2.2.3",
     "prop-types": "^15.5.8"
   },
   "devDependencies": {
-    "nti-cmp-scripts": "^1.0.78",
+    "@nti/cmp-scripts": "^1.16.0",
     "@nti/style-common": "^1.4.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
