@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Loading} from '@nti/web-commons';
+import { Loading, EmptyState } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import {getContext} from '../contexts';
 

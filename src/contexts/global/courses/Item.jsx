@@ -53,7 +53,6 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 
 
 	render () {
-		const {disabled} = this.state;
 		const {item} = this.props;
 		const {disabled} = this.state;
 
