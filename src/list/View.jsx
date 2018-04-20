@@ -7,6 +7,13 @@ import {getContext} from '../contexts';
 
 import Group from './Group';
 
+const DEFAULT_TEXT = {
+	emptyHeader: 'No Reports',
+	emptySubHeader: 'There are no reports found.'
+};
+
+const t = scoped('nti.web.reports.context.list', DEFAULT_TEXT);
+
 export default class ReportsList extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
@@ -87,7 +94,7 @@ export default class ReportsList extends React.Component {
 
 	renderEmpty () {
 		return (
-			<span>No Reports</span>
+			<EmptyState header={t('emptyHeader')} subHeader={t('emptySubHeader')} />
 		);
 	}
 
