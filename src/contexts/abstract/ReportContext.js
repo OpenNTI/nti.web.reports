@@ -56,8 +56,9 @@ export default class ReportContext {
 	async getReportGroups () {
 		if (!this.canAccessReports()) { return []; }
 
-		const {groups} = this;
+		const {groups, context} = this;
 
+		const reports = await getReports();
 		const contextReports = await this.getContextReports();
 		const subContextReports = await this.getSubContextReports();
 
@@ -72,7 +73,11 @@ export default class ReportContext {
 				name: group.name,
 				description: group.description,
 				reports: group.reports
-					.map(report => reportMap[getReportKey(report.rel, report.contextID)])
+					.map(report => {
+						if (report.resolve) { return report.resolve(context, reports); }
+
+						return reportMap[getReportKey(report.rel, report.contextID)];
+					})
 					.filter(x => !!x)
 			};
 		});
