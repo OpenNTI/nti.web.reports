@@ -36,6 +36,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 		if(disabled) {
 			item.fetchLinkParsed('CourseInstance').then(course => {
 				this.setState({
+					course,
 					disabled: !course.Reports
 				});
 			});
