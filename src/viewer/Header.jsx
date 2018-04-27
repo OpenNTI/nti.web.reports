@@ -92,7 +92,7 @@ export default class ReportViewerHeader extends React.Component {
 		const {downloadLink, supportedTypes} = this;
 		const content = (
 			<div>
-				<i className="icon-upload" />
+				<i className="icon-download" />
 				<span>{t('download')}</span>
 			</div>
 		);
