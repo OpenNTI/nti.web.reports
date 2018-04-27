@@ -8,8 +8,8 @@ export default class GlobalContext extends ReportContext {
 			reports: [
 				{rel: 'report-CourseSummaryReport.pdf', contextID: 'course-instance'},
 				{rel: 'report-SelfAssessmentSummaryReport.pdf', contextID: 'course-instance'},
-				{rel: 'report-CourseRosterReport.pdf', contextID: 'course-instance'},
-				{rel: 'report-UserEnrollmentReport.pdf', contextID: 'user'},
+				{rel: 'report-CourseRosterReport', contextID: 'course-instance'},
+				{rel: 'report-UserEnrollmentReport', contextID: 'user'},
 				{rel: 'report-AllCourseRosterReport', resolve: (service, reports) => {
 					const workspace = service.getWorkspace('Courses');
 					const href = workspace && workspace.getLink('AllCourseRosterReport');
