@@ -24,7 +24,7 @@ export default class UserTranscriptReportContextItem extends React.Component {
 
 		return (
 			<div className="user-transcript-report-context-item" onClick={this.onClick}>
-				<Presentation.AssetBackground className="course-icon" contentPackage={item.CourseInstance.CatalogEntry} type="landing" />
+				<Presentation.AssetBackground className="course-icon" contentPackage={item.CatalogEntry} type="landing" />
 				<div className="meta">
 					<div className="label">{label}</div>
 					<div className="title">{title}</div>
