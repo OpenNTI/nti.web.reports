@@ -25,9 +25,17 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 		}
 	}
 
+	containsReport (item, rel) {
+		if(rel && item.Reports) {
+			return item.Reports.map(x=>x.rel).includes(rel);
+		}
+
+		return false;
+	}
 
 	setup (item) {
-		const disabled = !item.Reports;
+		const {rel} = this.props;
+		const disabled = !item.Reports || !this.containsReport(item, rel);
 
 		this.setState({ disabled });
 
@@ -37,7 +45,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 			item.fetchLinkParsed('CourseInstance').then(course => {
 				this.setState({
 					course,
-					disabled: !course.Reports
+					disabled: !course.Reports || !this.containsReport(course, rel)
 				});
 			});
 		}
