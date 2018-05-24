@@ -1,0 +1,26 @@
+@import '~@nti/style-common';
+
+.course-instance-forums-report-context {
+	padding: 1rem 2.375rem;
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.group-title {
+		font: normal 400 1.5rem/2.1 $header-font-family;
+	}
+
+	.section-title {
+		font: normal 600 0.625rem/2 $body-font-family;
+		border-bottom: 1px solid $border-grey-light;
+		background-color: $panel-background;
+		text-transform: uppercase;
+	}
+
+	.forums {
+		padding: 1rem 0;
+	}
+}

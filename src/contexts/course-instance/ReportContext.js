@@ -10,14 +10,18 @@ export default class CourseInstanceContext extends ReportContext {
 				{rel: 'report-SelfAssessmentSummaryReport.pdf'},
 				{rel: 'report-CourseRosterReport'},
 				{rel: 'report-AssignmentSummaryReport.pdf', contextID: 'course-assignments'},
-				{rel: 'report-SelfAssessmentReportCSV'}
+				{rel: 'report-SelfAssessmentReportCSV'},
+				{rel: 'report-ForumParticipationReport.pdf', contextID: 'course-forums'}
+				// {rel: 'report-InquiryReport.pdf', contextID: 'course-inquiries'} //Leave this off for now
 			]
 		}
 	]
 
 
 	subContexts = {
-		'IQAssignment': {name: 'Assignments', id: 'course-assignments'}
+		'IQAssignment': {name: 'Assignments', id: 'course-assignments'},
+		'ICommunityForum': {name: 'Forums', id: 'course-forums'},
+		// 'IQInquiry': {name: 'Polls', id: 'course-inquiries', shouldShow: course => course.hasLink('Inquiries')} //Leave this off for now
 	}
 
 }

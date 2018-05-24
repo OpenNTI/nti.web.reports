@@ -104,7 +104,7 @@ export default class ReportContext {
 				for (let reportContext of reportContexts) {
 					const subContext = subContexts[reportContext];
 
-					if (subContexts[reportContext]) {
+					if (subContext && (!subContext.shouldShow || subContext.shouldShow(context))) {
 						acc.push({
 							title: report.title,
 							description: report.description,
