@@ -73,9 +73,7 @@ export default class CourseForums extends React.Component {
 	}
 
 
-	onTopicSelect = (topic) => {
-		debugger;
-	}
+	onTopicSelect = (topic) => {}
 
 
 	render () {
