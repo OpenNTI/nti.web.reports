@@ -1,0 +1,24 @@
+@import '~@nti/style-common';
+
+.report-course-instance-forums-topic-list-item {
+	background: white;
+	box-shadow: 0 0 1px 0 $border-grey-light;
+	padding: rem-calc(10px);
+	margin-bottom: rem-calc(10px);
+	cursor: pointer;
+
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	.title {
+		font: normal 400 1.125rem/1.3 $body-font-family;
+		margin-bottom: rem-calc(4px);
+	}
+
+	.post-count {
+		font: normal 600 0.625rem/1.3 $body-font-family;
+		text-transform: uppsercase;
+	}
+}

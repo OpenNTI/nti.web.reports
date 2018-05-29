@@ -19,7 +19,8 @@ export default class CourseForumItem extends React.Component {
 			TopicCount: PropTypes.number
 		}).isRequired,
 		rel: PropTypes.string,
-		onSelect: PropTypes.func
+		onSelect: PropTypes.func,
+		isTopicReport: PropTypes.bool
 	}
 
 	onClick = () => {
@@ -32,8 +33,8 @@ export default class CourseForumItem extends React.Component {
 
 
 	render () {
-		const {forum, rel} = this.props;
-		const disabled = !getReportFrom(rel, forum);
+		const {forum, rel, isTopicReport} = this.props;
+		const disabled = !isTopicReport && !getReportFrom(rel, forum);
 
 		return (
 			<div className={cx('report-course-instance-forums-forum-item', {disabled})} onClick={this.onClick}>

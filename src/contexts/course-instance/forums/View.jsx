@@ -6,7 +6,8 @@ import {Loading, EmptyState} from '@nti/web-commons';
 import ViewerRegistry from '../../ViewerRegistry';
 
 import Store from './Store';
-import ForumItem from './ForumItem';
+import DiscussionList from './DiscussionList';
+import TopicList from './topic-list';
 
 const t = scoped('web-reports.context.course-instance.forums.View', {
 	empty: 'There are no forums',
@@ -33,6 +34,14 @@ export default class CourseForums extends React.Component {
 		discussions: PropTypes.object
 	}
 
+	state = {}
+
+	get isTopicReport () {
+		const {rel} = this.props;
+
+		return rel === 'report-TopicParticipationReport.pdf';
+	}
+
 
 	componentDidMount () {
 		const {context, store} = this.props;
@@ -43,7 +52,7 @@ export default class CourseForums extends React.Component {
 
 	componentDidUpdate (prevProps) {
 		const {context:newContext, store} = this.props;
-		const {context:oldContext} = this.props;
+		const {context:oldContext} = prevProps;
 
 		if (newContext !== oldContext) {
 			store.load(newContext);
@@ -54,98 +63,52 @@ export default class CourseForums extends React.Component {
 	onSelect = (forum) => {
 		const {onSelect} = this.props;
 
-		if (onSelect) {
+		if (this.isTopicReport) {
+			this.setState({
+				selectedForum: forum
+			});
+		} else if (onSelect) {
 			onSelect(forum);
 		}
 	}
 
 
+	onTopicSelect = (topic) => {
+		debugger;
+	}
+
+
 	render () {
 		const {loading, discussions, error} = this.props;
+		const {selectedForum} = this.state;
 
 		return (
 			<div className="course-instance-forums-report-context">
 				{loading && (<Loading.Mask />)}
 				{!loading && error && (<span className="error">{t('error')}</span>)}
-				{!loading && !error && (this.renderDiscussions(discussions))}
+				{!loading && !error && !selectedForum && (this.renderDiscussions(discussions))}
+				{!loading && !error && selectedForum && (this.renderForum(selectedForum))}
 			</div>
 		);
 	}
 
 
 	renderDiscussions (discussions) {
-		const groups = discussions ? Object.keys(discussions) : [];
-		const isSimple = groups.length === 1 && groups[0] === 'Other';
-
-		if (!groups.length) {
-			return this.renderEmpty();
-		}
-
-		return (
-			<ul className="groups">
-				{
-					groups.map((group, index) => {
-						return (
-							<li key={index}>
-								{this.renderGroup(group, discussions[group], isSimple)}
-							</li>
-						);
-					})
-				}
-			</ul>
-		);
-	}
-
-
-	renderGroup (title, sections, isSimple) {
-		const names = sections ? Object.keys(sections) : [];
-		const isSimpleGroup = isSimple && names.length === 1 && names[0] === 'Section';
-
-		if (!names.length) {
-			return null;
-		}
-
-		return (
-			<React.Fragment>
-				{!isSimple && (<div className="group-title">{t(title)}</div>)}
-				<ul className="sections">
-					{
-						names.map((name, index) => {
-							return (
-								<li key={index}>
-									{this.renderSection(name, sections[name], isSimpleGroup)}
-								</li>
-							);
-						})
-					}
-				</ul>
-			</React.Fragment>
-		);
-	}
-
-
-	renderSection (title, section, isSimple) {
 		const {rel} = this.props;
-		const {forums} = section;
 
 		return (
-			<React.Fragment>
-				{!isSimple && (<div className="section-title">{t(title)}</div>)}
-				<ul className="forums">
-					{
-						forums.map((forum, index) => {
-							return (
-								<li key={index}>
-									<ForumItem forum={forum} rel={rel} onSelect={this.onSelect} />
-								</li>
-							);
-						})
-					}
-				</ul>
-			</React.Fragment>
+			<DiscussionList rel={rel} discussions={discussions} isTopicReport={this.isTopicReport} onSelect={this.onSelect} />
 		);
 	}
 
+
+	renderForum (forum) {
+		const {rel} = this.props;
+
+		return (
+			<TopicList rel={rel} forum={forum} onSelect={this.onTopicSelect} />
+		);
+	}
 
 
 	renderEmpty () {
