@@ -11,7 +11,7 @@ const t = scoped('web-reports.context.course-instance.forums.DiscussionList', {
 
 	Open: 'Open Discussions',
 	Other: 'Other Discussions',
-	ForCredit: 'Enrolled For-Credit'
+	ForCredit: 'Enrolled For-Credit',
 	Section: 'My Section',
 	Parent: 'All Sections'
 
