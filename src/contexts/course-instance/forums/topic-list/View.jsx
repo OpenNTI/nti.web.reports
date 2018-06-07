@@ -9,7 +9,8 @@ import TopicItem from './TopicItem';
 const t = scoped('web-reports.context.course-instance.forum.topic-list.View', {
 	empty: 'There are no topics',
 	error: 'Unable to load topics',
-	loadMore: 'Load More'
+	loadMore: 'Load More',
+	back: 'Back to Forums'
 });
 
 @Store.connect({'loading': 'loading', 'items': 'items', 'error': 'error', 'hasMore': 'hasMore'})
@@ -55,7 +56,20 @@ export default class CourseTopicList extends React.Component {
 
 
 	onTopicSelect = (topic) => {
+		const {onSelect} = this.props;
 
+		if (onSelect) {
+			onSelect(topic);
+		}
+	}
+
+
+	onBack = () => {
+		const {onBack} = this.props;
+
+		if (onBack) {
+			onBack();
+		}
 	}
 
 
@@ -64,6 +78,10 @@ export default class CourseTopicList extends React.Component {
 
 		return (
 			<div className="course-instance-forums-topic-list-context">
+				<div className="back-to-forums" onClick={this.onBack}>
+					<i className="icon-chevron-left" />
+					<span>{t('back')}</span>
+				</div>
 				{loading && !items.length && (<Loading.Mask />)}
 				{(!loading || items.length > 0) && (items.length > 0 || !error) && this.renderItems(items)}
 				{!loading && error && (<span className="error">{t('error')}</span>)}

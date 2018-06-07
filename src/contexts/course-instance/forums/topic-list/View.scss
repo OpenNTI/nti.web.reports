@@ -6,4 +6,17 @@
 		padding: 0;
 		margin: 0;
 	}
+
+	.back-to-forums {
+		color: $primary-blue;
+		margin-bottom: 1rem;
+	}
+
+	.load-more {
+		background-color: $primary-blue;
+		color: white;
+		text-align: center;
+		padding: 0.5rem 0;
+		cursor: pointer;
+	}
 }

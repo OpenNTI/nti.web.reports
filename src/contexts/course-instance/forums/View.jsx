@@ -73,7 +73,13 @@ export default class CourseForums extends React.Component {
 	}
 
 
-	onTopicSelect = (topic) => {}
+	onTopicSelect = (topic) => {
+		const {onSelect} = this.props;
+
+		if (onSelect) {
+			onSelect(topic);
+		}
+	}
 
 
 	render () {
