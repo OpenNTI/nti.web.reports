@@ -23,7 +23,7 @@ class Item extends React.Component {
 	renderImg () {
 		const { item } = this.props;
 
-		return <Avatar className="item-image" entityId={item.Username}/>;
+		return <Avatar className="item-image" entity={item.Username}/>;
 	}
 
 	renderInfo () {
@@ -31,7 +31,7 @@ class Item extends React.Component {
 
 		return (
 			<div className="info">
-				<DisplayName className="name" entityId={item.name}/>
+				<DisplayName className="name" entity={item.name}/>
 				<div className="description">
 					{item.description}
 				</div>
