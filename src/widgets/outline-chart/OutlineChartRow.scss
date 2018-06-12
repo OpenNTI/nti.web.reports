@@ -1,0 +1,73 @@
+@import '~@nti/style-common';
+
+.outline-chart-rows {
+	height: 550px;
+	max-height: calc(100vh - 200px);
+	overflow: auto;
+
+	.outline-chart-row {
+		position: relative;
+		line-height: 30px;
+		margin-bottom: 2px;
+		font-size: 0.75rem;
+
+		.percentage-bar {
+			background-color: #eee;
+			opacity: 0.4;
+			height: 30px;
+
+			.bar {
+				height: 100%;
+				background-color: #ccc;
+				position: absolute;
+			}
+		}
+
+		.text-content {
+			position: absolute;
+			color: $primary-grey;
+			top: 0;
+			height: 100%;
+			left: 20px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 80%;
+			white-space: nowrap;
+		}
+
+		&.large-header {
+			font-size: 1.375rem;
+			line-height: 3rem;
+			font-family: "Open Sans Condensed";
+			font-weight: 100;
+			height: 3rem;
+
+			.percentage-bar {
+				height: 3rem;
+			}
+
+			.text-content {
+				left: 12px;
+			}
+		}
+
+		&.medium-header {
+			line-height: 36px;
+			font-size: 18px;
+			font-size: 0.875rem;
+			//line-height: 1.28571;
+			text-transform: uppercase;
+			font-style: normal;
+			font-weight: 700;
+			font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
+			.percentage-bar {
+				height: 36px;
+			}
+
+			.text-content {
+				left: 12px;
+			}
+		}
+	}
+}

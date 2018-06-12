@@ -1,0 +1,83 @@
+@import '~@nti/style-common';
+
+.outline-chart-dialog {
+	dialog {
+		max-width: 100%;
+	}
+
+	.icon-close {
+		display: none;
+	}
+}
+
+.outline-chart {
+	min-width: 280px;
+	width: 760px;
+	max-width: 100%;
+	background-color: white;
+	max-height: 100vh;
+
+	.panel-title-bar {
+		border-bottom: solid 1px #ccc;
+	}
+
+	.chart-content {
+		padding: 0 1rem 1rem 1rem;
+
+		.chart-controls {
+			display: flex;
+			flex-wrap: wrap;
+			margin-top: 1rem;
+
+			.chart-control {
+				margin-bottom: 1rem;
+				display: flex;
+
+				.control-label {
+					line-height: 50px;
+					font-size: 12px;
+					margin-right: 0.5rem;
+				}
+
+				.select-box {
+					cursor: pointer;
+					box-shadow: 1px 1px 2px 1px #eaeaea;
+					border: solid 1px #ddd;
+					border-radius: 3px;
+					font-weight: 300;
+					width: 200px;
+
+					&.stat-type-select {
+						margin-right: 1rem;
+					}
+
+					ul {
+						padding-left: 1rem;
+					}
+
+					.option-label {
+						font-weight: 300;
+					}
+				}
+			}
+
+			.stat-type-control {
+				display: flex;
+
+				.stat-type-option {
+					flex: 1 1 0;
+					text-align: center;
+					cursor: pointer;
+					padding: 1rem 0;
+					font-weight: 300;
+
+					&.selected {
+						color: $primary-blue;
+						cursor: initial;
+						pointer-events: none;
+					}
+				}
+			}
+		}
+	}
+}
