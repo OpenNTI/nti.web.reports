@@ -23,7 +23,7 @@ class Item extends React.Component {
 	renderImg () {
 		const { item } = this.props;
 
-		return <Avatar className="item-image" entity={item.Username}/>;
+		return <Avatar className="item-image" entity={item.entity}/>;
 	}
 
 	renderInfo () {
@@ -31,7 +31,7 @@ class Item extends React.Component {
 
 		return (
 			<div className="info">
-				<DisplayName className="name" entity={item.name}/>
+				<DisplayName className="name" entity={item.entity}/>
 				<div className="description">
 					{item.description}
 				</div>
@@ -104,7 +104,7 @@ export default class ActiveUsers extends React.Component {
 	async loadData (link) {
 		const service = await getService();
 		const activeUsersLink = await this.getLink(service, link);
-		const activeUsers = activeUsersLink ? await service.get(activeUsersLink) : {};
+		const activeUsers = activeUsersLink ? await service.getBatch(activeUsersLink) : {};
 
 		this.setState({
 			loading: false,
@@ -113,7 +113,7 @@ export default class ActiveUsers extends React.Component {
 			nextLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-next')[0] || {}).href,
 			items: (activeUsers.Items || []).map(x => {
 				return {
-					...x,
+					entity: x,
 					name: x.Username,
 					description: 'Created ' + DateTime.format(new Date(x.CreatedTime  * 1000), 'LLLL')
 				};
