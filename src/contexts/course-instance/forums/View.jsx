@@ -73,6 +73,15 @@ export default class CourseForums extends React.Component {
 	}
 
 
+	showDiscussions = () => {
+		if (this.isTopicReport) {
+			this.setState({
+				selectedForum: null
+			});
+		}
+	}
+
+
 	onTopicSelect = (topic) => {
 		const {onSelect} = this.props;
 
@@ -110,7 +119,7 @@ export default class CourseForums extends React.Component {
 		const {rel} = this.props;
 
 		return (
-			<TopicList rel={rel} forum={forum} onSelect={this.onTopicSelect} />
+			<TopicList rel={rel} forum={forum} onSelect={this.onTopicSelect} onBack={this.showDiscussions} />
 		);
 	}
 
