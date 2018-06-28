@@ -6,7 +6,7 @@ export default class ContentPackageBundleContext extends ReportContext {
 	groups = [
 		{
 			reports: [
-				{ rel: 'report-IFSTASampleSummary' },
+				{ rel: 'report-BookProgressReport'},
 				{ rel: 'report-IFSTASampleDetail' },
 				{ rel: 'report-IFSTASampleConcepts' }
 			]
