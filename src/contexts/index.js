@@ -5,6 +5,7 @@ import  './default';
 import './global';
 import './user';
 import './contentpackage-bundle';
+import './user-book-record';
 
 export function getContext (object) {
 	const Context = ContextRegistry.getInstance().getItemFor(object.MimeType);
