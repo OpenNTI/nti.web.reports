@@ -1,6 +1,6 @@
 {
   "name": "@nti/web-reports",
-  "version": "0.12.0",
+  "version": "0.13.0-alpha",
   "description": "React components for reports",
   "main": "lib/index-cjs.js",
   "module": "lib/index.js",
