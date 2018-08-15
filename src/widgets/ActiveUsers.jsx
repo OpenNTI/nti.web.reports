@@ -105,7 +105,8 @@ export default class ActiveUsers extends React.Component {
 		this.setState({loading: true});
 
 		const service = await getService();
-		const activeUsersLink = await this.getLink(service, link);
+		const getBatchLink = link ? link : this.getLink(service, null, this.state.pageNumber * BATCH_SIZE);
+		const activeUsersLink = await this.getLink(service, getBatchLink);
 		const activeUsers = activeUsersLink ? await service.getBatch(activeUsersLink) : {};
 
 		this.setState({
@@ -168,7 +169,7 @@ export default class ActiveUsers extends React.Component {
 	}
 
 	renderHeader () {
-		const prevClassName = cx('page-control', 'previous', { disabled: this.state.loading || !this.state.prevLink });
+		const prevClassName = cx('page-control', 'previous', { disabled: this.state.loading || (!this.state.prevLink && this.state.pageNumber === 0) });
 		const nextClassName = cx('page-control', 'next', { disabled: this.state.loading || !this.state.nextLink });
 
 		return (
