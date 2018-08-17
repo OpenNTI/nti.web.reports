@@ -1,10 +1,11 @@
-import {Stores} from '@nti/lib-store';
 import {User, getService} from '@nti/web-client';
+
+import SearchablePagedStore from './SearchablePagedStore';
 
 export const DEFAULT_SIZE = 20;
 const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
 
-export default class UsersStore extends Stores.SearchablePagedStore {
+export default class UsersStore extends SearchablePagedStore {
 	static convertBatch (batch) {
 		const nextLink = batch.getLink('batch-next');
 		const loadNext = !nextLink || batch.Items.length < DEFAULT_SIZE ?

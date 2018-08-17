@@ -1,11 +1,11 @@
-import {Stores} from '@nti/lib-store';
 import {getService} from '@nti/web-client';
 
+import SearchablePagedStore from '../users/SearchablePagedStore';
 import UsersStore, {DEFAULT_SIZE} from '../users/Store';
 
 const INITIAL_LOAD_CACHE = Symbol('Initial Load Cache');
 
-export default class CoursesStore extends Stores.SearchablePagedStore {
+export default class CoursesStore extends SearchablePagedStore {
 	constructor () {
 		super();
 
