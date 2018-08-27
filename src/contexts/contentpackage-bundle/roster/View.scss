@@ -1,0 +1,29 @@
+@import '~@nti/style-common';
+
+.contentpackage-bundle-roster-context {
+	padding: 1rem;
+
+	.error {
+		display: block;
+		text-align: center;
+		color: $primary-red;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			margin: 10px 0;
+		}
+	}
+
+	.load-more {
+		background-color: $primary-blue;
+		color: white;
+		text-align: center;
+		padding: 0.5rem 0;
+		cursor: pointer;
+	}
+}

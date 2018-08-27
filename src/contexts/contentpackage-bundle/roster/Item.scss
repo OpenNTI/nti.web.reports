@@ -1,0 +1,31 @@
+@import '~@nti/style-common';
+
+.report-contentpackage-bundle-roster-item {
+	padding: 0.6rem;
+	position: relative;
+	display: flex;
+	cursor: pointer;
+	box-shadow: 0 0 1px 0 $border-grey-light;
+	background: white;
+
+	&.disabled {
+		cursor: initial;
+		opacity: 0.3;
+	}
+
+	.avatar {
+		width: 4rem;
+		height: 4rem;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.info {
+		margin-left: 1rem;
+		padding-top: 1.3rem;
+		max-width: 550px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}

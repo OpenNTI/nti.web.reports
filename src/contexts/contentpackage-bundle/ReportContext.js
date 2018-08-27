@@ -8,8 +8,14 @@ export default class ContentPackageBundleContext extends ReportContext {
 			reports: [
 				{ rel: 'report-BookProgressReport'},
 				{ rel: 'report-IFSTASampleDetail' },
-				{ rel: 'report-IFSTASampleConcepts' }
+				{ rel: 'report-IFSTASampleConcepts' },
+				{ rel: 'report-UserBookProgressReport', contextID: 'contentpackage-bundle-roster'}
 			]
 		}
 	]
+
+
+	subContexts = {
+		'IUserBundleRecord': {name: 'Users', id: 'contentpackage-bundle-roster'}
+	}
 }
