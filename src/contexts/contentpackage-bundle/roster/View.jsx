@@ -36,7 +36,6 @@ export default class BundleRoster extends React.Component {
 
 
 	selectUserBundleRecord = (record) => {
-		debugger;
 		const {onSelect} = this.props;
 
 		if (onSelect) {
