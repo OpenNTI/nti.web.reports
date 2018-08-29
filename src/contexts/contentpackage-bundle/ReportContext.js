@@ -1,7 +1,7 @@
 import ReportContext from '../abstract/ReportContext';
 import ContextRegistry from '../ContextRegistry';
 
-@ContextRegistry.register('application/vnd.nextthought.contentpackagebundle')
+@ContextRegistry.register(['application/vnd.nextthought.contentpackagebundle', 'application/vnd.nextthought.publishablecontentpackagebundle'])
 export default class ContentPackageBundleContext extends ReportContext {
 	groups = [
 		{
