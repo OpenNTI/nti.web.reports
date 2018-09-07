@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {getService} from '@nti/web-client';
 
-import '@nti/style-common/all.scss';
-import '@nti/web-commons/lib/index.css';
-
 import {List} from '../../src';
 
 window.$AppConfig = window.$AppConfig || {server: '/dataserver2/'};
