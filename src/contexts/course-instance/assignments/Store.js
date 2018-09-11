@@ -17,8 +17,21 @@ export default class CourseAssignmentStore extends Stores.SimpleStore {
 
 		try {
 			const assignmentCollection = await course.getAssignments();
+			const sortedItems = [...(assignmentCollection.getAssignments()) || []].sort((a, b)=>{
+				const lowerA = a.title.toLowerCase();
+				const lowerB = b.title.toLowerCase();
 
-			this.set('items', assignmentCollection.getAssignments());
+				if(lowerA < lowerB) {
+					return -1;
+				}
+				else if(lowerA > lowerB) {
+					return 1;
+				}
+
+				return 0;
+			});
+
+			this.set('items', sortedItems);
 			this.set('loading', false);
 			this.emitChange('items', 'loading');
 		} catch (e) {
