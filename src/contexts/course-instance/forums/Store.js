@@ -1,4 +1,5 @@
 import {Stores} from '@nti/lib-store';
+import {binDiscussions} from '@nti/web-discussions';
 
 export default class CourseForumsStore extends Stores.SimpleStore {
 	constructor () {
@@ -19,9 +20,10 @@ export default class CourseForumsStore extends Stores.SimpleStore {
 		this.emitChange('loading', 'error', 'discussions', 'course');
 
 		try {
-			const discussions = await course.getDiscussions();
+			const [sections, parent] = await course.getDiscussions();
+			const binned = binDiscussions(sections, parent);
 
-			this.set('discussions', discussions);
+			this.set('discussions', binned);
 			this.set('loading', false);
 			this.emitChange('loading', 'discussions');
 		} catch (e) {
