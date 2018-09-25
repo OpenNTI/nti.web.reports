@@ -89,6 +89,10 @@ export default class DiscussionList extends React.Component {
 		const {rel, onSelect, isTopicReport} = this.props;
 		const {forums} = section;
 
+		if(!forums) {
+			return this.renderEmpty();
+		}
+
 		return (
 			<React.Fragment>
 				{!isSimple && (<div className="section-title">{t(title)}</div>)}
