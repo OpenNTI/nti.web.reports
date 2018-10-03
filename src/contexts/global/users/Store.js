@@ -1,4 +1,4 @@
-import {User, getService} from '@nti/web-client';
+import {getService} from '@nti/web-client';
 
 import SearchablePagedStore from './SearchablePagedStore';
 
@@ -64,10 +64,14 @@ export default class UsersStore extends SearchablePagedStore {
 		this.emitChange('loading');
 
 		const service = await getService();
-		const community = await User.resolve({entity: service.SiteCommunity});
-		const membersLink = community.getLink('members');
 
-		const batch = await service.getBatch(membersLink, {batchSize: DEFAULT_SIZE, batchStart: 0});
+		const userWorkspace = service.Items.filter(x => x.hasLink('SiteUsers'))[0];
+
+		if(!userWorkspace) {
+			return {};
+		}
+
+		const batch = await service.getBatch(userWorkspace.getLink('SiteUsers'), {batchSize: DEFAULT_SIZE, batchStart: 0});
 
 		const result = UsersStore.convertBatch(batch);
 
