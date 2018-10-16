@@ -105,23 +105,33 @@ export default class ActiveUsers extends React.Component {
 		this.setState({loading: true});
 
 		const service = await getService();
-		const getBatchLink = link ? link : this.getLink(service, null, this.state.pageNumber * BATCH_SIZE);
-		const activeUsersLink = await this.getLink(service, getBatchLink);
-		const activeUsers = activeUsersLink ? await service.getBatch(activeUsersLink) : {};
 
-		this.setState({
-			loading: false,
-			totalCount: activeUsers.ItemCount,
-			prevLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-prev')[0] || {}).href,
-			nextLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-next')[0] || {}).href,
-			items: (activeUsers.Items || []).map(x => {
-				return {
-					entity: x,
-					name: x.Username,
-					description: 'Created ' + DateTime.format(new Date(x.CreatedTime  * 1000), 'LLLL')
-				};
-			})
-		});
+		try {
+			const getBatchLink = link ? link : this.getLink(service, null, this.state.pageNumber * BATCH_SIZE);
+			const activeUsersLink = await this.getLink(service, getBatchLink);
+			const activeUsers = activeUsersLink ? await service.getBatch(activeUsersLink) : {};
+
+			this.setState({
+				loading: false,
+				totalCount: activeUsers.ItemCount,
+				prevLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-prev')[0] || {}).href,
+				nextLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-next')[0] || {}).href,
+				items: (activeUsers.Items || []).map(x => {
+					return {
+						entity: x,
+						name: x.Username,
+						description: 'Created ' + DateTime.format(new Date(x.CreatedTime  * 1000), 'LLLL')
+					};
+				})
+			});
+		}
+		catch (e) {
+			this.setState({
+				loading: false,
+				totalCount: 0,
+				items: []
+			});
+		}
 	}
 
 	onPrevious = () => {
