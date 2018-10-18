@@ -38,7 +38,7 @@ export default class CourseForumItem extends React.Component {
 
 		return (
 			<div className={cx('report-course-instance-forums-forum-item', {disabled})} onClick={this.onClick}>
-				<div className="title">{forum.title}</div>
+				<div className="title">{forum.displayTitle || forum.title}</div>
 				<div className="topic-count">{t('topicCount', {count: forum.TopicCount})}</div>
 			</div>
 		);
