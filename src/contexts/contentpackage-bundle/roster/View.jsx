@@ -9,8 +9,8 @@ import Store from './Store';
 import Item from './Item';
 
 const t = scoped('web-reports.context.contentpackage-bundle-roster.View', {
-	empty: 'There are no learns in this book',
-	error: 'Unable to load learns for this book',
+	empty: 'There are no learners in this book',
+	error: 'Unable to load learners for this book',
 	loadMore: 'Load More'
 });
 
