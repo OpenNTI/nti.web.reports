@@ -22,7 +22,7 @@ export default class ReportViewerHeader extends React.Component {
 	get supportedTypes () {
 		const {report} = this.props;
 
-		return report && report.supportedTypes;
+		return report && report.supportedTypes || [];
 	}
 
 	get downloadLink () {
