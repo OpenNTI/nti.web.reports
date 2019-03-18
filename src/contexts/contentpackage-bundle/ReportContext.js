@@ -9,6 +9,7 @@ export default class ContentPackageBundleContext extends ReportContext {
 				{ rel: 'report-BookProgressReport'},
 				{ rel: 'report-IFSTASampleDetail' },
 				{ rel: 'report-IFSTASampleConcepts' },
+				{ rel: 'report-BookConceptReport'},
 				{ rel: 'report-UserBookProgressReport', contextID: 'contentpackage-bundle-roster'}
 			]
 		}
