@@ -7,9 +7,12 @@
 	vertical-align: middle;
 	display: inline-block;
 	color: var(--tertiary-grey);
+	line-height: initial;
+	padding: initial;
 }
 
 
 :global(.no-touch) .report-launch-button:hover {
 	color: var(--primary-blue);
+	background: none;
 }
