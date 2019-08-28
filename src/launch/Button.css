@@ -1,0 +1,14 @@
+.report-launch-button {
+	border: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	text-transform: none;
+	vertical-align: middle;
+	display: inline-block;
+	color: var(--tertiary-grey);
+}
+
+
+:global(.no-touch) .report-launch-button:hover {
+	color: var(--primary-blue);
+}
