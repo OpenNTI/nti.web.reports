@@ -28,8 +28,9 @@ export default class ReportLaunchButton extends React.Component {
 
 		if (!report) { return null; }
 
+		//report-button is a style hook, don't add it to Button.css
 		return (
-			<button type="button" className={cx('report-launch-button', className)} onClick={this.launchReport}>
+			<button type="button" className={cx('report-launch-button', 'report-button', className)} onClick={this.launchReport}>
 				<i className={cx('icon-report', 'icon')} />
 			</button>
 		);
