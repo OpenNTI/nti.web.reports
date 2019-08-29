@@ -15,6 +15,7 @@ const t = scoped('web-reports.context.course-instance.forums.ForumItem', {
 export default class CourseForumItem extends React.Component {
 	static propTypes = {
 		forum: PropTypes.shape({
+			displayTitle: PropTypes.string,
 			title: PropTypes.string,
 			TopicCount: PropTypes.number
 		}).isRequired,

@@ -2,16 +2,20 @@ import {getService} from '@nti/web-client';
 
 const ALL_REPORTS_LINK = '/dataserver2/reporting/reports';
 
-let ALL_REPORTS = null;
+const map = new WeakMap();
 
 export default async function getAllReports () {
-	if (ALL_REPORTS) { return ALL_REPORTS.Items; }
+	let reports = map.get(getAllReports);
+
+	if (reports) { return reports.Items; }
 
 	try {
 		const service = await getService();
-		ALL_REPORTS = await service.getBatch(ALL_REPORTS_LINK);
+		reports = await service.getBatch(ALL_REPORTS_LINK);
 
-		return ALL_REPORTS.Items;
+		map.set(getAllReports, reports);
+
+		return reports.Items;
 	} catch (e) {
 		return [];
 	}

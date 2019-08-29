@@ -8,7 +8,7 @@ import {getReportFrom} from '../../../utils';
 export default class ContentPackageBundleRosterItem extends React.Component {
 	static propTypes = {
 		userBundleRecord: PropTypes.shape({
-			user: PropTypes.object
+			User: PropTypes.object
 		}).isRequired,
 		rel: PropTypes.string,
 		onSelect: PropTypes.func
