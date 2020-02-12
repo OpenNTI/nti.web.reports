@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
-import {Flyout} from '@nti/web-commons';
+import {Flyout, Toast} from '@nti/web-commons';
 
 const DEFAULT_TEXT = {
 	download: 'Download',
 	'application/pdf': 'PDF',
-	'text/csv': 'CSV'
+	'text/csv': 'CSV',
+	downloading: {
+		title: 'Generating %(type)s Report:',
+		message: 'The report will begin downloading soon.'
+	}
 };
 const t = scoped('web-reports.viewer.Header', DEFAULT_TEXT);
 
@@ -16,8 +20,11 @@ export default class ReportViewerHeader extends React.Component {
 		context: PropTypes.object,
 
 		onDismiss: PropTypes.func,
-		onBackToContext: PropTypes.func
+		onBackToContext: PropTypes.func,
+		onDownloadStarted: PropTypes.func
 	}
+
+	flyoutRef = React.createRef()
 
 	get supportedTypes () {
 		const {report} = this.props;
@@ -30,6 +37,20 @@ export default class ReportViewerHeader extends React.Component {
 
 		return report && report.href;
 	}
+
+
+	downloadStarted = (type) => {
+		const {onDownloadStarted} = this.props;
+
+		if (onDownloadStarted) {
+			onDownloadStarted(type);
+		}
+
+		if (this.flyoutRef.current) {
+			this.flyoutRef.current.dismiss();
+		}
+	}
+
 
 
 	onBack = () => {
@@ -101,7 +122,7 @@ export default class ReportViewerHeader extends React.Component {
 
 		if (supportedTypes.length === 1) {
 			return (
-				<a className="download" href={downloadLink} download>
+				<a className="download" href={downloadLink} download onClick={() => this.downloadStarted(supportedTypes[0])}>
 					{content}
 				</a>
 			);
@@ -114,11 +135,18 @@ export default class ReportViewerHeader extends React.Component {
 		);
 
 		return (
-			<Flyout.Triggered trigger={trigger}>
+			<Flyout.Triggered trigger={trigger} ref={this.flyoutRef}>
 				<div className="nti-reports-view-header-download">
 					{supportedTypes.map((type, index) => {
 						return (
-							<a key={index} href={`${downloadLink}?format=${encodeURIComponent(type)}`} download>{t(type)}</a>
+							<a
+								key={index}
+								href={`${downloadLink}?format=${encodeURIComponent(type)}`}
+								onClick={() => this.downloadStarted(type)}
+								download
+							>
+								{t(type)}
+							</a>
 						);
 					})}
 				</div>
