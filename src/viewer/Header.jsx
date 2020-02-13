@@ -46,9 +46,11 @@ export default class ReportViewerHeader extends React.Component {
 			onDownloadStarted(type);
 		}
 
-		if (this.flyoutRef.current) {
-			this.flyoutRef.current.dismiss();
-		}
+		setImmediate(() => {
+			if (this.flyoutRef.current) {
+				this.flyoutRef.current.dismiss();
+			}
+		});
 	}
 
 
