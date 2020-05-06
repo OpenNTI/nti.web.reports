@@ -1,82 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Presentation} from '@nti/web-commons';
+import {Presentation, Hooks} from '@nti/web-commons';
 
-export default class ReportCourseInstanceAssignmentItem extends React.Component {
-	static propTypes = {
-		item: PropTypes.object.isRequired,
-		rel: PropTypes.string,
-		onSelect: PropTypes.func
+const {useResolver} = Hooks;
+const {isResolved} = useResolver;
+
+function containsReport (item, rel) {
+	if (rel && item.Reports) {
+		return item.Reports.some(x => x.rel === rel);
 	}
 
-	state = {}
+	return false;
+}
 
-	componentDidMount () {
-		const {item} = this.props;
+async function findContainer (item, rel) {
+	if (containsReport(item, rel)) { return rel; }
 
-		this.setup(item);
-	}
+	const course = await item.fetchLinkParsed('CourseInstance');
 
+	return containsReport(course, rel) ? course : null; 
+}
 
-	componentDidUpdate (oldProps) {
-		if(oldProps.item.NTIID !== this.props.item.NTIID) {
-			this.setup(this.props.item);
+ReportCourseInstanceItem.propTypes = {
+	item: PropTypes.object.isRequired,
+	rel: PropTypes.string,
+	onSelect: PropTypes.func
+};
+export default function ReportCourseInstanceItem ({item, rel, onSelect}) {
+	const resolver = useResolver(() => findContainer(item, rel), [item.NTIID, rel]);
+
+	const container = isResolved(resolver) ? resolver : null;
+	const disabled = !container;
+
+	const onClick = () => {
+		if (onSelect && container) {
+			onSelect(container);
 		}
-	}
+	};
 
-	containsReport (item, rel) {
-		if(rel && item.Reports) {
-			return item.Reports.map(x=>x.rel).includes(rel);
-		}
+	const {CatalogEntry} = item;
 
-		return false;
-	}
-
-	setup (item) {
-		const {rel} = this.props;
-		const disabled = !item.Reports || !this.containsReport(item, rel);
-
-		this.setState({ disabled });
-
-		// not worth loading course instance to check Reports if we know there are
-		// at least some Reports from the enrollment record, so just check if initially disabled
-		if(disabled) {
-			item.fetchLinkParsed('CourseInstance').then(course => {
-				this.setState({
-					course,
-					disabled: !course.Reports || !this.containsReport(course, rel)
-				});
-			});
-		}
-	}
-
-	onClick = () => {
-		const {course} = this.state;
-		const {onSelect} = this.props;
-
-		if (onSelect) {
-			onSelect(course);
-		}
-	}
-
-
-	render () {
-		const {item} = this.props;
-		const {disabled} = this.state;
-
-		const catalogEntry = item.CatalogEntry;
-
-		const className = cx('report-course-item', { disabled });
-
-		return (
-			<div className={className} onClick={this.onClick}>
-				<Presentation.AssetBackground className="course-image" contentPackage={catalogEntry} type="landing"/>
-				<div className="course-info">
-					<div className="identifier">{catalogEntry.ProviderUniqueID}</div>
-					<div className="title">{catalogEntry.Title}</div>
-				</div>
+	return (
+		<div className={cx('report-course-item', {disabled})} onClick={onClick}>
+			<Presentation.AssetBackground className="course-image" contentPackage={CatalogEntry} type="landing"/>
+			<div className="course-info">
+				<div className="identifier">{CatalogEntry.ProviderUniqueID}</div>
+				<div className="title">{CatalogEntry.Title}</div>
 			</div>
-		);
-	}
+		</div>
+	);
 }
