@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Presentation, Hooks} from '@nti/web-commons';
+import {Presentation} from '@nti/web-commons';
 
-const {useResolver} = Hooks;
-const {isResolved} = useResolver;
 
 function containsReport (item, rel) {
 	if (rel && item.Reports) {
@@ -14,28 +12,17 @@ function containsReport (item, rel) {
 	return false;
 }
 
-async function findContainer (item, rel) {
-	if (containsReport(item, rel)) { return rel; }
-
-	const course = await item.fetchLinkParsed('CourseInstance');
-
-	return containsReport(course, rel) ? course : null; 
-}
-
 ReportCourseInstanceItem.propTypes = {
 	item: PropTypes.object.isRequired,
 	rel: PropTypes.string,
 	onSelect: PropTypes.func
 };
 export default function ReportCourseInstanceItem ({item, rel, onSelect}) {
-	const resolver = useResolver(() => findContainer(item, rel), [item.NTIID, rel]);
-
-	const container = isResolved(resolver) ? resolver : null;
-	const disabled = !container;
+	const disabled = !containsReport(item, rel);
 
 	const onClick = () => {
-		if (onSelect && container) {
-			onSelect(container);
+		if (onSelect && containsReport(item, rel)) {
+			onSelect(item);
 		}
 	};
 
