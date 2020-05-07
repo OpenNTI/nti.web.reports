@@ -1,5 +1,7 @@
 import {Stores} from '@nti/lib-store';
 
+const getLoadId = () => Date.now();
+
 export default class SearchablePagedStore extends Stores.SimpleStore {
 	constructor () {
 		super();
@@ -20,6 +22,7 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 
 	async load () {
+		const loadId = this.activeLoad = getLoadId();
 		this.set('loading', true);
 		this.emitChange('loading');
 
@@ -28,6 +31,8 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 		try {
 			const {items, loadNext} = await (this.get('searchTerm') ? this.loadSearchTerm(this.get('searchTerm')) : this.loadInitial());
+
+			if (loadId !== this.activeLoad) { return; }
 
 			this.set('items', items);
 			this.set('loadNextPage', loadNext);
@@ -43,6 +48,8 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 
 	async loadNextPage () {
+		const loadId = this.activeLoad = getLoadId();
+
 		const loadNextPage = this.get('loadNextPage');
 
 		if (!loadNextPage) { return; }
@@ -53,6 +60,8 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 		try {
 			const {items, loadNext} = await loadNextPage();
+
+			if (loadId !== this.activeLoad) { return; }
 
 			//append the items to the current set
 			this.set('items', [...this.get('items'), ...items]);
