@@ -82,6 +82,7 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 		this.set('searchTerm', term);
 		this.emitChange('loading', 'searchTerm');
 
+		delete this.activeLoad;
 		clearTimeout(this.doSearchTimeout);
 
 		if (!term) {
