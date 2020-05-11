@@ -23,6 +23,8 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 	async load () {
 		const loadId = this.activeLoad = getLoadId();
+		const searchTerm = this.get('searchTerm');
+
 		this.set('loading', true);
 		this.emitChange('loading');
 
@@ -30,19 +32,22 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 		this.set('loadNextPage', null);
 
 		try {
-			const {items, loadNext} = await (this.get('searchTerm') ? this.loadSearchTerm(this.get('searchTerm')) : this.loadInitial());
+			const {items, loadNext} = await (searchTerm ? this.loadSearchTerm(searchTerm) : this.loadInitial());
 
-			if (loadId !== this.activeLoad) { return; }
+			if (loadId !== this.activeLoad || searchTerm !== this.get('searchTerm')) { return; }
 
-			this.set('items', items);
-			this.set('loadNextPage', loadNext);
-			this.emitChange('items', 'hasNextPage');
+			this.setImmediate({
+				items,
+				loadNextPage: loadNext,
+				loading: false
+			});
 		} catch (e) {
+			this.setImmediate({
+				error: e,
+				loading: false
+			});
 			this.set('error', e);
 			this.emitChange('error');
-		} finally {
-			this.set('loading', false);
-			this.emitChange('loading');
 		}
 	}
 
