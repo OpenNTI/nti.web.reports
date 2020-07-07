@@ -11,12 +11,9 @@
   "scripts": {
     "test": "cmp-scripts test",
     "start": "cmp-scripts start",
-    "prepack": "cmp-scripts build",
-    "build": "cmp-scripts build",
     "clean": "cmp-scripts clean",
     "check": "cmp-scripts check",
     "release": "cmp-scripts release",
-    "install-snapshots": "cmp-scripts install-snapshots",
     "fix": "cmp-scripts fix"
   },
   "repository": {
@@ -38,18 +35,18 @@
   },
   "homepage": "https://github.com/NextThought/nti.web.component.reports#readme",
   "dependencies": {
-    "@nti/lib-locale": "^1.0.5",
-    "@nti/lib-ntiids": "^1.0.3",
-    "@nti/lib-store": "^1.1.0",
-    "@nti/web-charts": "0.x.x",
-    "@nti/web-client": "^1.1.1",
-    "@nti/web-commons": "0.x.x",
+    "@nti/lib-locale": "NextThought/nti.lib.locale",
+    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
+    "@nti/lib-store": "NextThought/nti.lib.store",
+    "@nti/web-charts": "NextThought/nti.web.charts",
+    "@nti/web-client": "NextThought/nti.web.client",
+    "@nti/web-commons": "NextThought/nti.web.commons",
     "classnames": "^2.2.3",
     "prop-types": "^15.5.8"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.0.0",
-    "@nti/style-common": "^1.4.0",
+    "@nti/style-common": "NextThought/nti.style.common",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   }
