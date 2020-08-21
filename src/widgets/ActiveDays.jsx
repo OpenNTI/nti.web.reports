@@ -1,3 +1,4 @@
+import './ActiveDays.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateTime, Loading, Flyout} from '@nti/web-commons';

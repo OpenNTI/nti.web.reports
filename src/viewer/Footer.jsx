@@ -1,3 +1,4 @@
+import './Footer.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DialogButtons} from '@nti/web-commons';
