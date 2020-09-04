@@ -31,9 +31,9 @@
   "author": "Nextthought",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/NextThought/nti.web.component.reports/issues"
+    "url": "https://github.com/NextThought/nti.web.reports/issues"
   },
-  "homepage": "https://github.com/NextThought/nti.web.component.reports#readme",
+  "homepage": "https://github.com/NextThought/nti.web.reports#readme",
   "dependencies": {
     "@nti/lib-locale": "NextThought/nti.lib.locale",
     "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
