@@ -31,7 +31,7 @@
 		}
 
 		.identifier {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			font: normal 700 0.75rem/1.25 $body-font-family;
 			text-transform: uppercase;
 		}
