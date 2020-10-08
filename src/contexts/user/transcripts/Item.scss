@@ -29,7 +29,7 @@
 
 		.title {
 			font: normal 400 1.25rem/1.25 $body-font-family;
-			color: $primary-grey;
+			color: var(--primary-grey);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
