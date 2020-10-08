@@ -16,7 +16,7 @@
 	.section-title {
 		font: normal 600 0.625rem/2 $body-font-family;
 		border-bottom: 1px solid var(--border-grey)-light;
-		background-color: $panel-background;
+		background-color: var(--panel-background);
 		text-transform: uppercase;
 	}
 
