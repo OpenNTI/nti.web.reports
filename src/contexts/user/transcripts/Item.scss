@@ -2,7 +2,7 @@
 
 .user-transcript-report-context-item {
 	background: white;
-	box-shadow: 0 0 1px 0 $border-grey-light;
+	box-shadow: 0 0 1px 0 var(--border-grey-light);
 	padding: rem-calc(10px);
 	margin-bottom: rem-calc(10px);
 	cursor: pointer;
@@ -22,14 +22,14 @@
 		width: calc(100% - 4rem);
 
 		.label {
-			font: normal 700 0.75rem/1.25 $body-font-family;
-			color: $tertiary-grey;
+			font: normal 700 0.75rem/1.25 var(--body-font-family);
+			color: var(--tertiary-grey);
 			text-transform: uppercase;
 		}
 
 		.title {
-			font: normal 400 1.25rem/1.25 $body-font-family;
-			color: $primary-grey;
+			font: normal 400 1.25rem/1.25 var(--body-font-family);
+			color: var(--primary-grey);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;

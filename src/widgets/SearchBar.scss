@@ -2,10 +2,10 @@
 
 .report-search-bar {
 	padding: 0.5rem;
-	color: $primary-grey;
+	color: var(--primary-grey);
 
 	&::placeholder {
 		font-style: italic;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 	}
 }

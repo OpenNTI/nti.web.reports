@@ -5,7 +5,7 @@
 	position: relative;
 	display: flex;
 	cursor: pointer;
-	box-shadow: 0 0 1px 0 $border-grey-light;
+	box-shadow: 0 0 1px 0 var(--border-grey-light);
 	background: white;
 
 	&.disabled {

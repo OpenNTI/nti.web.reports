@@ -4,7 +4,7 @@
 	background: white;
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid $border-grey-light;
+	border-bottom: 1px solid var(--border-grey-light);
 	padding: 0.5625rem 0.5rem;
 
 
@@ -13,7 +13,7 @@
 		margin-right: 0.5rem;
 
 		i.back {
-			color: $primary-blue;
+			color: var(--primary-blue);
 			flex: 0 0 auto;
 			cursor: pointer;
 			font-size: 1.5rem;
@@ -25,14 +25,14 @@
 
 	.title {
 		flex: 1 1 auto;
-		font: normal 300 1.5rem/1.25 $body-font-family;
-		color: $primary-grey;
+		font: normal 300 1.5rem/1.25 var(--body-font-family);
+		color: var(--primary-grey);
 	}
 
 	.download {
 		flex: 0 0 auto;
 		text-decoration: none;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		display: block;
 		margin-right: 1rem;
 		cursor: pointer;
@@ -68,7 +68,7 @@
 	a {
 		display: block;
 		text-decoration: none;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		cursor: pointer;
 		margin: 0.5rem 1rem;
 	}
