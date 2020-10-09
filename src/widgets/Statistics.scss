@@ -11,13 +11,13 @@
 	.labeled-value {
 		.label {
 			text-transform: uppercase;
-			font: normal 700 0.625rem/1 "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+			font: normal 700 0.625rem/1 var(--body-font-family);
 		}
 
 		.value {
 			padding-bottom: 1rem;
 			text-align: right;
-			font: normal 300 2rem/1.2 "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+			font: normal 300 2rem/1.2 var(--body-font-family);
 		}
 	}
 

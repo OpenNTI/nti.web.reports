@@ -16,7 +16,7 @@
 			align-items: center;
 
 			.title {
-				font: normal 400 1.25rem/1.25 $body-font-family;
+				font: normal 400 1.25rem/1.25 var(--body-font-family);
 				flex: 0 0 auto;
 				margin-right: 0.5rem;
 				color: var(--primary-blue);
@@ -26,7 +26,7 @@
 				flex: 0 0 auto;
 
 				.type {
-					font: normal 700 0.625rem/1.25 $body-font-family;
+					font: normal 700 0.625rem/1.25 var(--body-font-family);
 					text-transform: uppercase;
 					margin-right: 0.3rem;
 				}
@@ -34,7 +34,7 @@
 		}
 
 		.description {
-			font: normal 400 0.875rem/1.25 $body-font-family;
+			font: normal 400 0.875rem/1.25 var(--body-font-family);
 			color: var(--secondary-grey);
 		}
 	}

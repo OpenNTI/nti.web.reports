@@ -22,13 +22,13 @@
 		width: calc(100% - 4rem);
 
 		.label {
-			font: normal 700 0.75rem/1.25 $body-font-family;
+			font: normal 700 0.75rem/1.25 var(--body-font-family);
 			color: var(--tertiary-grey);
 			text-transform: uppercase;
 		}
 
 		.title {
-			font: normal 400 1.25rem/1.25 $body-font-family;
+			font: normal 400 1.25rem/1.25 var(--body-font-family);
 			color: var(--primary-grey);
 			overflow: hidden;
 			text-overflow: ellipsis;

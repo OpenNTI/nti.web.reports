@@ -10,11 +10,11 @@
 	}
 
 	.group-title {
-		font: normal 400 1.5rem/2.1 $header-font-family;
+		font: normal 400 1.5rem/2.1 var(--header-font-family);
 	}
 
 	.section-title {
-		font: normal 600 0.625rem/2 $body-font-family;
+		font: normal 600 0.625rem/2 var(--body-font-family);
 		border-bottom: 1px solid var(--border-grey-light);
 		background-color: var(--panel-background);
 		text-transform: uppercase;
