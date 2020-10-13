@@ -8,6 +8,18 @@
 	cursor: pointer;
 	padding: 1rem 2rem;
 
+	&.small {
+		padding: 0.5rem 1rem;
+
+		.meta {
+			.labels {
+				.title {
+					font-size: 1rem;
+				}
+			}
+		}
+	}
+
 	.meta {
 		flex: 1 1 auto;
 

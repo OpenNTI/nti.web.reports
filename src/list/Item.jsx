@@ -1,6 +1,7 @@
 import './Item.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import {scoped} from '@nti/lib-locale';
 
 import Viewer from '../viewer';
@@ -14,7 +15,8 @@ const t = scoped('web-reports.list.Item', DEFAULT_TEXT);
 
 export default class ReportListItem extends React.Component {
 	static propTypes = {
-		report: PropTypes.object.isRequired
+		report: PropTypes.object.isRequired,
+		small: PropTypes.bool
 	}
 
 
@@ -27,7 +29,7 @@ export default class ReportListItem extends React.Component {
 
 
 	render () {
-		const {report} = this.props;
+		const {report, small} = this.props;
 		const anchorProps = {};
 
 		if (getEmbedableType(report)) {
@@ -38,7 +40,7 @@ export default class ReportListItem extends React.Component {
 		}
 
 		return (
-			<a className="report-list-item" {...anchorProps}>
+			<a className={cx('report-list-item', {small})} {...anchorProps}>
 				<div className="meta">
 					<div className="labels">
 						<div className="title">

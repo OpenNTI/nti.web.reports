@@ -1,0 +1,23 @@
+.report-link {
+	color: var(--primary-blue);
+	padding: 0.5rem;
+
+	& .icon {
+		margin-right: 0.25rem;
+		font-size: 1rem;
+	}
+
+	&:focus-within,
+	&:focus {
+		text-decoration: underline;
+		border: none;
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.report-link-flyout-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
