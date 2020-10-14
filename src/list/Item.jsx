@@ -16,15 +16,17 @@ const t = scoped('web-reports.list.Item', DEFAULT_TEXT);
 export default class ReportListItem extends React.Component {
 	static propTypes = {
 		report: PropTypes.object.isRequired,
-		small: PropTypes.bool
+		small: PropTypes.bool,
+		onClick: PropTypes.func
 	}
 
 
 	onClick = (e) => {
 		e.preventDefault();
-		const {report} = this.props;
+		const {report, onClick} = this.props;
 
 		Viewer.show(report);
+		onClick?.(e);
 	}
 
 

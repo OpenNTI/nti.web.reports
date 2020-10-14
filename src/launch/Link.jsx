@@ -32,12 +32,15 @@ ReportLink.propTypes = {
 export default function ReportLink (props) {
 	const {className,  children} = props;
 
+	const flyout = React.useRef();
+	const dismiss = () => flyout.current?.dismiss();
+
 	const reports = getReports(props);
 
 	if (reports.length === 0) { return null; }
 
 	const single = reports.length === 1;
-	const showOnlyReport = single ? () => View.show(reports[0]) : null;
+	const showOnlyReport = single ? () => (View.show(reports[0]), dismiss()) : null;
 
 
 	const trigger = (
@@ -52,11 +55,11 @@ export default function ReportLink (props) {
 	return single ?
 		trigger :
 		(
-			<Flyout.Triggered trigger={trigger} horizontalAlign={Flyout.ALIGNMENTS.LEFT_OR_RIGHT} >
+			<Flyout.Triggered ref={flyout} trigger={trigger} horizontalAlign={Flyout.ALIGNMENTS.LEFT_OR_RIGHT} >
 				<ul className={cx('report-link-flyout-list')}>
 					{reports.map((r, key) => (
 						<li key={key}>
-							<Item report={r} small />
+							<Item report={r} small onClick={dismiss} />
 						</li>
 					))}
 				</ul>
