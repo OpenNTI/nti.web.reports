@@ -1,6 +1,7 @@
 .report-link {
 	color: var(--primary-blue);
 	padding: 0.5rem;
+	cursor: pointer;
 
 	& .icon {
 		margin-right: 0.25rem;

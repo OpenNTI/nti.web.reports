@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+import {scoped} from '@nti/lib-locale';
 import {Icons, Text, Flyout} from '@nti/web-commons';
 
 import View from '../viewer';
@@ -9,6 +10,12 @@ import Item from '../list/Item';
 import Styles from './Link.css';
 
 const cx = classnames.bind(Styles);
+const t = scoped('nti.web.reports.launch.Link', {
+	viewReports: {
+		one: 'View Report',
+		other: 'View Reports'
+	}
+});
 
 function getReports ({report, context}) {
 	if (report) {
@@ -47,7 +54,7 @@ export default function ReportLink (props) {
 		<a className={cx('report-link', className)} role="button" onClick={showOnlyReport}>
 			<Icons.Report className={cx('icon')} />
 			<Text.Base className={cx('label')}>
-				{children}
+				{children ?? t('viewReports', {count: reports.length})}
 			</Text.Base>
 		</a>
 	);
