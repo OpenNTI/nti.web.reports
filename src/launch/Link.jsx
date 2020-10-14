@@ -53,7 +53,7 @@ export default function ReportLink (props) {
 	const trigger = (
 		<a className={cx('report-link', className)} role="button" onClick={showOnlyReport}>
 			<Icons.Report className={cx('icon')} />
-			<Text.Base className={cx('label')}>
+			<Text.Base>
 				{children ?? t('viewReports', {count: reports.length})}
 			</Text.Base>
 		</a>
