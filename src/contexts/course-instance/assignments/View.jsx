@@ -34,9 +34,9 @@ export default class CourseAssignments extends React.Component {
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		const {context: nextContext, store} = nextProps; // the store should never change
-		const {context:oldContext} = this.props;
+	componentDidUpdate (prevProps) {
+		const {context: nextContext, store} = this.props; // the store should never change
+		const {context:oldContext} = prevProps;
 
 		if (nextContext !== oldContext) {
 			store.loadCourse(nextContext);

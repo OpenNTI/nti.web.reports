@@ -36,29 +36,11 @@ export default class ReportViewer extends React.Component {
 		onDismiss: PropTypes.func
 	}
 
-
-	constructor (props) {
-		super(props);
-
-		this.state = this.getStateFor(props);
-	}
-
-
-	componentWillReceiveProps (nextProps) {
-		const {report:newReport} = nextProps;
-		const {report:oldReport} = this.props;
-
-		if (newReport !== oldReport) {
-			this.setState(this.getStateFor(nextProps));
-		}
-	}
-
-
-	getStateFor (props = this.props) {
+	static getDerivedStateFromProps (props, state) {
 		const {report} = props;
 		const isContext = !report.href;
 
-		return {
+		return state.report === report ? null : {
 			report: isContext ? null : report,
 			context: isContext ? report : null,
 			downloading: []

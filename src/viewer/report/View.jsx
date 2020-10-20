@@ -32,9 +32,9 @@ export default class ReportView extends React.Component {
 		};
 	}
 
-	componentWillReceiveProps (nextProps) {
-		const {report:nextReport} = nextProps;
-		const {report:oldReport} = this.props;
+	componentDidUpdate (prevProps) {
+		const {report:nextReport} = this.props;
+		const {report:oldReport} = prevProps;
 
 		if (nextReport !== oldReport) {
 			this.setState({

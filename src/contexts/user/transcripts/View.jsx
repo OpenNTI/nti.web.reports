@@ -37,9 +37,9 @@ export default class UserTranscripts extends React.Component {
 	}
 
 
-	componentWillReceiveProps (newProps) {
-		const {context:newContext, store} = newProps;
-		const {context:oldContext} = this.props;
+	componentDidUpdate (oldProps) {
+		const {context:newContext, store} = this.props;
+		const {context:oldContext} = oldProps;
 
 		if (newContext !== oldContext) {
 			store.loadTranscript(newContext);

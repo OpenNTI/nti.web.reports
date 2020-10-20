@@ -135,9 +135,11 @@ export default class ActiveTimesChart extends React.Component {
 		this.state = processData(empty);
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if(nextProps !== this.props && nextProps.data) {
-			this.setState(processData(nextProps.data));
+	componentDidUpdate (prevProps) {
+		const { data: oldData } = prevProps;
+		const { data: newData } = this.props;
+		if(oldData !== newData && newData ) {
+			this.setState(processData(newData));
 		}
 	}
 

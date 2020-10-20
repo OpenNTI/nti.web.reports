@@ -25,19 +25,19 @@ export default class ReportsList extends React.Component {
 	state = {}
 
 	componentDidMount () {
-		this.loadReportsFor();
+		this.loadReports();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		const {context:newContext} = nextProps;
-		const {context:oldContext} = this.props;
+	componentDidUpdate (prevProps) {
+		const {context:newContext} = this.props;
+		const {context:oldContext} = prevProps;
 
 		if (newContext !== oldContext) {
-			this.loadReportsFor(nextProps);
+			this.loadReports();
 		}
 	}
 
-	loadReportsFor (props = this.props) {
+	loadReports (props = this.props) {
 		const {context} = props;
 
 		this.setState({
