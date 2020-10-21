@@ -11,7 +11,6 @@
 	padding: initial;
 }
 
-
 :global(.no-touch) .report-launch-button:hover {
 	color: var(--primary-blue);
 	background: none;
