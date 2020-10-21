@@ -2,7 +2,7 @@ import './Header.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
-import {Flyout, Toast} from '@nti/web-commons';
+import {Flyout} from '@nti/web-commons';
 
 const DEFAULT_TEXT = {
 	download: 'Download',
