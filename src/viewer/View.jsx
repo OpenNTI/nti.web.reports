@@ -19,7 +19,7 @@ const t = scoped('web-reports.viewer.View', {
 });
 
 export default class ReportViewer extends React.Component {
-	static show(report) {
+	static show (report) {
 		return new Promise(fulfill => {
 			Prompt.modal(
 				(<ReportViewer
@@ -36,7 +36,7 @@ export default class ReportViewer extends React.Component {
 		onDismiss: PropTypes.func
 	}
 
-	static getDerivedStateFromProps(props, state) {
+	static getDerivedStateFromProps (props, state) {
 		const { report } = props;
 		const isContext = !report?.href;
 
@@ -90,7 +90,7 @@ export default class ReportViewer extends React.Component {
 	}
 
 
-	render() {
+	render () {
 		const { report, context, downloading } = this.state;
 		const active = report ?
 			'report' :
