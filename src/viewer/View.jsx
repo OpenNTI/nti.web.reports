@@ -1,8 +1,8 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
-import {Prompt, Switch, Toast} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { Prompt, Switch, Toast } from '@nti/web-commons';
 
 import Context from './context';
 import Report from './report';
@@ -19,7 +19,7 @@ const t = scoped('web-reports.viewer.View', {
 });
 
 export default class ReportViewer extends React.Component {
-	static show (report) {
+	static show(report) {
 		return new Promise(fulfill => {
 			Prompt.modal(
 				(<ReportViewer
@@ -36,9 +36,9 @@ export default class ReportViewer extends React.Component {
 		onDismiss: PropTypes.func
 	}
 
-	static getDerivedStateFromProps (props, state) {
-		const {report} = props;
-		const isContext = !report.href;
+	static getDerivedStateFromProps(props, state) {
+		const { report } = props;
+		const isContext = !report?.href;
 
 		return state?.report === report ? null : {
 			report: isContext ? null : report,
@@ -69,7 +69,7 @@ export default class ReportViewer extends React.Component {
 
 
 	onDismiss = () => {
-		const {onDismiss} = this.props;
+		const { onDismiss } = this.props;
 
 		if (onDismiss) {
 			onDismiss();
@@ -90,8 +90,8 @@ export default class ReportViewer extends React.Component {
 	}
 
 
-	render () {
-		const {report, context, downloading} = this.state;
+	render() {
+		const { report, context, downloading } = this.state;
 		const active = report ?
 			'report' :
 			context ?
@@ -110,12 +110,12 @@ export default class ReportViewer extends React.Component {
 				<Toast.Container location={Toast.Locations.Top}>
 					<Switch.Container className="report-body" active={active}>
 						<Switch.Item name="report" component={Report} report={report} context={context} />
-						<Switch.Item name="context" component={Context} report={report} context={context} selectReport={this.selectReport}/>
+						<Switch.Item name="context" component={Context} report={report} context={context} selectReport={this.selectReport} />
 					</Switch.Container>
 					{downloading.map(type => (
 						<Toast.MessageBar
 							key={type}
-							title={t('downloading.title', {type: t(type)})}
+							title={t('downloading.title', { type: t(type) })}
 							message={t('downloading.message')}
 							onDismiss={() => this.dismissDownloadMessage(type)}
 						/>
