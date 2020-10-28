@@ -40,7 +40,7 @@ export default class ReportViewer extends React.Component {
 		const {report} = props;
 		const isContext = !report.href;
 
-		return state.report === report ? null : {
+		return state?.report === report ? null : {
 			report: isContext ? null : report,
 			context: isContext ? report : null,
 			downloading: []
