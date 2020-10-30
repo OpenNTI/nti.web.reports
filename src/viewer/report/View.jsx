@@ -69,12 +69,6 @@ export default class ReportView extends React.Component {
 					src={embedLink}
 					onLoad={this.onLoad}
 					onError={this.onError}
-					frameBorder="0"
-					marginWidth="0"
-					marginHeight="0"
-					seamless="true"
-					transparent="true"
-					allowTransparency="true"
 				/>
 			</div>
 		);

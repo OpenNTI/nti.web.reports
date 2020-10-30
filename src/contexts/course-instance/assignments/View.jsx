@@ -20,7 +20,7 @@ export default class CourseAssignments extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
 		rel: PropTypes.string,
-		onSelect: PropTypes.object,
+		onSelect: PropTypes.func,
 
 		store: PropTypes.object,
 		loading: PropTypes.bool,
