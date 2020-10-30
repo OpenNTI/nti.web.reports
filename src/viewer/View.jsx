@@ -40,13 +40,19 @@ export default class ReportViewer extends React.Component {
 		const { report } = props;
 		const isContext = !report?.href;
 
-		const {report: oldReport = null} = state || {};
-
-		return (state && oldReport === report) ? null : {
+		return state ? null : {
 			report: isContext ? null : report,
 			context: isContext ? report : null,
 			downloading: []
 		};
+	}
+
+	componentDidUpdate (prevProps) {
+		if (prevProps.report !== this.props.report) {
+			this.setState({
+				...ReportViewer.getDerivedStateFromProps(this.props)
+			});
+		}
 	}
 
 	onDownloadStarted = (type) => {
