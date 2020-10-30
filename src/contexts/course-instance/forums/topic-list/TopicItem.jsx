@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {scoped} from '@nti/lib-locale';
 
-import {getReportFrom} from '../../../../utils';
+import {getReport} from '../../../../utils';
 
 const t = scoped('web-reports.context.course-instance.forums.topic-list.TopicItem', {
 	postCount: {
@@ -35,7 +35,7 @@ export default class CourseTopicItem extends React.Component {
 
 	render () {
 		const {topic, rel} = this.props;
-		const disabled = !getReportFrom(rel, topic);
+		const disabled = !getReport(rel, topic);
 
 		return (
 			<div className={cx('report-course-instance-forums-topic-list-item', {disabled})} onClick={this.onClick}>

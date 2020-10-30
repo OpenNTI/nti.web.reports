@@ -1,3 +1,3 @@
 export getEmbedableType from './get-embedable-type';
-export getReportFrom from './get-report-from';
+export getReport from './get-report';
 export getReports from './get-reports';

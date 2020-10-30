@@ -5,7 +5,7 @@ import cx from 'classnames';
 import {DateTime} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
-import {getReportFrom} from '../../../utils';
+import {getReport} from '../../../utils';
 
 
 const DEFAULT_TEXT = {
@@ -34,7 +34,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 
 	render () {
 		const {item, rel} = this.props;
-		const disabled = !getReportFrom(rel, item);
+		const disabled = !getReport(rel, item);
 		const dateFormat = 'dddd, MMMM D, h:mm a z';
 		const start = item.getAvailableForSubmissionBeginning();
 		const due = item.getDueDate();

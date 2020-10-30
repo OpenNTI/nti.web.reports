@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {Avatar, DisplayName} from '@nti/web-commons';
 
-import {getReportFrom} from '../../../utils';
+import {getReport} from '../../../utils';
 
 export default class ContentPackageBundleRosterItem extends React.Component {
 	static propTypes = {
@@ -26,7 +26,7 @@ export default class ContentPackageBundleRosterItem extends React.Component {
 
 	render () {
 		const {userBundleRecord, rel} = this.props;
-		const disabled = !getReportFrom(rel, userBundleRecord);
+		const disabled = !getReport(rel, userBundleRecord);
 		const {User} = userBundleRecord;
 
 		return (

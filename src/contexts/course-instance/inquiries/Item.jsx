@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import {getReportFrom} from '../../../utils';
+import {getReport} from '../../../utils';
 
 
 export default class ReportCourseInstanceInquiryItem extends React.Component {
@@ -24,7 +24,7 @@ export default class ReportCourseInstanceInquiryItem extends React.Component {
 
 	render () {
 		const {item, rel} = this.props;
-		const disabled = !getReportFrom(rel, item);
+		const disabled = !getReport(rel, item);
 
 
 		return (
