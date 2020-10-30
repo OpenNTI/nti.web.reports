@@ -18,6 +18,17 @@ const t = scoped('web-reports.viewer.View', {
 	}
 });
 
+function computeState (props) {
+	const { report } = props;
+	const isContext = !report?.href;
+
+	return {
+		report: isContext ? null : report,
+		context: isContext ? report : null,
+		downloading: []
+	};
+}
+
 export default class ReportViewer extends React.Component {
 	static show (report) {
 		return new Promise(fulfill => {
@@ -36,22 +47,11 @@ export default class ReportViewer extends React.Component {
 		onDismiss: PropTypes.func
 	}
 
-	static getDerivedStateFromProps (props, state) {
-		const { report } = props;
-		const isContext = !report?.href;
-
-		return state ? null : {
-			report: isContext ? null : report,
-			context: isContext ? report : null,
-			downloading: []
-		};
-	}
+	state = computeState(this.props)
 
 	componentDidUpdate (prevProps) {
 		if (prevProps.report !== this.props.report) {
-			this.setState({
-				...ReportViewer.getDerivedStateFromProps(this.props)
-			});
+			this.setState(computeState(this.props));
 		}
 	}
 
