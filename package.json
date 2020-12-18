@@ -40,14 +40,16 @@
     "@nti/lib-store": "NextThought/nti.lib.store",
     "@nti/web-charts": "NextThought/nti.web.charts",
     "@nti/web-client": "NextThought/nti.web.client",
-    "@nti/web-commons": "NextThought/nti.web.commons",
-    "classnames": "^2.2.3",
-    "prop-types": "^15.5.8"
+    "@nti/web-commons": "NextThought/nti.web.commons"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.0.0",
-    "@nti/style-common": "NextThought/nti.style.common",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "@nti/style-common": "NextThought/nti.style.common"
+  },
+  "peerDependencies": {
+    "classnames": "*",
+    "react": "*",
+    "react-dom": "*",
+    "prop-types": "*"
   }
 }
