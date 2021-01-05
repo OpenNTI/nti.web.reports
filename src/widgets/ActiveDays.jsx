@@ -65,7 +65,7 @@ class Day extends React.Component {
 			return (this.renderBlock());
 		}
 
-		let infoStr = DateTime.format(day.date, 'LL');
+		let infoStr = DateTime.format(day.date);
 
 		return (
 			<Flyout.Triggered

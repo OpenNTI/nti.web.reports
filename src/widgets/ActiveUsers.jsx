@@ -121,7 +121,7 @@ export default class ActiveUsers extends React.Component {
 					return {
 						entity: x,
 						name: x.Username,
-						description: 'Created ' + DateTime.format(x.getCreatedTime(), 'LLLL')
+						description: 'Created ' + DateTime.format(x.getCreatedTime(), DateTime.WEEKDAY_MONTH_NAME_DAY_YEAR_TIME)
 					};
 				})
 			});

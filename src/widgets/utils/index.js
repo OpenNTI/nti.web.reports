@@ -1,5 +1,5 @@
 import {getService} from '@nti/web-client';
-import {DateTime} from '@nti/web-commons'; 
+import {DateTime} from '@nti/web-commons';
 
 const COLORS = [
 	'#efefef',
@@ -58,7 +58,7 @@ function processData (rawData, rangeStart, rangeEnd) {
 	// values from the raw data as we go
 	for(let i = start; i <= rangeEnd; i += INCREMENT) {
 		const curr = new Date(i);
-		const dateStr = DateTime.format(curr, 'YYYY-MM-DD');
+		const dateStr = DateTime.format(curr, DateTime.DATE_YYYY_MM_DD);
 		const day = WEEKDAYS[curr.getDay()];
 		const value = dates[dateStr];
 

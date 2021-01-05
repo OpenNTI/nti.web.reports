@@ -35,7 +35,7 @@ export default class ReportCourseInstanceAssignmentItem extends React.Component 
 	render () {
 		const {item, rel} = this.props;
 		const disabled = !getReport(rel, item);
-		const dateFormat = 'dddd, MMMM D, h:mm a z';
+		const dateFormat = DateTime.WEEKDAY_MONTH_NAME_DAY_TIME;
 		const start = item.getAvailableForSubmissionBeginning();
 		const due = item.getDueDate();
 

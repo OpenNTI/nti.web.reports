@@ -112,7 +112,7 @@ function processData (daysMap) {
 function timeString (hour) {
 	const d = new Date();
 	d.setHours(hour);
-	return DateTime.format(d, 'h a');
+	return DateTime.format(d, DateTime.HOUR_APM);
 }
 
 export default class ActiveTimesChart extends React.Component {
