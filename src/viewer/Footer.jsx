@@ -20,7 +20,7 @@ export default class ReportViewerFooter extends React.Component {
 	}
 
 	buttons = [
-		{label: t('done'), onClick: (x) => this.onDismiss(x), 'data-test-id': 'dismiss-report-viewer'}
+		{label: t('done'), onClick: (x) => this.onDismiss(x), 'data-testid': 'dismiss-report-viewer'}
 	]
 
 
