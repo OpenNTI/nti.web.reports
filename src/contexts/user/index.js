@@ -1,2 +1,2 @@
-export Context from './ReportContext';
-export Transcripts from './transcripts';
+export { default as Context } from './ReportContext';
+export { default as Transcripts } from './transcripts';

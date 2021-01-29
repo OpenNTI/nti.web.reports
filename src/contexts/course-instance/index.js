@@ -1,5 +1,5 @@
-export Assignment from './assignments';
-export Forums from './forums';
-export Inquiries from './inquiries';
+export { default as Assignment } from './assignments';
+export { default as Forums } from './forums';
+export { default as Inquiries } from './inquiries';
 
-export Context from './ReportContext';
+export { default as Context } from './ReportContext';

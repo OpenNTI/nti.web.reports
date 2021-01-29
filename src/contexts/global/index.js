@@ -1,4 +1,4 @@
-export Course from './courses';
-export User from './users';
+export { default as Course } from './courses';
+export { default as User } from './users';
 
-export Context from './ReportContext';
+export { default as Context } from './ReportContext';

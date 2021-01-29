@@ -1,1 +1,1 @@
-export Context from './ReportContext';
+export { default as Context } from './ReportContext';
