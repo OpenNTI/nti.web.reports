@@ -136,7 +136,7 @@ function oneYearBeforeNow () {
  * @param  {Object} entity    The entity to load daily activity (user, course, etc).  If none, get the global data via service
  * @param  {Date} startDate   (Optional) Start date.  If not specified, use the beginning of the current year (1/1/20XX)
  * @param  {Date} endDate     (Optional) End date.  If not specified, use the end of the current year (12/31/20XX)
- * @return {Promise}          Promise wrapping a data block with the daily data, plus min/max values
+ * @returns {Promise}          Promise wrapping a data block with the daily data, plus min/max values
  */
 export async function loadDailyActivity (entity, startDate, endDate) {
 	// default to one year ago if no start date provided
