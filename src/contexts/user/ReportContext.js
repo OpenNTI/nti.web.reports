@@ -1,7 +1,6 @@
 import ReportContext from '../abstract/ReportContext';
 import ContextRegistry from '../ContextRegistry';
 
-@ContextRegistry.register('application/vnd.nextthought.user')
 export default class UserContext extends ReportContext {
 	groups = [
 		{
@@ -17,3 +16,5 @@ export default class UserContext extends ReportContext {
 		'ICourseInstanceEnrollment': {name: 'User Transcript', id: 'user-transcripts'}
 	}
 }
+
+ContextRegistry.register('application/vnd.nextthought.user')(UserContext);

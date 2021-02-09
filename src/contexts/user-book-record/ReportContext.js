@@ -1,7 +1,6 @@
 import ReportContext from '../abstract/ReportContext';
 import ContextRegistry from '../ContextRegistry';
 
-@ContextRegistry.register('application/vnd.nextthought.userbundlerecord')
 export default class UserBundleRecordContext extends ReportContext {
 	groups = [
 		{
@@ -11,3 +10,5 @@ export default class UserBundleRecordContext extends ReportContext {
 		}
 	]
 }
+
+ContextRegistry.register('application/vnd.nextthought.userbundlerecord')(UserBundleRecordContext);

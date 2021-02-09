@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading, EmptyState} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -16,9 +17,7 @@ const DEFAULT_TEXT = {
 };
 const t = scoped('web-reports.contexts.user.transcripts.View', DEFAULT_TEXT);
 
-@ViewerRegistry.register('user-transcripts')
-@Store.connect({items: 'items', loading: 'loading', error: 'error'})
-export default class UserTranscripts extends React.Component {
+class UserTranscripts extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
 		onSelect: PropTypes.func,
@@ -101,3 +100,8 @@ export default class UserTranscripts extends React.Component {
 		);
 	}
 }
+
+export default decorate(UserTranscripts, [
+	ViewerRegistry.register('user-transcripts'),
+	Store.connect({items: 'items', loading: 'loading', error: 'error'}),
+]);

@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {Loading, EmptyState} from '@nti/web-commons';
 
@@ -16,9 +17,7 @@ const DEFAULT_TEXT = {
 };
 const t = scoped('web-reports.contexts.global.users.View', DEFAULT_TEXT);
 
-@ViewerRegistry.register('user')
-@Store.connect({loading: 'loading', items: 'items', loadNextPage: 'loadNextPage', hasNextPage: 'hasNextPage', loadingNextPage: 'loadingNextPage', searchTerm: 'searchTerm'})
-export default class Courses extends React.Component {
+class Courses extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
 		rel: PropTypes.string,
@@ -117,3 +116,15 @@ export default class Courses extends React.Component {
 		);
 	}
 }
+
+export default decorate(Courses, [
+	ViewerRegistry.register('user'),
+	Store.connect({
+		loading: 'loading',
+		items: 'items',
+		loadNextPage: 'loadNextPage',
+		hasNextPage: 'hasNextPage',
+		loadingNextPage: 'loadingNextPage',
+		searchTerm: 'searchTerm'
+	}),
+]);

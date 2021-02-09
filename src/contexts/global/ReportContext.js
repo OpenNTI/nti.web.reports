@@ -1,7 +1,6 @@
 import ReportContext from '../abstract/ReportContext';
 import ContentRegistry from '../ContextRegistry';
 
-@ContentRegistry.register('application/vnd.nextthought.service')
 export default class GlobalContext extends ReportContext {
 	groups = [
 		{
@@ -46,3 +45,5 @@ export default class GlobalContext extends ReportContext {
 		return [];
 	}
 }
+
+ContentRegistry.register('application/vnd.nextthought.service')(GlobalContext);

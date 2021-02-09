@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading, EmptyState} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -14,10 +15,7 @@ const t = scoped('web-reports.context.contentpackage-bundle-roster.View', {
 	error: 'Unable to load learners for this book',
 	loadMore: 'Load More'
 });
-
-@ViewerRegistry.register('contentpackage-bundle-roster')
-@Store.connect(['items', 'loading', 'loaded', 'hasMore', 'loadNextPage', 'error'])
-export default class BundleRoster extends React.Component {
+class BundleRoster extends React.Component {
 	static deriveBindingFromProps (props) {
 		return props.context;
 	}
@@ -113,3 +111,9 @@ export default class BundleRoster extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(BundleRoster, [
+	ViewerRegistry.register('contentpackage-bundle-roster'),
+	Store.connect(['items', 'loading', 'loaded', 'hasMore', 'loadNextPage', 'error']),
+]);

@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {Loading, EmptyState} from '@nti/web-commons';
 
@@ -14,8 +15,7 @@ const t = scoped('web-reports.context.course-instance.forum.topic-list.View', {
 	back: 'Back to Forums'
 });
 
-@Store.connect({'loading': 'loading', 'items': 'items', 'error': 'error', 'hasMore': 'hasMore'})
-export default class CourseTopicList extends React.Component {
+class CourseTopicList extends React.Component {
 	static propTypes = {
 		forum: PropTypes.object,
 		rel: PropTypes.string,
@@ -129,3 +129,7 @@ export default class CourseTopicList extends React.Component {
 		);
 	}
 }
+
+export default decorate(CourseTopicList, [
+	Store.connect({'loading': 'loading', 'items': 'items', 'error': 'error', 'hasMore': 'hasMore'}),
+]);

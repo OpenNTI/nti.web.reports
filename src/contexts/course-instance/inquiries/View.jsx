@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading, EmptyState} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -13,9 +14,7 @@ const t = scoped('nti-web-report.contexts.course-instance.inquiries.View', {
 	empty: 'There are no inquiries.'
 });
 
-@ViewerRegistry.register('course-inquiries')
-@Store.connect({loading: 'loading', items: 'items', error: 'error'})
-export default class CourseInquiries extends React.Component {
+class CourseInquiries extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
 		rel: PropTypes.string,
@@ -85,3 +84,12 @@ export default class CourseInquiries extends React.Component {
 		);
 	}
 }
+
+export default decorate(CourseInquiries, [
+	ViewerRegistry.register('course-inquiries'),
+	Store.connect({
+		loading: 'loading',
+		items: 'items',
+		error: 'error'
+	}),
+]);

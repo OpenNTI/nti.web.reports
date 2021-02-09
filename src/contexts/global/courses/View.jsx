@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
+import {decorate} from '@nti/lib-commons';
 import {Loading, EmptyState} from '@nti/web-commons';
 
 import SearchBar from '../../../widgets/SearchBar';
@@ -15,9 +16,7 @@ const DEFAULT_TEXT = {
 };
 const t = scoped('web-reports.contexts.global.courses.View', DEFAULT_TEXT);
 
-@ViewerRegistry.register('course-instance')
-@Store.connect({loading: 'loading', items: 'items', loadNextPage: 'loadNextPage', hasNextPage: 'hasNextPage', loadingNextPage: 'loadingNextPage', searchTerm: 'searchTerm'})
-export default class Courses extends React.Component {
+class Courses extends React.Component {
 	static propTypes = {
 		context: PropTypes.object,
 		rel: PropTypes.string,
@@ -115,3 +114,15 @@ export default class Courses extends React.Component {
 		);
 	}
 }
+
+export default decorate(Courses, [
+	ViewerRegistry.register('course-instance'),
+	Store.connect({
+		loading: 'loading',
+		items: 'items',
+		loadNextPage: 'loadNextPage',
+		hasNextPage: 'hasNextPage',
+		loadingNextPage: 'loadingNextPage',
+		searchTerm: 'searchTerm'
+	}),
+]);

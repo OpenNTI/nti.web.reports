@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/NextThought/nti.web.reports#readme",
   "dependencies": {
+    "@nti/lib-commons": "NextThought/nti.lib.commons",
     "@nti/lib-locale": "NextThought/nti.lib.locale",
     "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
     "@nti/lib-store": "NextThought/nti.lib.store",
