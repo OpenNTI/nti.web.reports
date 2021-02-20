@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DialogButtons} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { DialogButtons } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 const DEFAULT_TEXT = {
-	done: 'Done'
+	done: 'Done',
 };
 const t = scoped('web-reports.viewer.Footer', DEFAULT_TEXT);
 
-const styles = css`
+const styles = stylesheet`
 	.footer {
 		background: white;
 	}
@@ -16,23 +16,26 @@ const styles = css`
 
 export default class ReportViewerFooter extends React.Component {
 	static propTypes = {
-		onDismiss: PropTypes.func
-	}
+		onDismiss: PropTypes.func,
+	};
 
 	buttons = [
-		{label: t('done'), onClick: (x) => this.onDismiss(x), 'data-testid': 'dismiss-report-viewer'}
-	]
-
+		{
+			label: t('done'),
+			onClick: x => this.onDismiss(x),
+			'data-testid': 'dismiss-report-viewer',
+		},
+	];
 
 	onDismiss = () => {
-		const {onDismiss} = this.props;
+		const { onDismiss } = this.props;
 
 		if (onDismiss) {
 			onDismiss();
 		}
-	}
+	};
 
-	render () {
+	render() {
 		return (
 			<div className={styles.footer}>
 				<DialogButtons buttons={this.buttons} />
