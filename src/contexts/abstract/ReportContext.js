@@ -1,15 +1,13 @@
-import {getReports} from '../../utils';
+import { getReports } from '../../utils';
 
-function getReportKey (rel, contextID) {
+function getReportKey(rel, contextID) {
 	return `${rel}-${contextID || ''}`;
 }
 
-
 export default class ReportContext {
-	constructor (object) {
+	constructor(object) {
 		this.context = object;
 	}
-
 
 	/**
 	 * A map of contexts that can be loaded underneath this context
@@ -23,8 +21,7 @@ export default class ReportContext {
 	 *
 	 * @type {Object}
 	 */
-	subContexts = {}
-
+	subContexts = {};
 
 	/**
 	 * How to group/order reports the reports
@@ -44,67 +41,78 @@ export default class ReportContext {
 	 *
 	 * @type {Array}
 	 */
-	groups = []
+	groups = [];
 
-
-	canAccessReports () {
+	canAccessReports() {
 		//For now assume that if the context has any Reports you can access all the reports
-		return this.context && this.context.Reports && this.context.Reports.length;
+		return (
+			this.context && this.context.Reports && this.context.Reports.length
+		);
 	}
 
+	async getReportGroups() {
+		if (!this.canAccessReports()) {
+			return [];
+		}
 
-	async getReportGroups () {
-		if (!this.canAccessReports()) { return []; }
-
-		const {groups, context} = this;
+		const { groups, context } = this;
 
 		const reports = await getReports();
 		const contextReports = await this.getContextReports();
 		const subContextReports = await this.getSubContextReports();
 
-		const reportMap = ([...contextReports, ...subContextReports]).reduce((acc, report) => {
-			acc[getReportKey(report.rel, report.contextID)] = report;
+		const reportMap = [...contextReports, ...subContextReports].reduce(
+			(acc, report) => {
+				acc[getReportKey(report.rel, report.contextID)] = report;
 
-			return acc;
-		}, {});
+				return acc;
+			},
+			{}
+		);
 
-		return groups.map((group) => {
+		return groups.map(group => {
 			return {
 				name: group.name,
 				description: group.description,
 				reports: group.reports
 					.map(report => {
-						if (report.resolve) { return report.resolve(context, reports); }
+						if (report.resolve) {
+							return report.resolve(context, reports);
+						}
 
-						return reportMap[getReportKey(report.rel, report.contextID)];
+						return reportMap[
+							getReportKey(report.rel, report.contextID)
+						];
 					})
-					.filter(x => !!x)
+					.filter(x => !!x),
 			};
 		});
 	}
 
-
-	getContextReports () {
-		const {context} = this;
+	getContextReports() {
+		const { context } = this;
 
 		return context.Reports;
 	}
 
-
-	async getSubContextReports () {
-		const {subContexts, context} = this;
+	async getSubContextReports() {
+		const { subContexts, context } = this;
 
 		try {
 			const reports = await getReports();
 
 			return reports.reduce((acc, report) => {
-				const {contexts} = report;
-				const {Items:reportContexts} = contexts || {};
+				const { contexts } = report;
+				const { Items: reportContexts } = contexts || {};
 
 				for (let reportContext of reportContexts) {
 					const subContext = subContexts[reportContext];
 
-					if (subContext && (!subContext.shouldShow || subContext.shouldShow(context))) {
+					if (
+						subContext &&
+						(!subContext.shouldShow ||
+							subContext.shouldShow(context))
+					) {
 						acc.push({
 							title: report.title,
 							description: report.description,
@@ -112,7 +120,7 @@ export default class ReportContext {
 							rel: report.rel,
 							context,
 							contextName: subContext.name,
-							contextID: subContext.id
+							contextID: subContext.id,
 						});
 					}
 				}

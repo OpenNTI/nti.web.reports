@@ -1,9 +1,9 @@
 const EMBEDABLE_TYPES = {
-	'application/pdf': true
+	'application/pdf': true,
 };
 
-export default function getEmbedableType (report) {
-	const {supportedTypes} = report;
+export default function getEmbedableType(report) {
+	const { supportedTypes } = report;
 
 	for (let supportedType of supportedTypes) {
 		if (EMBEDABLE_TYPES[supportedType]) {

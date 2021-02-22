@@ -11,29 +11,38 @@ const cx = classnames.bind(Styles);
 export default class ReportLaunchButton extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
-		report: PropTypes.object
-	}
+		report: PropTypes.object,
+	};
 
-	launchReport = (e) => {
+	launchReport = e => {
 		e.stopPropagation();
 		e.preventDefault();
 
-		const {report} = this.props;
+		const { report } = this.props;
 
 		View.show(report);
-	}
+	};
 
-	render () {
-		const {className, report} = this.props;
+	render() {
+		const { className, report } = this.props;
 
-		if (!report) { return null; }
+		if (!report) {
+			return null;
+		}
 
 		//report-button is a style hook, don't add it to Button.css
 		return (
-			<button type="button" className={cx('report-launch-button', 'report-button', className)} onClick={this.launchReport}>
+			<button
+				type="button"
+				className={cx(
+					'report-launch-button',
+					'report-button',
+					className
+				)}
+				onClick={this.launchReport}
+			>
 				<i className={cx('icon-report', 'icon')} />
 			</button>
 		);
 	}
-
 }

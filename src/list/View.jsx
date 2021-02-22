@@ -5,13 +5,13 @@ import cx from 'classnames';
 import { Loading, EmptyState } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 
-import {getContext} from '../contexts';
+import { getContext } from '../contexts';
 
 import Group from './Group';
 
 const DEFAULT_TEXT = {
 	emptyHeader: 'No Reports',
-	emptySubHeader: 'There are no reports found.'
+	emptySubHeader: 'There are no reports found.',
 };
 
 const t = scoped('nti.web.reports.context.list', DEFAULT_TEXT);
@@ -19,89 +19,91 @@ const t = scoped('nti.web.reports.context.list', DEFAULT_TEXT);
 export default class ReportsList extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
-		context: PropTypes.object
-	}
+		context: PropTypes.object,
+	};
 
-	state = {}
+	state = {};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.loadReports();
 	}
 
-	componentDidUpdate (prevProps) {
-		const {context:newContext} = this.props;
-		const {context:oldContext} = prevProps;
+	componentDidUpdate(prevProps) {
+		const { context: newContext } = this.props;
+		const { context: oldContext } = prevProps;
 
 		if (newContext !== oldContext) {
 			this.loadReports();
 		}
 	}
 
-	loadReports (props = this.props) {
-		const {context} = props;
+	loadReports(props = this.props) {
+		const { context } = props;
 
-		this.setState({
-			loading: true,
-			hasReports: null,
-			groups: null,
-			error: null
-		}, async () => {
-			const reportContext = getContext(context);
-			const hasReports = reportContext.canAccessReports();
+		this.setState(
+			{
+				loading: true,
+				hasReports: null,
+				groups: null,
+				error: null,
+			},
+			async () => {
+				const reportContext = getContext(context);
+				const hasReports = reportContext.canAccessReports();
 
-			try {
-				const groups = await reportContext.getReportGroups();
+				try {
+					const groups = await reportContext.getReportGroups();
 
-				this.setState({
-					hasReports,
-					groups,
-					loading: false
-				});
-			} catch(e) {
-				this.setState({
-					loading: false,
-					error: e
-				});
+					this.setState({
+						hasReports,
+						groups,
+						loading: false,
+					});
+				} catch (e) {
+					this.setState({
+						loading: false,
+						error: e,
+					});
+				}
 			}
-		});
+		);
 	}
 
-
-	render () {
-		const {className} = this.props;
-		const {loading, hasReports, error, groups} = this.state;
+	render() {
+		const { className } = this.props;
+		const { loading, hasReports, error, groups } = this.state;
 
 		return (
 			<div className={cx('reports-list-view', className)}>
 				{loading && this.renderLoading()}
 				{!loading && error && this.renderError(error)}
 				{!loading && !error && !hasReports && this.renderEmpty()}
-				{!loading && !error && hasReports && this.renderReportGroups(groups)}
+				{!loading &&
+					!error &&
+					hasReports &&
+					this.renderReportGroups(groups)}
 			</div>
 		);
-
 	}
 
-	renderLoading () {
-		return (<Loading.Mask />);
+	renderLoading() {
+		return <Loading.Mask />;
 	}
 
+	renderError() {
+		return <span>Error</span>;
+	}
 
-	renderError () {
+	renderEmpty() {
 		return (
-			<span>Error</span>
+			<EmptyState
+				header={t('emptyHeader')}
+				subHeader={t('emptySubHeader')}
+			/>
 		);
 	}
 
-
-	renderEmpty () {
-		return (
-			<EmptyState header={t('emptyHeader')} subHeader={t('emptySubHeader')} />
-		);
-	}
-
-
-	renderReportGroups (groups) {
+	renderReportGroups(groups) {
 		return (
 			<ul className="groups">
 				{groups.map((group, index) => {

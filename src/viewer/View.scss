@@ -1,7 +1,9 @@
 @import '~@nti/style-common';
 
 .report-viewer-container {
-	& > i.icon-close { display: none; }
+	& > i.icon-close {
+		display: none;
+	}
 }
 
 .report-viewer {

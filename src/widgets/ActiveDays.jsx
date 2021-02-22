@@ -1,23 +1,31 @@
 import './ActiveDays.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime, Loading, Flyout} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { DateTime, Loading, Flyout } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 import cx from 'classnames';
 
-import {determineBlockColor, loadDailyActivity} from './utils';
+import { determineBlockColor, loadDailyActivity } from './utils';
 
 const LABELS = {
 	title: 'Daily Activity',
-	noData: 'No activity found'
+	noData: 'No activity found',
 };
 
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const WEEKDAYS = [
+	'Sunday',
+	'Monday',
+	'Tuesday',
+	'Wednesday',
+	'Thursday',
+	'Friday',
+	'Saturday',
+];
 const SHORT_WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
 const t = scoped('web-compontent-reports.widgets.activedays', LABELS);
 
-function makeMonthLabel (day) {
+function makeMonthLabel(day) {
 	// if we want to show the last two digits of the year for each Jan label
 	// then use the logic below (so the chart might look like Nov   Dec    Jan '18    Feb   etc...)
 	//
@@ -32,37 +40,44 @@ class Day extends React.Component {
 	static propTypes = {
 		day: PropTypes.object.isRequired,
 		min: PropTypes.number.isRequired,
-		max: PropTypes.number.isRequired
-	}
+		max: PropTypes.number.isRequired,
+	};
 
-	attachFlyoutRef = x => this.flyout = x
+	attachFlyoutRef = x => (this.flyout = x);
 
-	renderBlock () {
+	renderBlock() {
 		const { day, min, max } = this.props;
 
-		if(!day.date) {
-			return <div className="activity-day no-data"/>;
+		if (!day.date) {
+			return <div className="activity-day no-data" />;
 		}
 
 		const className = cx('activity-day-wrapper', day.firstOfFullWeek, {
-			'odd-month' : day.oddMonth,
-			'first-of-week' : day.firstOfFullWeek
+			'odd-month': day.oddMonth,
+			'first-of-week': day.firstOfFullWeek,
 		});
 
 		return (
 			<div className={className} data-month={makeMonthLabel(day)}>
-				<div className="activity-day" style={{
-					backgroundColor: determineBlockColor(day.value, min, max)
-				}}/>
+				<div
+					className="activity-day"
+					style={{
+						backgroundColor: determineBlockColor(
+							day.value,
+							min,
+							max
+						),
+					}}
+				/>
 			</div>
 		);
 	}
 
-	render () {
+	render() {
 		const { day } = this.props;
 
-		if(!day.date) {
-			return (this.renderBlock());
+		if (!day.date) {
+			return this.renderBlock();
 		}
 
 		let infoStr = DateTime.format(day.date);
@@ -86,30 +101,30 @@ export default class ActiveDays extends React.Component {
 	static propTypes = {
 		entity: PropTypes.object,
 		startDate: PropTypes.object,
-		endDate: PropTypes.object
-	}
+		endDate: PropTypes.object,
+	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: true
+			loading: true,
 		};
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.loadData();
 	}
 
-	async loadData () {
+	async loadData() {
 		const { entity, startDate, endDate } = this.props;
 
 		const data = await loadDailyActivity(entity, startDate, endDate);
 
-		if(!data) {
+		if (!data) {
 			this.setState({
 				loading: false,
-				data: null
+				data: null,
 			});
 
 			return;
@@ -117,15 +132,15 @@ export default class ActiveDays extends React.Component {
 
 		this.setState({
 			...data,
-			loading: false
+			loading: false,
 		});
 	}
 
 	renderDay = (day, i) => {
 		const { min, max } = this.state;
 
-		return (<Day key={day.date || i} day={day} min={min} max={max}/>);
-	}
+		return <Day key={day.date || i} day={day} min={min} max={max} />;
+	};
 
 	renderDayRow = (weekday, i) => {
 		const { data } = this.state;
@@ -138,23 +153,22 @@ export default class ActiveDays extends React.Component {
 				{data[weekday].map(this.renderDay)}
 			</div>
 		);
-	}
+	};
 
-	renderHeader () {
+	renderHeader() {
 		return <div className="daily-activity-header">{t('title')}</div>;
 	}
 
-	renderContent () {
+	renderContent() {
 		const { data, loading } = this.state;
 
-		if(loading) {
-			return <Loading.Mask/>;
-		}
-		else if(!data) {
+		if (loading) {
+			return <Loading.Mask />;
+		} else if (!data) {
 			return <div className="no-data">{t('noData')}</div>;
 		}
 
-		if(data) {
+		if (data) {
 			return (
 				<div className="daily-activity-body">
 					{WEEKDAYS.map(this.renderDayRow)}
@@ -163,7 +177,7 @@ export default class ActiveDays extends React.Component {
 		}
 	}
 
-	render () {
+	render() {
 		return (
 			<div className="admin-active-days">
 				{this.renderHeader()}

@@ -1,8 +1,8 @@
-import {getService} from '@nti/web-client';
-import {Stores} from '@nti/lib-store';
+import { getService } from '@nti/web-client';
+import { Stores } from '@nti/lib-store';
 
 export default class UserTranscript extends Stores.SimpleStore {
-	constructor () {
+	constructor() {
 		super();
 
 		this.set('items', []);
@@ -10,8 +10,7 @@ export default class UserTranscript extends Stores.SimpleStore {
 		this.set('error', null);
 	}
 
-
-	async loadTranscript (user) {
+	async loadTranscript(user) {
 		this.set('items', []);
 		this.set('loading', true);
 		this.emitChange('loading', 'items');

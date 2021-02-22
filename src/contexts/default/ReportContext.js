@@ -2,14 +2,16 @@ import ReportContext from '../abstract/ReportContext';
 import ContextRegistry from '../ContextRegistry';
 
 export default class DefaultReportContext extends ReportContext {
-	getReportGroups () {
+	getReportGroups() {
 		const reports = this.getContextReports();
 
-		return [{
-			name: '',
-			description: '',
-			reports
-		}];
+		return [
+			{
+				name: '',
+				description: '',
+				reports,
+			},
+		];
 	}
 }
 

@@ -5,16 +5,21 @@ export default class UserContext extends ReportContext {
 	groups = [
 		{
 			reports: [
-				{rel: 'report-UserEnrollmentReport.pdf'},
-				{rel: 'report-StudentParticipationReport.pdf', contextID: 'user-transcripts'}
-			]
-		}
-	]
-
+				{ rel: 'report-UserEnrollmentReport.pdf' },
+				{
+					rel: 'report-StudentParticipationReport.pdf',
+					contextID: 'user-transcripts',
+				},
+			],
+		},
+	];
 
 	subContexts = {
-		'ICourseInstanceEnrollment': {name: 'User Transcript', id: 'user-transcripts'}
-	}
+		ICourseInstanceEnrollment: {
+			name: 'User Transcript',
+			id: 'user-transcripts',
+		},
+	};
 }
 
 ContextRegistry.register('application/vnd.nextthought.user')(UserContext);

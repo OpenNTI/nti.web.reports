@@ -1,9 +1,9 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decorate} from '@nti/lib-commons';
-import {Loading, EmptyState} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { decorate } from '@nti/lib-commons';
+import { Loading, EmptyState } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import ViewerRegistry from '../../ViewerRegistry';
 
@@ -12,8 +12,7 @@ import Item from './Item';
 
 const DEFAULT_TEXT = {
 	error: 'Unable to load transcript',
-	empty: 'No transcripts available'
-
+	empty: 'No transcripts available',
 };
 const t = scoped('web-reports.contexts.user.transcripts.View', DEFAULT_TEXT);
 
@@ -25,57 +24,52 @@ class UserTranscripts extends React.Component {
 		store: PropTypes.object,
 		items: PropTypes.array,
 		loading: PropTypes.bool,
-		error: PropTypes.bool
-	}
+		error: PropTypes.bool,
+	};
 
-
-	componentDidMount () {
-		const {context, store} = this.props;
+	componentDidMount() {
+		const { context, store } = this.props;
 
 		store.loadTranscript(context);
 	}
 
-
-	componentDidUpdate (oldProps) {
-		const {context:newContext, store} = this.props;
-		const {context:oldContext} = oldProps;
+	componentDidUpdate(oldProps) {
+		const { context: newContext, store } = this.props;
+		const { context: oldContext } = oldProps;
 
 		if (newContext !== oldContext) {
 			store.loadTranscript(newContext);
 		}
 	}
 
-
-	onSelect = (item) => {
-		const {onSelect} = this.props;
+	onSelect = item => {
+		const { onSelect } = this.props;
 
 		if (onSelect) {
 			onSelect(item);
 		}
-	}
+	};
 
-
-	render () {
-		const {loading, items, error} = this.props;
+	render() {
+		const { loading, items, error } = this.props;
 
 		return (
 			<div className="user-transcript-report-context">
-				{loading && (<Loading.Mask />)}
+				{loading && <Loading.Mask />}
 				{!loading && this.renderItems(items)}
 				{!loading && error && this.renderError(error)}
 			</div>
 		);
 	}
 
-
-	renderItems (items) {
+	renderItems(items) {
 		if (!items || !items.length) {
 			return this.renderEmpty();
 		}
 
 		return (
 			<ul>
-				{items.map((item) => {
+				{items.map(item => {
 					return (
 						<li key={item.getID()}>
 							<Item item={item} onSelect={this.onSelect} />
@@ -86,22 +80,16 @@ class UserTranscripts extends React.Component {
 		);
 	}
 
-	renderError () {
-		return (
-			<div className="error">
-				{t('error')}
-			</div>
-		);
+	renderError() {
+		return <div className="error">{t('error')}</div>;
 	}
 
-	renderEmpty () {
-		return (
-			<EmptyState subHeader={t('empty')} />
-		);
+	renderEmpty() {
+		return <EmptyState subHeader={t('empty')} />;
 	}
 }
 
 export default decorate(UserTranscripts, [
 	ViewerRegistry.register('user-transcripts'),
-	Store.connect({items: 'items', loading: 'loading', error: 'error'}),
+	Store.connect({ items: 'items', loading: 'loading', error: 'error' }),
 ]);

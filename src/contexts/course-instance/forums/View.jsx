@@ -1,9 +1,9 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decorate} from '@nti/lib-commons';
-import {scoped} from '@nti/lib-locale';
-import {Loading, EmptyState} from '@nti/web-commons';
+import { decorate } from '@nti/lib-commons';
+import { scoped } from '@nti/lib-locale';
+import { Loading, EmptyState } from '@nti/web-commons';
 
 import ViewerRegistry from '../../ViewerRegistry';
 
@@ -18,8 +18,7 @@ const t = scoped('web-reports.context.course-instance.forums.View', {
 	Open: 'Open Discussions',
 	Other: 'Other Discussions',
 	Section: 'My Section',
-	Parent: 'All Sections'
-
+	Parent: 'All Sections',
 });
 
 class CourseForums extends React.Component {
@@ -31,107 +30,118 @@ class CourseForums extends React.Component {
 		store: PropTypes.object,
 		loading: PropTypes.bool,
 		error: PropTypes.bool,
-		discussions: PropTypes.object
-	}
+		discussions: PropTypes.object,
+	};
 
-	state = {}
+	state = {};
 
-	get isTopicReport () {
-		const {rel} = this.props;
+	get isTopicReport() {
+		const { rel } = this.props;
 
 		return rel === 'report-TopicParticipationReport.pdf';
 	}
 
-
-	componentDidMount () {
-		const {context, store} = this.props;
+	componentDidMount() {
+		const { context, store } = this.props;
 
 		store.load(context);
 	}
 
-
-	componentDidUpdate (prevProps) {
-		const {context:newContext, store} = this.props;
-		const {context:oldContext} = prevProps;
+	componentDidUpdate(prevProps) {
+		const { context: newContext, store } = this.props;
+		const { context: oldContext } = prevProps;
 
 		if (newContext !== oldContext) {
 			store.load(newContext);
 		}
 	}
 
-
-	onSelect = (forum) => {
-		const {onSelect} = this.props;
+	onSelect = forum => {
+		const { onSelect } = this.props;
 
 		if (this.isTopicReport) {
 			this.setState({
-				selectedForum: forum
+				selectedForum: forum,
 			});
 		} else if (onSelect) {
 			onSelect(forum);
 		}
-	}
-
+	};
 
 	showDiscussions = () => {
 		if (this.isTopicReport) {
 			this.setState({
-				selectedForum: null
+				selectedForum: null,
 			});
 		}
-	}
+	};
 
-
-	onTopicSelect = (topic) => {
-		const {onSelect} = this.props;
+	onTopicSelect = topic => {
+		const { onSelect } = this.props;
 
 		if (onSelect) {
 			onSelect(topic);
 		}
-	}
+	};
 
-
-	render () {
-		const {loading, discussions, error} = this.props;
-		const {selectedForum} = this.state;
+	render() {
+		const { loading, discussions, error } = this.props;
+		const { selectedForum } = this.state;
 
 		return (
 			<div className="course-instance-forums-report-context">
-				{loading && (<Loading.Mask />)}
-				{!loading && error && (<span className="error">{t('error')}</span>)}
-				{!loading && !error && !selectedForum && (this.renderDiscussions(discussions))}
-				{!loading && !error && selectedForum && (this.renderForum(selectedForum))}
+				{loading && <Loading.Mask />}
+				{!loading && error && (
+					<span className="error">{t('error')}</span>
+				)}
+				{!loading &&
+					!error &&
+					!selectedForum &&
+					this.renderDiscussions(discussions)}
+				{!loading &&
+					!error &&
+					selectedForum &&
+					this.renderForum(selectedForum)}
 			</div>
 		);
 	}
 
-
-	renderDiscussions (discussions) {
-		const {rel} = this.props;
+	renderDiscussions(discussions) {
+		const { rel } = this.props;
 
 		return (
-			<DiscussionList rel={rel} discussions={discussions} isTopicReport={this.isTopicReport} onSelect={this.onSelect} />
+			<DiscussionList
+				rel={rel}
+				discussions={discussions}
+				isTopicReport={this.isTopicReport}
+				onSelect={this.onSelect}
+			/>
 		);
 	}
 
-
-	renderForum (forum) {
-		const {rel} = this.props;
+	renderForum(forum) {
+		const { rel } = this.props;
 
 		return (
-			<TopicList rel={rel} forum={forum} onSelect={this.onTopicSelect} onBack={this.showDiscussions} />
+			<TopicList
+				rel={rel}
+				forum={forum}
+				onSelect={this.onTopicSelect}
+				onBack={this.showDiscussions}
+			/>
 		);
 	}
 
-
-	renderEmpty () {
-		return (
-			<EmptyState header={t('empty')} />
-		);
+	renderEmpty() {
+		return <EmptyState header={t('empty')} />;
 	}
 }
 
 export default decorate(CourseForums, [
 	ViewerRegistry.register('course-forums'),
-	Store.connect({loading: 'loading', discussions: 'discussions', error: 'error'}),
+	Store.connect({
+		loading: 'loading',
+		discussions: 'discussions',
+		error: 'error',
+	}),
 ]);

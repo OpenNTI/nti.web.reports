@@ -1,15 +1,17 @@
-import {Stores} from '@nti/lib-store';
+import { Stores } from '@nti/lib-store';
 
 export default class CourseAssignmentStore extends Stores.SimpleStore {
-	constructor () {
+	constructor() {
 		super();
 
 		this.set('items', []);
 		this.set('loading', false);
 	}
 
-	async load (course) {
-		if (course === this.get('course')) { return; }
+	async load(course) {
+		if (course === this.get('course')) {
+			return;
+		}
 
 		this.set('course', course);
 		this.set('loading', true);
@@ -17,14 +19,15 @@ export default class CourseAssignmentStore extends Stores.SimpleStore {
 
 		try {
 			const assignmentCollection = await course.getAssignments();
-			const sortedItems = [...(assignmentCollection.getAssignments()) || []].sort((a, b)=>{
+			const sortedItems = [
+				...(assignmentCollection.getAssignments() || []),
+			].sort((a, b) => {
 				const lowerA = a.title.toLowerCase();
 				const lowerB = b.title.toLowerCase();
 
-				if(lowerA < lowerB) {
+				if (lowerA < lowerB) {
 					return -1;
-				}
-				else if(lowerA > lowerB) {
+				} else if (lowerA > lowerB) {
 					return 1;
 				}
 

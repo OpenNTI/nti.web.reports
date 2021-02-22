@@ -14,29 +14,26 @@ const t = scoped('web-reports.viewer.View', {
 	'text/csv': 'CSV',
 	downloading: {
 		title: 'Generating %(type)s Report:',
-		message: 'The report will begin downloading soon.'
-	}
+		message: 'The report will begin downloading soon.',
+	},
 });
 
-function computeState (props) {
+function computeState(props) {
 	const { report } = props;
 	const isContext = !report?.href;
 
 	return {
 		report: isContext ? null : report,
 		context: isContext ? report : null,
-		downloading: []
+		downloading: [],
 	};
 }
 
 export default class ReportViewer extends React.Component {
-	static show (report) {
+	static show(report) {
 		return new Promise(fulfill => {
 			Prompt.modal(
-				(<ReportViewer
-					report={report}
-					onDismiss={fulfill}
-				/>),
+				<ReportViewer report={report} onDismiss={fulfill} />,
 				'report-viewer-container'
 			);
 		});
@@ -44,37 +41,36 @@ export default class ReportViewer extends React.Component {
 
 	static propTypes = {
 		report: PropTypes.object.isRequired,
-		onDismiss: PropTypes.func
-	}
+		onDismiss: PropTypes.func,
+	};
 
-	state = computeState(this.props)
+	state = computeState(this.props);
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (prevProps.report !== this.props.report) {
 			this.setState(computeState(this.props));
 		}
 	}
 
-	onDownloadStarted = (type) => {
+	onDownloadStarted = type => {
 		const downloading = new Set(this.state.downloading);
 
 		downloading.add(type);
 
 		this.setState({
-			downloading: Array.from(downloading)
+			downloading: Array.from(downloading),
 		});
-	}
+	};
 
-	dismissDownloadMessage = (type) => {
+	dismissDownloadMessage = type => {
 		const downloading = new Set(this.state.downloading);
 
 		downloading.delete(type);
 
 		this.setState({
-			downloading: Array.from(downloading)
+			downloading: Array.from(downloading),
 		});
-	}
-
+	};
 
 	onDismiss = () => {
 		const { onDismiss } = this.props;
@@ -82,29 +78,23 @@ export default class ReportViewer extends React.Component {
 		if (onDismiss) {
 			onDismiss();
 		}
-	}
+	};
 
-
-	selectReport = (report) => {
+	selectReport = report => {
 		this.setState({
-			report
+			report,
 		});
-	}
+	};
 
 	onBackToContext = () => {
 		this.setState({
-			report: null
+			report: null,
 		});
-	}
+	};
 
-
-	render () {
+	render() {
 		const { report, context, downloading } = this.state;
-		const active = report ?
-			'report' :
-			context ?
-				'context' :
-				'empty';
+		const active = report ? 'report' : context ? 'context' : 'empty';
 
 		return (
 			<div className="report-viewer">
@@ -117,8 +107,19 @@ export default class ReportViewer extends React.Component {
 				/>
 				<Toast.Container location={Toast.Locations.Top}>
 					<Switch.Container className="report-body" active={active}>
-						<Switch.Item name="report" component={Report} report={report} context={context} />
-						<Switch.Item name="context" component={Context} report={report} context={context} selectReport={this.selectReport} />
+						<Switch.Item
+							name="report"
+							component={Report}
+							report={report}
+							context={context}
+						/>
+						<Switch.Item
+							name="context"
+							component={Context}
+							report={report}
+							context={context}
+							selectReport={this.selectReport}
+						/>
 					</Switch.Container>
 					{downloading.map(type => (
 						<Toast.MessageBar

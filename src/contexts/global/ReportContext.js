@@ -5,43 +5,58 @@ export default class GlobalContext extends ReportContext {
 	groups = [
 		{
 			reports: [
-				{rel: 'report-CourseSummaryReport.pdf', contextID: 'course-instance'},
-				{rel: 'report-SelfAssessmentSummaryReport.pdf', contextID: 'course-instance'},
-				{rel: 'report-CourseRosterReport', contextID: 'course-instance'},
-				{rel: 'report-UserEnrollmentReport', contextID: 'user'},
-				{rel: 'report-AllCourseRosterReport', resolve: (service, reports) => {
-					const workspace = service.getWorkspace('Courses');
-					const href = workspace && workspace.getLink('AllCourseRosterReport');
+				{
+					rel: 'report-CourseSummaryReport.pdf',
+					contextID: 'course-instance',
+				},
+				{
+					rel: 'report-SelfAssessmentSummaryReport.pdf',
+					contextID: 'course-instance',
+				},
+				{
+					rel: 'report-CourseRosterReport',
+					contextID: 'course-instance',
+				},
+				{ rel: 'report-UserEnrollmentReport', contextID: 'user' },
+				{
+					rel: 'report-AllCourseRosterReport',
+					resolve: (service, reports) => {
+						const workspace = service.getWorkspace('Courses');
+						const href =
+							workspace &&
+							workspace.getLink('AllCourseRosterReport');
 
-					if (!href) { return null; }
-
-					for (let report of reports) {
-						if (report.rel === 'report-AllCourseRosterReport') {
-							return {
-								title: report.title,
-								description: report.description,
-								supportedTypes: report.supportedTypes,
-								rel: report.rel,
-								href
-							};
+						if (!href) {
+							return null;
 						}
-					}
-				}}
-			]
-		}
-	]
 
+						for (let report of reports) {
+							if (report.rel === 'report-AllCourseRosterReport') {
+								return {
+									title: report.title,
+									description: report.description,
+									supportedTypes: report.supportedTypes,
+									rel: report.rel,
+									href,
+								};
+							}
+						}
+					},
+				},
+			],
+		},
+	];
 
 	subContexts = {
-		'ICourseInstance': {name: 'Courses', id: 'course-instance'},
-		'IUser': {name: 'Users', id: 'user'}
-	}
+		ICourseInstance: { name: 'Courses', id: 'course-instance' },
+		IUser: { name: 'Users', id: 'user' },
+	};
 
-	canAccessReports () {
+	canAccessReports() {
 		return true;
 	}
 
-	getContextReports () {
+	getContextReports() {
 		return [];
 	}
 }

@@ -1,16 +1,16 @@
 import './ActiveUsers.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
-import {DateTime, Loading, DisplayName, Avatar} from '@nti/web-commons';
-import {getService} from '@nti/web-client';
+import { scoped } from '@nti/lib-locale';
+import { DateTime, Loading, DisplayName, Avatar } from '@nti/web-commons';
+import { getService } from '@nti/web-client';
 import cx from 'classnames';
 
 const LABELS = {
 	title: 'Top Learners',
 	name: 'Name',
 	value: '',
-	noItems: 'No top learners found'
+	noItems: 'No top learners found',
 };
 
 const t = scoped('web-component-reports.widgets.activeusers', LABELS);
@@ -18,39 +18,33 @@ const BATCH_SIZE = 4;
 
 class Item extends React.Component {
 	static propTypes = {
-		item: PropTypes.object.isRequired
-	}
+		item: PropTypes.object.isRequired,
+	};
 
-	renderImg () {
+	renderImg() {
 		const { item } = this.props;
 
-		return <Avatar className="item-image" entity={item.entity}/>;
+		return <Avatar className="item-image" entity={item.entity} />;
 	}
 
-	renderInfo () {
+	renderInfo() {
 		const { item } = this.props;
 
 		return (
 			<div className="info">
-				<DisplayName className="name" entity={item.entity}/>
-				<div className="description">
-					{item.description}
-				</div>
+				<DisplayName className="name" entity={item.entity} />
+				<div className="description">{item.description}</div>
 			</div>
 		);
 	}
 
-	renderValue () {
+	renderValue() {
 		const { item } = this.props;
 
-		return (
-			<div className="value">
-				{item.value}
-			</div>
-		);
+		return <div className="value">{item.value}</div>;
 	}
 
-	render () {
+	render() {
 		return (
 			<div className="item">
 				{this.renderImg()}
@@ -63,74 +57,115 @@ class Item extends React.Component {
 
 export default class ActiveUsers extends React.Component {
 	static propTypes = {
-		entity: PropTypes.object
-	}
+		entity: PropTypes.object,
+	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			loading: true,
-			pageNumber: 0
+			pageNumber: 0,
 		};
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setState({ items: [] }, () => {
 			this.loadData();
 		});
 	}
 
-	async getLink (service, link) {
+	async getLink(service, link) {
 		// if given a specific link, default to that
-		if(link) {
+		if (link) {
 			return link;
 		}
 
-		const {entity} = this.props;
+		const { entity } = this.props;
 
 		// if provided an entity with analytics, pull that link
-		if(entity) {
+		if (entity) {
 			const entityAnalyticsLink = entity.getLink('analytics');
-			const entityAnalytics = entityAnalyticsLink ? await service.get(entityAnalyticsLink) : null;
+			const entityAnalytics = entityAnalyticsLink
+				? await service.get(entityAnalyticsLink)
+				: null;
 
-			return entityAnalytics && entityAnalytics.Links
-				&& entityAnalytics.Links.filter(x => x.rel === 'active_users')[0].href + '?batchSize=' + BATCH_SIZE + '&batchPage=0';
+			return (
+				entityAnalytics &&
+				entityAnalytics.Links &&
+				entityAnalytics.Links.filter(x => x.rel === 'active_users')[0]
+					.href +
+					'?batchSize=' +
+					BATCH_SIZE +
+					'&batchPage=0'
+			);
 		}
 
 		// if no other link or entity is provided, use the global workspace
 		const analyticsWorkspace = service.getWorkspace('Analytics');
-		return analyticsWorkspace && analyticsWorkspace.getLink('active_users') + '?batchSize=' + BATCH_SIZE + '&batchPage=0';
+		return (
+			analyticsWorkspace &&
+			analyticsWorkspace.getLink('active_users') +
+				'?batchSize=' +
+				BATCH_SIZE +
+				'&batchPage=0'
+		);
 	}
 
-	async loadData (link) {
-		this.setState({loading: true});
+	async loadData(link) {
+		this.setState({ loading: true });
 
 		const service = await getService();
 
 		try {
-			const getBatchLink = link ? link : this.getLink(service, null, this.state.pageNumber * BATCH_SIZE);
+			const getBatchLink = link
+				? link
+				: this.getLink(
+						service,
+						null,
+						this.state.pageNumber * BATCH_SIZE
+				  );
 			const activeUsersLink = await this.getLink(service, getBatchLink);
-			const activeUsers = activeUsersLink ? await service.getBatch(activeUsersLink) : {};
+			const activeUsers = activeUsersLink
+				? await service.getBatch(activeUsersLink)
+				: {};
 
 			this.setState({
 				loading: false,
 				totalCount: activeUsers.ItemCount,
-				prevLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-prev')[0] || {}).href,
-				nextLink: activeUsers && activeUsers.Links && (activeUsers.Links.filter(x => x.rel === 'batch-next')[0] || {}).href,
+				prevLink:
+					activeUsers &&
+					activeUsers.Links &&
+					(
+						activeUsers.Links.filter(
+							x => x.rel === 'batch-prev'
+						)[0] || {}
+					).href,
+				nextLink:
+					activeUsers &&
+					activeUsers.Links &&
+					(
+						activeUsers.Links.filter(
+							x => x.rel === 'batch-next'
+						)[0] || {}
+					).href,
 				items: (activeUsers.Items || []).map(x => {
 					return {
 						entity: x,
 						name: x.Username,
-						description: 'Created ' + DateTime.format(x.getCreatedTime(), DateTime.WEEKDAY_MONTH_NAME_DAY_YEAR_TIME)
+						description:
+							'Created ' +
+							DateTime.format(
+								x.getCreatedTime(),
+								DateTime.WEEKDAY_MONTH_NAME_DAY_YEAR_TIME
+							),
 					};
-				})
+				}),
 			});
-		}
-		catch (e) {
+		} catch (e) {
 			this.setState({
 				loading: false,
 				totalCount: 0,
-				items: []
+				items: [],
 			});
 		}
 	}
@@ -138,63 +173,67 @@ export default class ActiveUsers extends React.Component {
 	onPrevious = () => {
 		const { pageNumber, prevLink } = this.state;
 
-		if(pageNumber === 0) {
+		if (pageNumber === 0) {
 			return;
 		}
 
-		this.setState({
-			pageNumber: pageNumber - 1
-		}, () => {
-			this.loadData(prevLink);
-		});
-	}
-
+		this.setState(
+			{
+				pageNumber: pageNumber - 1,
+			},
+			() => {
+				this.loadData(prevLink);
+			}
+		);
+	};
 
 	onNext = () => {
 		const { pageNumber, totalPages, nextLink } = this.state;
 
-		if(pageNumber >= totalPages) {
+		if (pageNumber >= totalPages) {
 			return;
 		}
 
-		this.setState({
-			pageNumber: pageNumber + 1
-		}, () => {
-			this.loadData(nextLink);
-		});
-	}
+		this.setState(
+			{
+				pageNumber: pageNumber + 1,
+			},
+			() => {
+				this.loadData(nextLink);
+			}
+		);
+	};
 
-
-	renderTotal () {
+	renderTotal() {
 		const { totalCount } = this.state;
 
-		if(totalCount) {
-			return (
-				<div className="total">
-					{this.state.totalCount}
-				</div>
-			);
+		if (totalCount) {
+			return <div className="total">{this.state.totalCount}</div>;
 		}
 
 		return null;
 	}
 
-	renderHeader () {
-		const prevClassName = cx('page-control', 'previous', { disabled: this.state.loading || (!this.state.prevLink && this.state.pageNumber === 0) });
-		const nextClassName = cx('page-control', 'next', { disabled: this.state.loading || !this.state.nextLink });
+	renderHeader() {
+		const prevClassName = cx('page-control', 'previous', {
+			disabled:
+				this.state.loading ||
+				(!this.state.prevLink && this.state.pageNumber === 0),
+		});
+		const nextClassName = cx('page-control', 'next', {
+			disabled: this.state.loading || !this.state.nextLink,
+		});
 
 		return (
 			<div className="header">
-				<div className="title">
-					{t('title')}
-				</div>
+				<div className="title">{t('title')}</div>
 				{this.renderTotal()}
 				<div className="pager">
 					<div className={prevClassName} onClick={this.onPrevious}>
-						<i className="icon-chevron-left"/>
+						<i className="icon-chevron-left" />
 					</div>
 					<div className={nextClassName} onClick={this.onNext}>
-						<i className="icon-chevron-right"/>
+						<i className="icon-chevron-right" />
 					</div>
 				</div>
 			</div>
@@ -202,28 +241,23 @@ export default class ActiveUsers extends React.Component {
 	}
 
 	renderItem = (item, index) => {
-		return <Item key={item.name + index} item={item}/>;
-	}
+		return <Item key={item.name + index} item={item} />;
+	};
 
-	renderItems () {
+	renderItems() {
 		const { items, loading } = this.state;
 
-		if(loading) {
-			return <Loading.Mask/>;
-		}
-		else if(items && items.length === 0) {
+		if (loading) {
+			return <Loading.Mask />;
+		} else if (items && items.length === 0) {
 			return <div className="no-items">{t('noItems')}</div>;
 		}
 
 		return (
 			<div className="items-container">
 				<div className="items-header">
-					<div className="column-header name">
-						{t('name')}
-					</div>
-					<div className="column-header value">
-						{''}
-					</div>
+					<div className="column-header name">{t('name')}</div>
+					<div className="column-header value">{''}</div>
 				</div>
 				<div className="items">
 					{(items || []).map(this.renderItem)}
@@ -232,7 +266,7 @@ export default class ActiveUsers extends React.Component {
 		);
 	}
 
-	render () {
+	render() {
 		return (
 			<div className="dashboard-list-widget active-users">
 				{this.renderHeader()}

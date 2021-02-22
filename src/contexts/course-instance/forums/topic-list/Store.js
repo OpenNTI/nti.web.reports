@@ -1,13 +1,13 @@
-import {Stores} from '@nti/lib-store';
+import { Stores } from '@nti/lib-store';
 
 const PAGE_SIZE = 10;
 
 export default class CourseTopicListStore extends Stores.SimpleStore {
-	constructor () {
+	constructor() {
 		super();
 
 		this.params = {
-			batchSize: 20
+			batchSize: 20,
 		};
 
 		this.set('loading', true);
@@ -16,7 +16,7 @@ export default class CourseTopicListStore extends Stores.SimpleStore {
 		this.set('hasMore', false);
 	}
 
-	async load (forum) {
+	async load(forum) {
 		const dataSource = forum.getContentsDataSource();
 
 		this.set('forum', forum);
@@ -41,8 +41,7 @@ export default class CourseTopicListStore extends Stores.SimpleStore {
 		}
 	}
 
-
-	async loadNextPage () {
+	async loadNextPage() {
 		const lastPage = this.get('lastPage');
 		const dataSource = this.get('dataSource');
 		const items = this.get('items');

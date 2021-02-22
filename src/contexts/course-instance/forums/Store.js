@@ -1,4 +1,4 @@
-import {Stores} from '@nti/lib-store';
+import { Stores } from '@nti/lib-store';
 
 /**
  * Takes two arrays of forums and bins then
@@ -27,8 +27,7 @@ import {Stores} from '@nti/lib-store';
 const binDiscussions = (section, parent) => {
 	let bins = {};
 
-	function addTo (key, group) {
-
+	function addTo(key, group) {
 		let items = (group && group.Items) || [];
 		for (let item of items) {
 			let bin = item.getBin();
@@ -53,8 +52,8 @@ const binDiscussions = (section, parent) => {
 		bins.Other = {
 			...bins.Other,
 			Section: {
-				id: section.NTIID
-			}
+				id: section.NTIID,
+			},
 		};
 	}
 
@@ -62,7 +61,7 @@ const binDiscussions = (section, parent) => {
 };
 
 export default class CourseForumsStore extends Stores.SimpleStore {
-	constructor () {
+	constructor() {
 		super();
 
 		this.set('discussions', null);
@@ -70,8 +69,10 @@ export default class CourseForumsStore extends Stores.SimpleStore {
 		this.set('error', false);
 	}
 
-	async load (course) {
-		if (course === this.get('course')) { return; }
+	async load(course) {
+		if (course === this.get('course')) {
+			return;
+		}
 
 		this.set('loading', true);
 		this.set('error', false);

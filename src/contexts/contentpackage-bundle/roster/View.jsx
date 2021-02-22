@@ -1,9 +1,9 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decorate} from '@nti/lib-commons';
-import {Loading, EmptyState} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { decorate } from '@nti/lib-commons';
+import { Loading, EmptyState } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import ViewerRegistry from '../../ViewerRegistry';
 
@@ -13,10 +13,10 @@ import Item from './Item';
 const t = scoped('web-reports.context.contentpackage-bundle-roster.View', {
 	empty: 'There are no learners in this book',
 	error: 'Unable to load learners for this book',
-	loadMore: 'Load More'
+	loadMore: 'Load More',
 });
 class BundleRoster extends React.Component {
-	static deriveBindingFromProps (props) {
+	static deriveBindingFromProps(props) {
 		return props.context;
 	}
 
@@ -30,54 +30,59 @@ class BundleRoster extends React.Component {
 		error: PropTypes.bool,
 		items: PropTypes.array,
 		hasMore: PropTypes.bool,
-		loadNextPage: PropTypes.func
-	}
+		loadNextPage: PropTypes.func,
+	};
 
-
-	selectUserBundleRecord = (record) => {
-		const {onSelect} = this.props;
+	selectUserBundleRecord = record => {
+		const { onSelect } = this.props;
 
 		if (onSelect) {
 			onSelect(record);
 		}
-	}
-
+	};
 
 	onLoadMoreClick = () => {
-		const {loadNextPage} = this.props;
+		const { loadNextPage } = this.props;
 
 		if (loadNextPage) {
 			loadNextPage();
 		}
-	}
+	};
 
-	render () {
-		const {loading, loaded, items, error, hasMore} = this.props;
+	render() {
+		const { loading, loaded, items, error, hasMore } = this.props;
 		const isLoading = !loaded || loading;
 		const hasItems = items && items.length > 0;
 
 		return (
 			<div className="contentpackage-bundle-roster-context">
-				{isLoading && !hasItems && (<Loading.Mask />)}
-				{(!isLoading || hasItems) && (hasItems || !error) && this.renderItems()}
+				{isLoading && !hasItems && <Loading.Mask />}
+				{(!isLoading || hasItems) &&
+					(hasItems || !error) &&
+					this.renderItems()}
 				{!loading && error && this.renderError()}
 				{hasMore && this.renderLoadMore()}
 			</div>
 		);
 	}
 
+	renderItems() {
+		const { items, rel } = this.props;
 
-	renderItems () {
-		const {items, rel} = this.props;
-
-		if (!items || !items.length) { return this.renderEmpty(); }
+		if (!items || !items.length) {
+			return this.renderEmpty();
+		}
 
 		return (
 			<ul>
 				{items.map((item, key) => {
 					return (
 						<li key={key}>
-							<Item userBundleRecord={item} rel={rel} onSelect={this.selectUserBundleRecord} />
+							<Item
+								userBundleRecord={item}
+								rel={rel}
+								onSelect={this.selectUserBundleRecord}
+							/>
 						</li>
 					);
 				})}
@@ -85,35 +90,34 @@ class BundleRoster extends React.Component {
 		);
 	}
 
-
-	renderError () {
-		return (
-			<span className="error">{t('error')}</span>
-		);
+	renderError() {
+		return <span className="error">{t('error')}</span>;
 	}
 
-
-	renderEmpty () {
-		return (
-			<EmptyState header={t('empty')} />
-		);
+	renderEmpty() {
+		return <EmptyState header={t('empty')} />;
 	}
 
-
-	renderLoadMore () {
-		const {loading} = this.props;
+	renderLoadMore() {
+		const { loading } = this.props;
 
 		return (
 			<div className="load-more" onClick={this.onLoadMoreClick}>
-				{loading && (<Loading.Spinner />)}
-				{!loading && (<span>{t('loadMore')}</span>)}
+				{loading && <Loading.Spinner />}
+				{!loading && <span>{t('loadMore')}</span>}
 			</div>
 		);
 	}
 }
 
-
 export default decorate(BundleRoster, [
 	ViewerRegistry.register('contentpackage-bundle-roster'),
-	Store.connect(['items', 'loading', 'loaded', 'hasMore', 'loadNextPage', 'error']),
+	Store.connect([
+		'items',
+		'loading',
+		'loaded',
+		'hasMore',
+		'loadNextPage',
+		'error',
+	]),
 ]);

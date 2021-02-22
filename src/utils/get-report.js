@@ -1,4 +1,4 @@
-export default function getReport (rel, context) {
+export default function getReport(rel, context) {
 	const reports = context?.Reports || [];
 
 	for (let report of reports) {

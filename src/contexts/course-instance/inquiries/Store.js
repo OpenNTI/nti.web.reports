@@ -1,7 +1,7 @@
-import {Stores} from '@nti/lib-store';
+import { Stores } from '@nti/lib-store';
 
 export default class CourseInquiryStore extends Stores.SimpleStore {
-	constructor () {
+	constructor() {
 		super();
 
 		this.set('items', []);
@@ -9,8 +9,10 @@ export default class CourseInquiryStore extends Stores.SimpleStore {
 		this.set('error', false);
 	}
 
-	async load (course) {
-		if (course === this.get('course')) { return; }
+	async load(course) {
+		if (course === this.get('course')) {
+			return;
+		}
 
 		this.set('course', course);
 		this.set('loading', true);
@@ -20,7 +22,13 @@ export default class CourseInquiryStore extends Stores.SimpleStore {
 		try {
 			const inquiries = await course.fetchLinkParsed('Inquiries');
 
-			this.set('items', inquiries.filter(item => item.MimeType === 'application/vnd.nextthought.napoll'));
+			this.set(
+				'items',
+				inquiries.filter(
+					item =>
+						item.MimeType === 'application/vnd.nextthought.napoll'
+				)
+			);
 			this.set('loading', false);
 			this.emitChange('items', 'loading');
 		} catch (e) {

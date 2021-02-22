@@ -5,22 +5,27 @@ export default class ContentPackageBundleContext extends ReportContext {
 	groups = [
 		{
 			reports: [
-				{ rel: 'report-BookProgressReport'},
+				{ rel: 'report-BookProgressReport' },
 				{ rel: 'report-IFSTASampleDetail' },
 				{ rel: 'report-IFSTASampleConcepts' },
-				{ rel: 'report-BookConceptReport'},
-				{ rel: 'report-UserBookProgressReport', contextID: 'contentpackage-bundle-roster'}
-			]
-		}
-	]
-
+				{ rel: 'report-BookConceptReport' },
+				{
+					rel: 'report-UserBookProgressReport',
+					contextID: 'contentpackage-bundle-roster',
+				},
+			],
+		},
+	];
 
 	subContexts = {
-		'IUserBundleRecord': {name: 'Users', id: 'contentpackage-bundle-roster'}
-	}
+		IUserBundleRecord: {
+			name: 'Users',
+			id: 'contentpackage-bundle-roster',
+		},
+	};
 }
 
 ContextRegistry.register([
 	'application/vnd.nextthought.contentpackagebundle',
-	'application/vnd.nextthought.publishablecontentpackagebundle'
+	'application/vnd.nextthought.publishablecontentpackagebundle',
 ])(ContentPackageBundleContext);

@@ -1,14 +1,22 @@
 import './ActiveTimesChart.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
-import {determineBlockColor} from './utils';
+import { determineBlockColor } from './utils';
 
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const WEEKDAYS = [
+	'Sunday',
+	'Monday',
+	'Tuesday',
+	'Wednesday',
+	'Thursday',
+	'Friday',
+	'Saturday',
+];
 const SHORT_WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
-function shiftForTZOffset (daysMap, offset) {
+function shiftForTZOffset(daysMap, offset) {
 	/*
 	 *  We have buckets by day (mon, tues, wed, ..., sun) and
 	 *  hour (0, 1, 2, 3 ... 23) but these are in UTC
@@ -30,14 +38,13 @@ function shiftForTZOffset (daysMap, offset) {
 		}
 	}
 
-	if ( offset < 0 ) {
+	if (offset < 0) {
 		// Behind UTC. Take from front and move to back
 		offset = Math.abs(offset);
 		const left = flattened.slice(0, offset);
 		const right = flattened.slice(offset, flattened.length);
 		flattened = [...right, ...left];
-	}
-	else {
+	} else {
 		// Ahead of UTC. Take from back and move to front
 		offset = Math.abs(offset);
 		const right = flattened.slice(-1 * offset);
@@ -55,7 +62,7 @@ function shiftForTZOffset (daysMap, offset) {
 	return remapped;
 }
 
-function tzOffsetHours () {
+function tzOffsetHours() {
 	// This isn't perfect but it should be correct enough,
 	// we bucket by hours and only need to shift by
 	// hours so we round if it isn't offset by a whole hour.
@@ -68,7 +75,7 @@ function tzOffsetHours () {
 	return Math.round(offsetMin / 60) * -1;
 }
 
-function processData (daysMap) {
+function processData(daysMap) {
 	// First account for the tz we are being shown in
 	daysMap = shiftForTZOffset(daysMap, tzOffsetHours());
 
@@ -83,14 +90,16 @@ function processData (daysMap) {
 	let popularHour = null;
 
 	// Make space
-	let pivoted = Array(12).fill().map(() => Array(7).fill(0));
+	let pivoted = Array(12)
+		.fill()
+		.map(() => Array(7).fill(0));
 	for (let dayIdx = 0; dayIdx < WEEKDAYS.length; dayIdx++) {
 		const day = WEEKDAYS[dayIdx];
 		const hours = daysMap[day] || new Array(24).fill(0);
 		for (let i = 0; i < 12; i++) {
 			let count = hours[i * 2] + hours[i * 2 + 1];
 			pivoted[i][dayIdx] = count;
-			if ( max < count ) {
+			if (max < count) {
 				max = count;
 				popularDay = day;
 				popularHour = i * 2;
@@ -103,13 +112,13 @@ function processData (daysMap) {
 		max: max,
 		popular: {
 			day: popularDay,
-			hour: popularHour
-		}
+			hour: popularHour,
+		},
 	};
 	return data;
 }
 
-function timeString (hour) {
+function timeString(hour) {
 	const d = new Date();
 	d.setHours(hour);
 	return DateTime.format(d, DateTime.HOUR_APM);
@@ -118,10 +127,10 @@ function timeString (hour) {
 export default class ActiveTimesChart extends React.Component {
 	static propTypes = {
 		data: PropTypes.object,
-		error: PropTypes.string
-	}
+		error: PropTypes.string,
+	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		// Start with no data, note this matches the data
@@ -135,27 +144,31 @@ export default class ActiveTimesChart extends React.Component {
 		this.state = processData(empty);
 	}
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		const { data: oldData } = prevProps;
 		const { data: newData } = this.props;
-		if(oldData !== newData && newData ) {
+		if (oldData !== newData && newData) {
 			this.setState(processData(newData));
 		}
 	}
 
-	renderHeader () {
-		return (<div className="active-times-header">Active Times</div>);
+	renderHeader() {
+		return <div className="active-times-header">Active Times</div>;
 	}
 
 	renderBlock = (block, i) => {
 		const min = this.state.min;
 		const max = this.state.max;
 		return (
-			<div key={i} className="active-block" style={{
-				backgroundColor: determineBlockColor(block, min, max)
-			}}/>
+			<div
+				key={i}
+				className="active-block"
+				style={{
+					backgroundColor: determineBlockColor(block, min, max),
+				}}
+			/>
 		);
-	}
+	};
 
 	renderRow = (row, i) => {
 		return (
@@ -164,19 +177,23 @@ export default class ActiveTimesChart extends React.Component {
 				<div className="time-label">{timeString(i * 2)}</div>
 			</div>
 		);
-	}
+	};
 
-	renderDays () {
+	renderDays() {
 		return (
 			<div className="days-of-week">
 				{SHORT_WEEKDAYS.map(function (day) {
-					return <div key={day} className="day">{day}</div>;
+					return (
+						<div key={day} className="day">
+							{day}
+						</div>
+					);
 				})}
 			</div>
 		);
 	}
 
-	renderChart () {
+	renderChart() {
 		const data = this.state.cells;
 		return (
 			<div className="active-times-chart">
@@ -186,21 +203,31 @@ export default class ActiveTimesChart extends React.Component {
 		);
 	}
 
-	renderPopular () {
+	renderPopular() {
 		const day = this.state.popular.day;
 		const hour = this.state.popular.hour;
 		const showPopular = day != null && hour != null;
 
 		return (
 			<div className="active-times-popular">
-				<div className="active-times-popular-header">Most Popular Time</div>
-				{!showPopular && (<div className="active-times-popular-content">No Activity Found</div>)}
-				{showPopular && (<div className="active-times-popular-content">{day}, {timeString(hour)} &ndash; {timeString(hour + 2)}</div>)}
+				<div className="active-times-popular-header">
+					Most Popular Time
+				</div>
+				{!showPopular && (
+					<div className="active-times-popular-content">
+						No Activity Found
+					</div>
+				)}
+				{showPopular && (
+					<div className="active-times-popular-content">
+						{day}, {timeString(hour)} &ndash; {timeString(hour + 2)}
+					</div>
+				)}
 			</div>
 		);
 	}
 
-	render () {
+	render() {
 		return (
 			<div className="active-times-widget">
 				{this.renderHeader()}
