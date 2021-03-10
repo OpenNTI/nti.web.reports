@@ -1,6 +1,7 @@
 import './LoadMore.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Loading } from '@nti/web-commons';
 
 export default function LoadMore({ hasNextPage, loadingNextPage, onClick }) {

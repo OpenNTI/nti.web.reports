@@ -2,6 +2,7 @@ import './Item.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { Avatar, DisplayName } from '@nti/web-commons';
 
 export default class ReportCourseInstanceAssignmentItem extends React.Component {

@@ -1,6 +1,7 @@
 import './ActiveTimesChart.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { DateTime } from '@nti/web-commons';
 
 import { determineBlockColor } from './utils';

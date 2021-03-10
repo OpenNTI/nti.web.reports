@@ -1,9 +1,10 @@
 import './ActiveDays.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
+
 import { DateTime, Loading, Flyout } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import cx from 'classnames';
 
 import { determineBlockColor, loadDailyActivity } from './utils';
 

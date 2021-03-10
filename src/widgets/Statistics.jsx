@@ -1,6 +1,7 @@
 import './Statistics.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { scoped } from '@nti/lib-locale';
 import { Loading } from '@nti/web-commons';
 import { CircularProgress } from '@nti/web-charts';
