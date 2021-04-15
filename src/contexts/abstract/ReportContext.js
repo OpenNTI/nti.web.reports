@@ -80,9 +80,14 @@ export default class ReportContext {
 							return report.resolve(context, reports);
 						}
 
-						return reportMap[
+						const existing = reportMap[
 							getReportKey(report.rel, report.contextID)
 						];
+
+						return {
+							acceptedParameters: report.acceptedParameters,
+							...(existing ?? {})
+						};
 					})
 					.filter(x => !!x),
 			};
@@ -130,5 +135,9 @@ export default class ReportContext {
 		} catch (e) {
 			return [];
 		}
+	}
+
+	getControlsForReport () {
+
 	}
 }

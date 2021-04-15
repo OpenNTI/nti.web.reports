@@ -37,6 +37,7 @@ export default class GlobalContext extends ReportContext {
 									description: report.description,
 									supportedTypes: report.supportedTypes,
 									rel: report.rel,
+									acceptedParameters: ['completionNotBefore', 'completionNotAfter'],
 									href,
 								};
 							}

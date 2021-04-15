@@ -2,22 +2,14 @@ import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { scoped } from '@nti/lib-locale';
-import { Prompt, Switch, Toast } from '@nti/web-commons';
+import { Prompt, Switch } from '@nti/web-commons';
 
 import Context from './context';
 import Report from './report';
 import Header from './Header';
 import Footer from './Footer';
 
-const t = scoped('web-reports.viewer.View', {
-	'application/pdf': 'PDF',
-	'text/csv': 'CSV',
-	downloading: {
-		title: 'Generating %(type)s Report:',
-		message: 'The report will begin downloading soon.',
-	},
-});
+
 
 function computeState(props) {
 	const { report } = props;
@@ -53,26 +45,6 @@ export default class ReportViewer extends React.Component {
 		}
 	}
 
-	onDownloadStarted = type => {
-		const downloading = new Set(this.state.downloading);
-
-		downloading.add(type);
-
-		this.setState({
-			downloading: Array.from(downloading),
-		});
-	};
-
-	dismissDownloadMessage = type => {
-		const downloading = new Set(this.state.downloading);
-
-		downloading.delete(type);
-
-		this.setState({
-			downloading: Array.from(downloading),
-		});
-	};
-
 	onDismiss = () => {
 		const { onDismiss } = this.props;
 
@@ -94,7 +66,7 @@ export default class ReportViewer extends React.Component {
 	};
 
 	render() {
-		const { report, context, downloading } = this.state;
+		const { report, context} = this.state;
 		const active = report ? 'report' : context ? 'context' : 'empty';
 
 		return (
@@ -104,33 +76,22 @@ export default class ReportViewer extends React.Component {
 					context={context}
 					onDismiss={this.onDismiss}
 					onBackToContext={this.onBackToContext}
-					onDownloadStarted={this.onDownloadStarted}
 				/>
-				<Toast.Container location={Toast.Locations.Top}>
-					<Switch.Container className="report-body" active={active}>
-						<Switch.Item
-							name="report"
-							component={Report}
-							report={report}
-							context={context}
-						/>
-						<Switch.Item
-							name="context"
-							component={Context}
-							report={report}
-							context={context}
-							selectReport={this.selectReport}
-						/>
-					</Switch.Container>
-					{downloading.map(type => (
-						<Toast.MessageBar
-							key={type}
-							title={t('downloading.title', { type: t(type) })}
-							message={t('downloading.message')}
-							onDismiss={() => this.dismissDownloadMessage(type)}
-						/>
-					))}
-				</Toast.Container>
+				<Switch.Container className="report-body" active={active}>
+					<Switch.Item
+						name="report"
+						component={Report}
+						report={report}
+						context={context}
+					/>
+					<Switch.Item
+						name="context"
+						component={Context}
+						report={report}
+						context={context}
+						selectReport={this.selectReport}
+					/>
+				</Switch.Container>
 				<Footer onDismiss={this.onDismiss} />
 			</div>
 		);
