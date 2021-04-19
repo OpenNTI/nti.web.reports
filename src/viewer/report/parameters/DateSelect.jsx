@@ -50,8 +50,6 @@ export default function DateSelect ({value, onChange, defaultValue, presets}) {
 		</Trigger>
 	);
 
-	debugger;
-
 	return (
 		<Flyout.Triggered trigger={trigger} arrow>
 			<Menu>
