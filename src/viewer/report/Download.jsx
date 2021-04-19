@@ -92,7 +92,7 @@ export default function ReportDownload ({report, params, onDownloadStarted = () 
 					{options.map((option) => (
 						<Link
 							key={option.format}
-							href={options[0].href}
+							href={option.href}
 							download
 							onClick={() => onDownloadStarted(getType(option))}
 						>
