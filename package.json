@@ -37,7 +37,8 @@
     "@nti/lib-store": "NextThought/nti.lib.store",
     "@nti/web-charts": "NextThought/nti.web.charts",
     "@nti/web-client": "NextThought/nti.web.client",
-    "@nti/web-commons": "NextThought/nti.web.commons"
+    "@nti/web-commons": "NextThought/nti.web.commons",
+    "date-fns": "^2.21.1"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"

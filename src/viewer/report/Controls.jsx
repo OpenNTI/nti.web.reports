@@ -7,6 +7,7 @@ import { usePersistentState, Button, Toast } from '@nti/web-commons';
 import { getEmbedableType } from '../../utils';
 
 import Download from './Download';
+import ParamInputs from './parameters/Inputs';
 
 const t = scoped('web-reports.viewer.report.Controls', {
 	preview: {
@@ -40,11 +41,15 @@ const Controls = styled.div`
 	justify-content: flex-end;
 	background: var(--panel-background);
 	border-bottom: 1px solid var(--border-grey-light);
-	padding: 0.5rem 0.25rem;
+	padding: 0.5rem;
 
 	& > * {
 		margin: 0 0.25rem;
 	}
+`;
+
+const Params = styled.div`
+	flex: 1 1 auto;
 `;
 
 const Preview = styled(Button)`
@@ -62,7 +67,6 @@ const Messages = styled.div`
 
 ReportControls.propTypes = {
 	report: PropTypes.shape({
-		acceptParameters: PropTypes.array,
 		supportedTypes: PropTypes.array,
 		rel: PropTypes.string
 	}),
@@ -71,7 +75,10 @@ ReportControls.propTypes = {
 	setPreviewSrc: PropTypes.func
 };
 export default function ReportControls ({report, previewSrc, setPreviewSrc}) {
-	const [params] = usePersistentState(report.rel, {});
+	const [rawParams, setRawParams] = usePersistentState(report.rel);
+	const params = React.useMemo(() => rawParams ? JSON.parse(rawParams) : {}, [rawParams]);
+	const setParams = x => setRawParams(JSON.stringify(x));
+
 	const [error, setError] = React.useState(null);
 
 	const [downloads, setDownloads] = React.useState([]);
@@ -92,6 +99,10 @@ export default function ReportControls ({report, previewSrc, setPreviewSrc}) {
 	return (
 		<>
 			<Controls>
+				<Params>
+					<ParamInputs report={report} params={params} onChange={setParams} />
+				</Params>
+
 				{embedableType && (
 					<Preview onClick={updatePreview} rounded plain>
 						{previewSrc ? t('preview.regenerate') : t('preview.generate')}
