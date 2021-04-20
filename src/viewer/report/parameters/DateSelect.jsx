@@ -31,16 +31,18 @@ DateSelect.propTypes = {
 			label: PropTypes.string,
 			value: PropTypes.object
 		})
-	)
+	),
+
+	disabledDays: PropTypes.any
 };
-export default function DateSelect ({value, onChange, defaultValue, presets}) {
+export default function DateSelect ({value, onChange, defaultValue, presets, disabledDays}) {
 	const time = (value ?? 0) * 1000;//convert to milliseconds
 	const selectTime = (t) => onChange(t.getTime() / 1000);//convert to seconds
 
 	const date = time ? new Date(time) : defaultValue;
 
 	React.useEffect(() => {
-		if (!value) { onChange(value); }
+		if (!value) { selectTime(defaultValue); }
 	}, [value]);
 
 	const trigger = (
@@ -60,8 +62,10 @@ export default function DateSelect ({value, onChange, defaultValue, presets}) {
 				))}
 				<li>
 					<DateTime.DayPicker
-						value={date}
+						selectedDays={date}
+						month={date}
 						onChange={selectTime}
+						disabledDays={disabledDays}
 					/>
 				</li>
 			</Menu>

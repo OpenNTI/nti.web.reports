@@ -56,12 +56,14 @@ const Configs = {
 	'completionNotBefore': {
 		Cmp: DateSelect,
 		defaultValue: startOfDay(lastWeek),
-		presets: DatePresets.map(x => ({...x, value: startOfDay(x.value)}))
+		presets: DatePresets.map(x => ({...x, value: startOfDay(x.value)})),
+		disabledDays: {after: today}
 	},
 	'completionNotAfter': {
 		Cmp: DateSelect,
 		defaultValue: endOfDay(today),
-		presets: DatePresets.map(x => ({...x, value: endOfDay(x.value)}))
+		presets: DatePresets.map(x => ({...x, value: endOfDay(x.value)})),
+		disabledDays: {after: today}
 	}
 };
 
