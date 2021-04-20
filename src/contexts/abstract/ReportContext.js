@@ -84,10 +84,12 @@ export default class ReportContext {
 							getReportKey(report.rel, report.contextID)
 						];
 
-						return {
-							acceptedParameters: report.acceptedParameters,
-							...(existing ?? {})
-						};
+						return existing ?
+							({
+								acceptedParameters: report.acceptedParameters,
+								...(existing ?? {})
+							}) :
+							null;
 					})
 					.filter(x => !!x),
 			};
