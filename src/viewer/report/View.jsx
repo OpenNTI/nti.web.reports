@@ -7,14 +7,16 @@ import Preview from './Preview';
 
 
 ReportView.propTypes = {
-	report: PropTypes.object.isRequired
+	report: PropTypes.object.isRequired,
+	context: PropTypes.object,
+	setTitle: PropTypes.func
 };
-export default function ReportView ({report}) {
+export default function ReportView ({report, context, setTitle}) {
 	const [previewSrc, setPreviewSrc] = React.useState(null);
 
 	return (
 		<>
-			<Controls report={report} previewSrc={previewSrc} setPreviewSrc={setPreviewSrc} />
+			<Controls report={report} previewSrc={previewSrc} setPreviewSrc={setPreviewSrc} context={context} setTitle={setTitle} />
 			<Preview src={previewSrc} />
 		</>
 	);

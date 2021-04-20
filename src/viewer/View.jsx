@@ -39,6 +39,12 @@ export default class ReportViewer extends React.Component {
 
 	state = computeState(this.props);
 
+	componentDidMount () {
+		this.setState({
+			title: this.props?.report?.title ?? ''
+		});
+	}
+
 	componentDidUpdate(prevProps) {
 		if (prevProps.report !== this.props.report) {
 			this.setState(computeState(this.props));
@@ -55,18 +61,23 @@ export default class ReportViewer extends React.Component {
 
 	selectReport = report => {
 		this.setState({
-			report,
+			report
 		});
 	};
 
 	onBackToContext = () => {
 		this.setState({
 			report: null,
+			title: this.props.report?.title
 		});
 	};
 
+	setTitle = (title) => {
+		this.setState({title});
+	};
+
 	render() {
-		const { report, context} = this.state;
+		const { report, context, title} = this.state;
 		const active = report ? 'report' : context ? 'context' : 'empty';
 
 		return (
@@ -76,6 +87,7 @@ export default class ReportViewer extends React.Component {
 					context={context}
 					onDismiss={this.onDismiss}
 					onBackToContext={this.onBackToContext}
+					title={title}
 				/>
 				<Switch.Container className="report-body" active={active}>
 					<Switch.Item
@@ -83,6 +95,7 @@ export default class ReportViewer extends React.Component {
 						component={Report}
 						report={report}
 						context={context}
+						setTitle={this.setTitle}
 					/>
 					<Switch.Item
 						name="context"

@@ -11,6 +11,10 @@
 		flex: 0 0 1.5rem;
 		margin-right: 0.5rem;
 
+		&:empty {
+			flex: 0 0 auto;
+		}
+
 		i.back {
 			color: var(--primary-blue);
 			flex: 0 0 auto;

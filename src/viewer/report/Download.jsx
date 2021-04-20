@@ -24,6 +24,10 @@ const Trigger = styled(Button).attrs({rounded: true})`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+
+	& > i {
+		margin-left: 0.25rem;
+	}
 `;
 
 const Link = styled('a')`

@@ -45,6 +45,8 @@ export default function ReportPreview ({src}) {
 		setError(null);
 	}, [src]);
 
+	if (!src) { return null; }
+
 	return (
 		<Wrapper>
 			{error && (<Errors.Message error={error} />)}

@@ -7,6 +7,8 @@ export default class ReportViewerHeader extends React.Component {
 		report: PropTypes.object,
 		context: PropTypes.object,
 
+		title: PropTypes.string,
+
 		onDismiss: PropTypes.func,
 		onBackToContext: PropTypes.func,
 	};
@@ -58,12 +60,12 @@ export default class ReportViewerHeader extends React.Component {
 	}
 
 	renderTitle() {
-		const { report, context } = this.props;
+		const { title, report, context } = this.props;
 
 		return (
 			<div className="title">
-				{report && report.title}
-				{!report && context && context.title}
+				{title}
+				{!title && !report && context && context.title}
 			</div>
 		);
 	}
