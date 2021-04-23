@@ -21,11 +21,21 @@ const Preset = styled('li')`
 	border-bottom: 1px solid var(--border-grey-light);
 `;
 
+const getSelectedDate = (value, presets) => {
+	if (!value) { return new Date(); }
+	if (typeof value === 'number') { return new Date(value * 1000); } //convert to milliseconds
+
+	for (let preset of presets) {
+		if (preset.name === value) {
+			return preset.value;
+		}
+	}
+}
+
 DateSelect.propTypes = {
 	value: PropTypes.number,//the date in seconds
 	onChange: PropTypes.func,
 
-	defaultValue: PropTypes.number,
 	presets: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
@@ -35,15 +45,17 @@ DateSelect.propTypes = {
 
 	disabledDays: PropTypes.any
 };
-export default function DateSelect ({value, onChange, defaultValue, presets, disabledDays}) {
-	const time = (value ?? 0) * 1000;//convert to milliseconds
-	const selectTime = (t) => onChange(t.getTime() / 1000);//convert to seconds
-
-	const date = time ? new Date(time) : defaultValue;
-
-	React.useEffect(() => {
-		if (!value) { selectTime(defaultValue); }
-	}, [value]);
+export default function DateSelect ({value, onChange, presets, disabledDays}) {
+	const date = getSelectedDate(value, presets);
+	const selectTime = (newDate) => {
+		for (let preset of presets) {
+			if (isSameDay(newDate, preset.value)) {
+				onChange(preset.name);
+			} else {
+				onChange(newDate.getTime() / 1000);//convert to seconds
+			}
+		}
+	};
 
 	const trigger = (
 		<Trigger>
@@ -56,7 +68,7 @@ export default function DateSelect ({value, onChange, defaultValue, presets, dis
 		<Flyout.Triggered trigger={trigger} arrow>
 			<Menu>
 				{(presets ?? []).map((preset, key) => (
-					<Preset key={key} onClick={() => selectTime(preset.value)}>
+					<Preset key={key} onClick={() => onChange(preset.name)}>
 						<Radio checked={isSameDay(date, preset.value)} label={preset.label} />
 					</Preset>
 				))}

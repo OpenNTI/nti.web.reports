@@ -38,32 +38,46 @@ const Label = styled(Text.Label)`
 	color: var(--tertiary-grey);
 `;
 
-const today =  new Date();
-const lastWeek = (new Date(today)).setDate(today.getDate() - 7);
-const lastMonth = (new Date(today)).setMonth(today.getMonth() - 1);
-const lastQuarter = (new Date(today)).setMonth(today.getMonth() - 3);
-const lastYear = (new Date(today)).setFullYear(today.getFullYear() - 1);
+const today = new Date();
+
+const Dates = {
+	today,
+	lastWeek: (new Date(today)).setDate(today.getDate() - 7),
+	lastMonth: (new Date(today)).setMonth(today.getMonth() - 1),
+	lastQuarter: (new Date(today)).setMonth(today.getMonth() - 3),
+	lastYear: (new Date(today)).setFullYear(today.getFullYear() - 1)
+};
 
 const DatePresets = [
-	{value: today, label: t('dates.today')},
-	{value: lastWeek, label: t('dates.lastWeek')},
-	{value: lastMonth, label: t('dates.lastMonth')},
-	{value: lastQuarter, label: t('dates.lastQuarter')},
-	{value: lastYear, label: t('dates.lastYear')}
+	{value: Dates.today, label: t('dates.today'), name: 'today'},
+	{value: Dates.lastWeek, label: t('dates.lastWeek'), name: 'lastWeek'},
+	{value: Dates.lastMonth, label: t('dates.lastMonth'), name: 'lastMonth'},
+	{value: Dates.lastQuarter, label: t('dates.lastQuarter'), name: 'lastQuarter'},
+	{value: Dates.lastYear, label: t('dates.lastYear'), name: 'lastYear'}
 ];
 
 const Configs = {
 	'completionNotBefore': {
 		Cmp: DateSelect,
-		defaultValue: startOfDay(lastWeek),
+		defaultValue: 'lastWeek',
 		presets: DatePresets.map(x => ({...x, value: startOfDay(x.value)})),
-		disabledDays: {after: today}
+		disabledDays: {after: Dates.today},
+		getParamValue: (value) => {
+			if (typeof value !== 'string') { return value; }
+
+			return startOfDay(Dates[value]).getTime() / 1000; //convert to seconds
+		}
 	},
 	'completionNotAfter': {
 		Cmp: DateSelect,
-		defaultValue: endOfDay(today),
+		defaultValue: 'today',
 		presets: DatePresets.map(x => ({...x, value: endOfDay(x.value)})),
-		disabledDays: {after: today}
+		disabledDays: {after: Dates.today},
+		getParamValue: (value) => {
+			if (typeof value !== 'string') { return value; }
+
+			return endOfDay(Dates[value]).getTime() / 1000; //convert to seconds
+		}
 	}
 };
 
@@ -79,6 +93,28 @@ const Inputs = Object.entries(Configs)
 			</Wrapper>
 		);
 		return acc;
+	}, {});
+
+ReportParameterInputs.getParamValues = (params = {}) => {
+	const values = {};
+
+	for (let [key, value] of Object.entries(params)) {
+		const formatted = Configs[key]?.getParamValue?.(value) ?? value;
+
+		values[key] = formatted;
+	}
+
+	return values;
+};
+
+ReportParameterInputs.defaultParams = Object.entries(Configs)
+	.reduce((acc, [param, config]) => {
+		if (!config.defaultValue) { return acc; }
+
+		return {
+			...acc,
+			[param]: config.defaultValue
+		};
 	}, {});
 
 ReportParameterInputs.propTypes = {

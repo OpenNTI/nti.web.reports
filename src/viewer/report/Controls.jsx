@@ -23,12 +23,13 @@ const t = scoped('web-reports.viewer.report.Controls', {
 
 function buildPreviewSrc (report, params, format) {
 	const url = new URL(report.href, global.location?.origin);
+	const paramValues = ParamInputs.getParamValues(params);
 
 	if (format) {
 		url.searchParams.set('format', format);
 	}
 
-	for (let [key, value] of Object.entries(params)) {
+	for (let [key, value] of Object.entries(paramValues)) {
 		url.searchParams.set(key, value);
 	}
 
@@ -110,8 +111,8 @@ ReportControls.propTypes = {
 	setTitle: PropTypes.func
 };
 export default function ReportControls ({report, previewSrc, setPreviewSrc, context, setTitle}) {
-	const [rawParams, setRawParams] = usePersistentState(report.rel);
-	const params = React.useMemo(() => rawParams ? JSON.parse(rawParams) : {}, [rawParams]);
+	const [rawParams, setRawParams] = usePersistentState(`${report.rel}-parameters`, ParamInputs.defaultParams);
+	const params = React.useMemo(() => typeof rawParams === 'string' ? JSON.parse(rawParams) : (rawParams ?? {}), [rawParams]);
 	const setParams = x => setRawParams(JSON.stringify(x));
 
 	const [error, setError] = React.useState(null);
