@@ -9,8 +9,8 @@ import DateSelect from './DateSelect';
 
 const t = scoped('web-reports.viewer.report.parameters', {
 	labels: {
-		'completionNotBefore': 'Completed After',
-		'completionNotAfter': 'Completed Before'
+		'completionNotBefore': 'Participation After',
+		'completionNotAfter': 'Participation Before'
 	},
 	dates: {
 		today: 'Today',
