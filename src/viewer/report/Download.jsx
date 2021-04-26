@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
 import {Button, Text, Icons, Flyout, List} from '@nti/web-commons';
 
+import ParamInputs from './parameters/Inputs';
+
 const t = scoped('web-reports.viewer.report.Download', {
 	labels: {
 		'download': 'Download Report',
@@ -41,13 +43,14 @@ const Link = styled('a')`
 
 function getDownloadOptions (report, params) {
 	const {supportedTypes} = report;
+	const values = ParamInputs.getParamValues(params);
 
 	return (supportedTypes ?? []).map(format => {
 		const url = new URL(report.href, global.location?.origin);
 
 		url.searchParams.set('format', format);
 
-		for (let [key, value] of Object.entries(params)) {
+		for (let [key, value] of Object.entries(values)) {
 			url.searchParams.set(key, value);
 		}
 
