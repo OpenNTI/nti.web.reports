@@ -93,6 +93,7 @@ export default function ReportDownload ({report, params, onDownloadStarted = () 
 	return (
 		<Flyout.Triggered
 			trigger={trigger}
+			autoDismissOnAction
 		>
 			<div>
 				<List.Unadorned>

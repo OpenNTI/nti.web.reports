@@ -33,6 +33,8 @@ function buildPreviewSrc (report, params, format) {
 		url.searchParams.set(key, value);
 	}
 
+	url.searchParams.set('t', Date.now());
+
 	return url.toString();
 }
 
