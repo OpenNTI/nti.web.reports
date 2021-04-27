@@ -37,6 +37,7 @@ function buildPreviewSrc (report, params, format) {
 }
 
 const Controls = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -92,7 +93,14 @@ const Preview = styled(Button)`
 `;
 
 const Messages = styled.div`
-	position: relative;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+
+	&.full {
+		top: 0;
+	}
 `;
 
 ReportControls.propTypes = {
@@ -138,29 +146,27 @@ export default function ReportControls ({report, previewSrc, setPreviewSrc, cont
 	const full = !previewSrc;
 
 	return (
-		<>
-			<Controls full={full}>
-				{full && (
-					<Info>
-						<Title>{report.title}</Title>
-						<Description>{report.getLongDescription ? report.getLongDescription(context) : report.description}</Description>
-					</Info>
+		<Controls full={full}>
+			{full && (
+				<Info>
+					<Title>{report.title}</Title>
+					<Description>{report.getLongDescription ? report.getLongDescription(context) : report.description}</Description>
+				</Info>
+			)}
+
+			<Params full={full}>
+				<ParamInputs report={report} params={params} onChange={setParams} />
+			</Params>
+
+			<Buttons full={full}>
+				{embedableType && (
+					<Preview onClick={updatePreview} rounded plain>
+						{previewSrc ? t('preview.regenerate') : t('preview.generate')}
+					</Preview>
 				)}
-
-				<Params full={full}>
-					<ParamInputs report={report} params={params} onChange={setParams} />
-				</Params>
-
-				<Buttons full={full}>
-					{embedableType && (
-						<Preview onClick={updatePreview} rounded plain>
-							{previewSrc ? t('preview.regenerate') : t('preview.generate')}
-						</Preview>
-					)}
-					<Download params={params} report={report} onDownloadStarted={onDownloadStarted} />
-				</Buttons>
-			</Controls>
-			<Messages>
+				<Download params={params} report={report} onDownloadStarted={onDownloadStarted} />
+			</Buttons>
+			<Messages full={full}>
 				<Toast.Container location={Toast.Locations.Top}>
 					{error && (<Toast.ErrorBar error={error} onDismiss={() => setError(null)}/>)}
 					{downloads.map((type) => (
@@ -173,6 +179,6 @@ export default function ReportControls ({report, previewSrc, setPreviewSrc, cont
 					))}
 				</Toast.Container>
 			</Messages>
-		</>
+		</Controls>
 	);
 }
