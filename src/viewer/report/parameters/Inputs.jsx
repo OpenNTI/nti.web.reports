@@ -63,9 +63,9 @@ const Configs = {
 		presets: DatePresets.map(x => ({...x, value: startOfDay(x.value)})),
 		disabledDays: {after: Dates.today},
 		getParamValue: (value) => {
-			if (typeof value !== 'string') { return value; }
+			const date = Dates[value] ?? new Date(value);
 
-			return startOfDay(Dates[value]).getTime() / 1000; //convert to seconds
+			return startOfDay(date).getTime() / 1000; //convert to seconds
 		}
 	},
 	'completionNotAfter': {
@@ -74,9 +74,9 @@ const Configs = {
 		presets: DatePresets.map(x => ({...x, value: endOfDay(x.value)})),
 		disabledDays: {after: Dates.today},
 		getParamValue: (value) => {
-			if (typeof value !== 'string') { return value; }
+			const date = Dates[value] ?? new Date(value);
 
-			return endOfDay(Dates[value]).getTime() / 1000; //convert to seconds
+			return endOfDay(date).getTime() / 1000; //convert to seconds
 		}
 	}
 };

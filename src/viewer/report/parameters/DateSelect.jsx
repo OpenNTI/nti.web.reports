@@ -23,7 +23,7 @@ const Preset = styled('li')`
 
 const getSelectedDate = (value, presets) => {
 	if (!value) { return new Date(); }
-	if (typeof value === 'number') { return new Date(value * 1000); } //convert to milliseconds
+	if (typeof value === 'number') { return new Date(value); } //convert to milliseconds
 
 	for (let preset of presets) {
 		if (preset.name === value) {
@@ -52,7 +52,7 @@ export default function DateSelect ({value, onChange, presets, disabledDays}) {
 			if (isSameDay(newDate, preset.value)) {
 				onChange(preset.name);
 			} else {
-				onChange(newDate.getTime() / 1000);//convert to seconds
+				onChange(newDate.getTime());
 			}
 		}
 	};
