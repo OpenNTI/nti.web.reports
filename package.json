@@ -1,6 +1,6 @@
 {
   "name": "@nti/web-reports",
-  "version": "0.37.0-alpha",
+  "version": "0.37.0",
   "description": "React components for reports",
   "main": "src/index.js",
   "module": "src/index.js",
