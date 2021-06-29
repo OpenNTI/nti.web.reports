@@ -205,30 +205,26 @@ export default class ActiveUsers extends React.Component {
 		);
 	};
 
-	renderTotal() {
-		const { totalCount } = this.state;
-
-		if (totalCount) {
-			return <div className="total">{this.state.totalCount}</div>;
-		}
-
-		return null;
-	}
-
 	renderHeader() {
+		const { totalCount, loading, prevLink, nextLink, pageNumber } =
+			this.state;
+
+		const prevDisabled = loading || (!prevLink && pageNumber === 0);
+		const nextDisabled = loading || !nextLink;
+
 		const prevClassName = cx('page-control', 'previous', {
-			disabled:
-				this.state.loading ||
-				(!this.state.prevLink && this.state.pageNumber === 0),
+			disabled: prevDisabled,
 		});
 		const nextClassName = cx('page-control', 'next', {
-			disabled: this.state.loading || !this.state.nextLink,
+			disabled: nextDisabled,
 		});
 
 		return (
 			<div className="header">
 				<div className="title">{t('title')}</div>
-				{this.renderTotal()}
+				{totalCount && (
+					<div className="total">{this.state.totalCount}</div>
+				)}
 				<div className="pager">
 					<div className={prevClassName} onClick={this.onPrevious}>
 						<i className="icon-chevron-left" />
