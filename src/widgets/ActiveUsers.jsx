@@ -17,43 +17,22 @@ const LABELS = {
 const t = scoped('web-component-reports.widgets.activeusers', LABELS);
 const BATCH_SIZE = 4;
 
-class Item extends React.Component {
-	static propTypes = {
-		item: PropTypes.object.isRequired,
-	};
-
-	renderImg() {
-		const { item } = this.props;
-
-		return <Avatar className="item-image" entity={item.entity} />;
-	}
-
-	renderInfo() {
-		const { item } = this.props;
-
-		return (
+/**
+ * @param {Object} props
+ * @param {Object} props.item
+ * @returns {JSX.Element}
+ */
+function Item({ item }) {
+	return (
+		<div className="item">
+			<Avatar className="item-image" entity={item.entity} />
 			<div className="info">
 				<DisplayName className="name" entity={item.entity} />
 				<div className="description">{item.description}</div>
 			</div>
-		);
-	}
-
-	renderValue() {
-		const { item } = this.props;
-
-		return <div className="value">{item.value}</div>;
-	}
-
-	render() {
-		return (
-			<div className="item">
-				{this.renderImg()}
-				{this.renderInfo()}
-				{this.renderValue()}
-			</div>
-		);
-	}
+			<div className="value">{item.value}</div>
+		</div>
+	);
 }
 
 export default class ActiveUsers extends React.Component {
