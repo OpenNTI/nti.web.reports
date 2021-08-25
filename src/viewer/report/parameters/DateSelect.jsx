@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isSameDay } from 'date-fns';
 
-import {Button, Icons, Flyout, DateTime, Radio} from '@nti/web-commons';
+import { Icons, Flyout, DateTime, Radio } from '@nti/web-commons';
+import { Button } from "@nti/web-core";
 
 const Trigger = styled(Button).attrs({plain: true})`
 	font-size: 0.875rem;
