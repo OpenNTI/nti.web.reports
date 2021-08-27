@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 import { usePersistentState, Toast, Text } from '@nti/web-commons';
-import { Button } from "@nti/web-core";
+import { Button } from '@nti/web-core';
 
 import { getEmbedableType } from '../../utils';
 
@@ -14,15 +14,15 @@ const t = scoped('web-reports.viewer.report.Controls', {
 	title: 'Report Options',
 	preview: {
 		generate: 'Generate Preview',
-		regenerate: 'Regenerate Preview'
+		regenerate: 'Regenerate Preview',
 	},
 	downloading: {
 		title: 'Generating %(type)s Report:',
-		message: 'The report will begin downloading soon.'
-	}
+		message: 'The report will begin downloading soon.',
+	},
 });
 
-function buildPreviewSrc (report, params, format) {
+function buildPreviewSrc(report, params, format) {
 	const url = new URL(report.href, global.location?.origin);
 	const paramValues = ParamInputs.getParamValues(params);
 
@@ -65,9 +65,7 @@ const Title = styled(Text.Base)`
 	font-size: 1.25rem;
 `;
 
-const Description = styled(Text.Base).attrs({as: 'p'})`
-
-`;
+const Description = styled(Text.Base).attrs({ as: 'p' })``;
 
 const Params = styled.div`
 	flex: 1 1 auto;
@@ -89,10 +87,6 @@ const Buttons = styled.div`
 const Preview = styled(Button)`
 	color: var(--primary-blue);
 	cursor: pointer;
-
-	&:focused {
-		text-decoration: underline;
-	}
 `;
 
 const Messages = styled.div`
@@ -112,25 +106,40 @@ ReportControls.propTypes = {
 		rel: PropTypes.string,
 		title: PropTypes.string,
 		description: PropTypes.string,
-		getLongDescription: PropTypes.func
+		getLongDescription: PropTypes.func,
 	}),
 	context: PropTypes.object,
 
 	previewSrc: PropTypes.string,
 	setPreviewSrc: PropTypes.func,
 
-	setTitle: PropTypes.func
+	setTitle: PropTypes.func,
 };
-export default function ReportControls ({report, previewSrc, setPreviewSrc, context, setTitle}) {
-	const [rawParams, setRawParams] = usePersistentState(`${report.rel}-parameters`, ParamInputs.defaultParams);
-	const params = React.useMemo(() => typeof rawParams === 'string' ? JSON.parse(rawParams) : (rawParams ?? {}), [rawParams]);
+export default function ReportControls({
+	report,
+	previewSrc,
+	setPreviewSrc,
+	context,
+	setTitle,
+}) {
+	const [rawParams, setRawParams] = usePersistentState(
+		`${report.rel}-parameters`,
+		ParamInputs.defaultParams
+	);
+	const params = React.useMemo(
+		() =>
+			typeof rawParams === 'string'
+				? JSON.parse(rawParams)
+				: rawParams ?? {},
+		[rawParams]
+	);
 	const setParams = x => setRawParams(JSON.stringify(x));
 
 	const [error, setError] = React.useState(null);
 	const [downloads, setDownloads] = React.useState([]);
 
 	React.useEffect(() => {
-		setTitle(previewSrc ? report.title : t('title'))
+		setTitle(previewSrc ? report.title : t('title'));
 	}, [previewSrc]);
 
 	const embedableType = getEmbedableType(report);
@@ -143,8 +152,10 @@ export default function ReportControls ({report, previewSrc, setPreviewSrc, cont
 		}
 	};
 
-	const onDownloadStarted = (type) => setDownloads(Array.from(new Set([...downloads, type])));
-	const dismissDownload = (type) => setDownloads(downloads.filter(existing => existing !== type));
+	const onDownloadStarted = type =>
+		setDownloads(Array.from(new Set([...downloads, type])));
+	const dismissDownload = type =>
+		setDownloads(downloads.filter(existing => existing !== type));
 
 	const full = !previewSrc;
 
@@ -153,29 +164,48 @@ export default function ReportControls ({report, previewSrc, setPreviewSrc, cont
 			{full && (
 				<Info>
 					<Title>{report.title}</Title>
-					<Description>{report.getLongDescription ? report.getLongDescription(context) : report.description}</Description>
+					<Description>
+						{report.getLongDescription
+							? report.getLongDescription(context)
+							: report.description}
+					</Description>
 				</Info>
 			)}
 
 			<Params full={full}>
-				<ParamInputs report={report} params={params} onChange={setParams} />
+				<ParamInputs
+					report={report}
+					params={params}
+					onChange={setParams}
+				/>
 			</Params>
 
 			<Buttons full={full}>
 				{embedableType && (
-					<Preview onClick={updatePreview} rounded plain>
-						{previewSrc ? t('preview.regenerate') : t('preview.generate')}
+					<Preview onClick={updatePreview} rounded transparent>
+						{previewSrc
+							? t('preview.regenerate')
+							: t('preview.generate')}
 					</Preview>
 				)}
-				<Download params={params} report={report} onDownloadStarted={onDownloadStarted} />
+				<Download
+					params={params}
+					report={report}
+					onDownloadStarted={onDownloadStarted}
+				/>
 			</Buttons>
 			<Messages full={full}>
 				<Toast.Container location={Toast.Locations.Top}>
-					{error && (<Toast.ErrorBar error={error} onDismiss={() => setError(null)}/>)}
-					{downloads.map((type) => (
+					{error && (
+						<Toast.ErrorBar
+							error={error}
+							onDismiss={() => setError(null)}
+						/>
+					)}
+					{downloads.map(type => (
 						<Toast.MessageBar
 							key={type}
-							title={t('downloading.title', {type})}
+							title={t('downloading.title', { type })}
 							message={t('downloading.message')}
 							onDismiss={() => dismissDownload(type)}
 						/>
