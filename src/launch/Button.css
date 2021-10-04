@@ -11,7 +11,9 @@
 	padding: initial;
 }
 
-:global(.no-touch) .report-launch-button:hover {
-	color: var(--primary-blue);
-	background: none;
+@media (hover: hover) {
+	.report-launch-button:hover {
+		color: var(--primary-blue);
+		background: none;
+	}
 }
