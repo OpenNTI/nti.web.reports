@@ -20,7 +20,7 @@ export default class CourseInquiryStore extends Stores.SimpleStore {
 		this.emitChange('loading', 'course', 'error');
 
 		try {
-			const inquiries = await course.fetchLinkParsed('Inquiries');
+			const inquiries = await course.fetchLink('Inquiries');
 
 			this.set(
 				'items',

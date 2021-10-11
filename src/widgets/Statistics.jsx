@@ -37,7 +37,10 @@ export default class Statistics extends React.Component {
 		let progressStats = null;
 
 		if (entity.hasLink('ProgressStats')) {
-			progressStats = await entity.fetchLink('ProgressStats');
+			progressStats = await entity.fetchLink({
+				mode: 'raw',
+				rel: 'ProgressStats',
+			});
 		}
 
 		this.setState({

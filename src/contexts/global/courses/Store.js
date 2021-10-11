@@ -9,7 +9,7 @@ async function convertBatch(batch) {
 	const items = await Promise.all(
 		batch.Items.map(async item => {
 			try {
-				const course = await item.fetchLinkParsed('CourseInstance');
+				const course = await item.fetchLink('CourseInstance');
 				return course;
 			} catch (e) {
 				return item;
