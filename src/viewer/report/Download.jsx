@@ -1,28 +1,28 @@
-import React from 'react';
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 import { Text, Icons, Flyout, List } from '@nti/web-commons';
-import { Button } from "@nti/web-core";
+import { Button } from '@nti/web-core';
 
 import ParamInputs from './parameters/Inputs';
 
 const t = scoped('web-reports.viewer.report.Download', {
 	labels: {
-		'download': 'Download Report',
+		download: 'Download Report',
 		'application/pdf': 'Download PDF',
 		'text/csv': 'Download CSV',
 	},
 	types: {
 		'application/pdf': 'PDF',
-		'text/csv': 'CSV'
-	}
+		'text/csv': 'CSV',
+	},
 });
 
-const getType = ({format}) => t(`types.${format}`);
-const getLabel = ({format}) => t(`labels.${format}`);
+const getType = ({ format }) => t(`types.${format}`);
+const getLabel = ({ format }) => t(`labels.${format}`);
 
-const Trigger = styled(Button).attrs({rounded: true})`
+const Trigger = styled(Button).attrs({ rounded: true })`
 	display: inline-flex;
 	flex-direction: row;
 	justify-content: center;
@@ -42,8 +42,8 @@ const Link = styled('a')`
 	padding: 0.5rem;
 `;
 
-function getDownloadOptions (report, params) {
-	const {supportedTypes} = report;
+function getDownloadOptions(report, params) {
+	const { supportedTypes } = report;
 	const values = ParamInputs.getParamValues(params);
 
 	return (supportedTypes ?? []).map(format => {
@@ -55,22 +55,31 @@ function getDownloadOptions (report, params) {
 			url.searchParams.set(key, value);
 		}
 
-		return {format, href: url.toString()};
+		return { format, href: url.toString() };
 	});
 }
 
 ReportDownload.propTypes = {
 	report: PropTypes.shape({
 		href: PropTypes.string,
-		supportedTypes: PropTypes.array
+		supportedTypes: PropTypes.array,
 	}),
 	params: PropTypes.object,
-	onDownloadStarted: PropTypes.func
+	onDownloadStarted: PropTypes.func,
 };
-export default function ReportDownload ({report, params, onDownloadStarted = () => {}}) {
-	const options = React.useMemo(() => getDownloadOptions(report, params), [report, params]);
+export default function ReportDownload({
+	report,
+	params,
+	onDownloadStarted = () => {},
+}) {
+	const options = useMemo(
+		() => getDownloadOptions(report, params),
+		[report, params]
+	);
 
-	if (options.length === 0) { return null; }
+	if (options.length === 0) {
+		return null;
+	}
 
 	if (options.length === 1) {
 		return (
@@ -92,13 +101,10 @@ export default function ReportDownload ({report, params, onDownloadStarted = () 
 	);
 
 	return (
-		<Flyout.Triggered
-			trigger={trigger}
-			autoDismissOnAction
-		>
+		<Flyout.Triggered trigger={trigger} autoDismissOnAction>
 			<div>
 				<List.Unadorned>
-					{options.map((option) => (
+					{options.map(option => (
 						<Link
 							key={option.format}
 							href={option.href}

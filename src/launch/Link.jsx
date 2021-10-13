@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -39,7 +39,7 @@ ReportLink.propTypes = {
 export default function ReportLink(props) {
 	const { className, children } = props;
 
-	const flyout = React.useRef();
+	const flyout = useRef();
 	const dismiss = () => flyout.current?.dismiss();
 
 	const reports = getReports(props);

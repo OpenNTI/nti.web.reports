@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { scoped } from '@nti/lib-locale';
@@ -65,7 +65,9 @@ const Title = styled(Text.Base)`
 	font-size: 1.25rem;
 `;
 
-const Description = styled(Text.Base).attrs({ as: 'p' })``;
+const Description = styled(Text.Base).attrs({ as: 'p' })`
+	/* ? */
+`;
 
 const Params = styled.div`
 	flex: 1 1 auto;
@@ -126,7 +128,7 @@ export default function ReportControls({
 		`${report.rel}-parameters`,
 		ParamInputs.defaultParams
 	);
-	const params = React.useMemo(
+	const params = useMemo(
 		() =>
 			typeof rawParams === 'string'
 				? JSON.parse(rawParams)
@@ -135,10 +137,10 @@ export default function ReportControls({
 	);
 	const setParams = x => setRawParams(JSON.stringify(x));
 
-	const [error, setError] = React.useState(null);
-	const [downloads, setDownloads] = React.useState([]);
+	const [error, setError] = useState(null);
+	const [downloads, setDownloads] = useState([]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setTitle(previewSrc ? report.title : t('title'));
 	}, [previewSrc]);
 
