@@ -109,6 +109,7 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 	/**
 	 * Return the items and loadNext function for a given search term
+	 *
 	 * @override
 	 * @param  {string} term term to search on
 	 * @returns {Object}      with the items and loadNext function if there is a next page
@@ -117,6 +118,7 @@ export default class SearchablePagedStore extends Stores.SimpleStore {
 
 	/**
 	 * Return the items and loadNext function for a given search term
+	 *
 	 * @override
 	 * @returns {Object}      with the items and loadNext function if there is a next page
 	 */
