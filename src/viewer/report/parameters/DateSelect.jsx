@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { isSameDay } from 'date-fns';
 
-import { Icons, Flyout, DateTime, Radio } from '@nti/web-commons';
-import { Button } from "@nti/web-core";
+import { Flyout, DateTime, Radio } from '@nti/web-commons';
+import { Button, Icons } from '@nti/web-core';
 
-const Trigger = styled(Button).attrs({plain: true})`
+const Trigger = styled(Button).attrs({ plain: true })`
 	font-size: 0.875rem;
 	color: var(--secondary-grey);
 `;
@@ -22,32 +22,36 @@ const Preset = styled('li')`
 `;
 
 const getSelectedDate = (value, presets) => {
-	if (!value) { return new Date(); }
-	if (typeof value === 'number') { return new Date(value); } //convert to milliseconds
+	if (!value) {
+		return new Date();
+	}
+	if (typeof value === 'number') {
+		return new Date(value);
+	} //convert to milliseconds
 
 	for (let preset of presets) {
 		if (preset.name === value) {
 			return preset.value;
 		}
 	}
-}
+};
 
 DateSelect.propTypes = {
-	value: PropTypes.number,//the date in seconds
+	value: PropTypes.number, //the date in seconds
 	onChange: PropTypes.func,
 
 	presets: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
-			value: PropTypes.object
+			value: PropTypes.object,
 		})
 	),
 
-	disabledDays: PropTypes.any
+	disabledDays: PropTypes.any,
 };
-export default function DateSelect ({value, onChange, presets, disabledDays}) {
+export default function DateSelect({ value, onChange, presets, disabledDays }) {
 	const date = getSelectedDate(value, presets);
-	const selectTime = (newDate) => {
+	const selectTime = newDate => {
 		for (let preset of presets) {
 			if (isSameDay(newDate, preset.value)) {
 				onChange(preset.name);
@@ -69,7 +73,10 @@ export default function DateSelect ({value, onChange, presets, disabledDays}) {
 			<Menu>
 				{(presets ?? []).map((preset, key) => (
 					<Preset key={key} onClick={() => onChange(preset.name)}>
-						<Radio checked={isSameDay(date, preset.value)} label={preset.label} />
+						<Radio
+							checked={isSameDay(date, preset.value)}
+							label={preset.label}
+						/>
 					</Preset>
 				))}
 				<li>

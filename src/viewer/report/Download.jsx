@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { scoped } from '@nti/lib-locale';
-import { Text, Icons, Flyout, List } from '@nti/web-commons';
-import { Button } from '@nti/web-core';
+import { Text, Flyout, List } from '@nti/web-commons';
+import { Button, Icons } from '@nti/web-core';
 
 import ParamInputs from './parameters/Inputs';
 

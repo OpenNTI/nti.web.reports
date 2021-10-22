@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import { scoped } from '@nti/lib-locale';
-import { Icons, Text, Flyout } from '@nti/web-commons';
+import { Text, Flyout } from '@nti/web-commons';
+import { Icons } from '@nti/web-core';
 
 import View from '../viewer';
 import Item from '../list/Item';
