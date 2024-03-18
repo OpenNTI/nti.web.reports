@@ -39,7 +39,7 @@
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@nti/web-core": "NextThought/nti.web.core",
-    "date-fns": "^2.21.1"
+    "date-fns": "^3.6.0"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"
